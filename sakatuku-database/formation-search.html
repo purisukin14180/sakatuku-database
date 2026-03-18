@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>フォメコン検索 | プリスキンのサカつくDB</title>
+    <style>
+        :root {
+            /* ホームと共通のカラー */
+            --primary: #007bff;
+            --accent: #00bcd4;
+            --dark: #222;
+            --bg-gradient: linear-gradient(135deg, #4fc3f7, #007bff);
+            
+            /* 検索ツール独自のカラー */
+            --possession: #ff9800; --counter: #f44336; --reaction: #2196f3; --moving: #4caf50;
+            --bg: #f8fafc;
+        }
+
+        * { touch-action: manipulation; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        body { 
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif; 
+            margin: 0; 
+            background: var(--bg); 
+            color: #333; 
+            padding-bottom: env(safe-area-inset-bottom); 
+        }
+
+        /* ===== ナビゲーション（ホームと完全統一） ===== */
+        .topnav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--dark);
+            color: #fff;
+            height: 60px;
+            padding: 0 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding-top: env(safe-area-inset-top);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 0.95rem;
+            background: linear-gradient(90deg, #4fc3f7, #007bff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            flex-shrink: 0;
+            text-decoration: none;
+            margin-right: 15px;
+        }
+
+        .nav-links {
+            display: flex;
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+            gap: 5px;
+        }
+        .nav-links::-webkit-scrollbar { display: none; }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            padding: 8px 10px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border-radius: 5px;
+            transition: opacity 0.2s;
+        }
+        .nav-links a:hover { opacity: 0.7; }
+
+        /* ===== 検索エリア（ツールの利便性維持） ===== */
+        .search-area { 
+            background: #fff; 
+            padding: 15px; 
+            border-bottom: 1px solid #ddd; 
+            position: sticky; 
+            top: 60px; /* ナビの高さに合わせる */
+            z-index: 900; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .search-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .search-title {
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .count-badge { 
+            background: #e9ecef; 
+            color: #495057;
+            padding: 2px 10px; 
+            border-radius: 20px; 
+            font-size: 0.75rem; 
+            font-weight: bold;
+        }
+
+        .search-input { 
+            width: 100%; 
+            padding: 12px; 
+            border: 2px solid #eee; 
+            border-radius: 10px; 
+            font-size: 1rem; 
+            margin-bottom: 10px; 
+            outline: none; 
+            transition: border-color 0.2s;
+        }
+        .search-input:focus { border-color: var(--primary); }
+
+        .filter-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        
+        select { 
+            width: 100%; 
+            padding: 10px; 
+            border: 1px solid #ddd; 
+            border-radius: 8px; 
+            font-size: 0.85rem; 
+            background: #f9f9f9; 
+            -webkit-appearance: none; 
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 1em;
+        }
+
+        /* ===== リスト・カードデザイン ===== */
+        .list-container { padding: 12px; display: grid; gap: 12px; max-width: 600px; margin: 0 auto; }
+        
+        .combo-card { 
+            background: #fff; 
+            border-radius: 12px; 
+            padding: 16px; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05); 
+            border-left: 6px solid #ccc; 
+            animation: fadeIn 0.3s ease-out; 
+        }
+        
+        .policy-possession { border-left-color: var(--possession); }
+        .policy-counter { border-left-color: var(--counter); }
+        .policy-reaction { border-left-color: var(--reaction); }
+        .policy-moving { border-left-color: var(--moving); }
+
+        .card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+        .combo-title { font-size: 1.05rem; font-weight: 800; color: #1a1a1a; flex: 1; }
+        
+        .p-badge { 
+            font-size: 0.65rem; 
+            font-weight: 900; 
+            color: #fff; 
+            padding: 3px 8px; 
+            border-radius: 4px; 
+            text-transform: uppercase; 
+            margin-left: 8px; 
+        }
+
+        .details { font-size: 0.85rem; line-height: 1.6; }
+        .row { display: flex; margin-bottom: 2px; }
+        .label { font-weight: bold; width: 75px; color: #888; flex-shrink: 0; }
+        .val { color: #333; }
+
+        .effect-tag { 
+            margin-top: 10px; 
+            padding: 8px 12px; 
+            background: #fff9c4; 
+            border-radius: 8px; 
+            font-size: 0.8rem; 
+            font-weight: bold; 
+            color: #f57f17; 
+            border: 1px solid rgba(245,127,23,0.15); 
+        }
+
+        /* ===== PCレイアウト調整（ホームに合わせる） ===== */
+        @media (min-width: 768px) {
+            .topnav { padding: 0 40px; }
+            .logo { font-size: 1.4em; }
+            .nav-links { gap: 10px; }
+            .nav-links a { font-size: 0.95rem; padding: 8px 15px; }
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+<header class="topnav">
+    <a href="index.html" class="logo">プリスキンのサカつくDB</a>
+    <nav class="nav-links">
+        <a href="index.html">ホーム</a>
+        <a href="builder.html">スカッド</a>
+        <a href="search.html">選手検索</a>
+        <a href="formation-search.html">フォメコン検索</a>
+        <a href="skills.html">スキル検索</a>
+    </nav>
+</header>
+
+<div class="search-area">
+    <div class="search-header">
+        <div class="search-title">フォーメーションコンボ検索</div>
+        <div class="count-badge" id="resCount">0 件</div>
+    </div>
+    <input type="text" id="q" class="search-input" placeholder="名前、フォメ、スタイル(Ⅰ Ⅱ Ⅲ)検索...">
+    <div class="filter-row">
+        <select id="fPolicy">
+            <option value="">すべてのポリシー</option>
+            <option value="ポゼッション">ポゼッション</option>
+            <option value="カウンター">カウンター</option>
+            <option value="リアクション">リアクション</option>
+            <option value="ムービング">ムービング</option>
+        </select>
+        <select id="fLevel">
+            <option value="">すべてのレベル</option>
+            <option value="初期">初期解放</option>
+            <option value="10">Lv.10解放</option>
+            <option value="13">Lv.13解放</option>
+            <option value="20">Lv.20解放</option>
+        </select>
+    </div>
+</div>
+
+<div class="list-container" id="list"></div>
+
+<script src="formations.js"></script>
+<script>
+    const listEl = document.getElementById('list');
+    const qEl = document.getElementById('q');
+    const pEl = document.getElementById('fPolicy');
+    const lEl = document.getElementById('fLevel');
+    const countEl = document.getElementById('resCount');
+
+    const colors = { "ポゼッション": "var(--possession)", "カウンター": "var(--counter)", "リアクション": "var(--reaction)", "ムービング": "var(--moving)" };
+    const pClass = { "ポゼッション": "possession", "カウンター": "counter", "リアクション": "reaction", "ムービング": "moving" };
+
+    function normalize(str) {
+        return str.toLowerCase()
+            .replace(/2/g, 'ii').replace(/ii/g, 'ⅱ')
+            .replace(/3/g, 'iii').replace(/iii/g, 'ⅲ')
+            .replace(/1/g, 'i').replace(/i/g, 'ⅰ');
+    }
+
+    function render() {
+        const query = normalize(qEl.value);
+        const policy = pEl.value;
+        const level = lEl.value;
+
+        const filtered = (typeof FORMATIONS_DATA !== 'undefined' ? FORMATIONS_DATA : []).filter(d => {
+            const targetText = normalize(d.name + d.formation + d.keys);
+            const matchQ = targetText.includes(query);
+            const matchP = !policy || d.policy === policy;
+            const matchL = !level || d.level === level;
+            return matchQ && matchP && matchL;
+        });
+
+        countEl.textContent = `${filtered.length} 件`;
+        listEl.innerHTML = filtered.map(d => `
+            <div class="combo-card policy-${pClass[d.policy]}">
+                <div class="card-top">
+                    <div class="combo-title">${d.name}</div>
+                    <div class="p-badge" style="background:${colors[d.policy]}">${d.policy}</div>
+                </div>
+                <div class="details">
+                    <div class="row"><div class="label">フォーメ</div><div class="val">${d.formation}</div></div>
+                    <div class="row"><div class="label">解放条件</div><div class="val">Lv.${d.level}（メダル${d.coin}枚）</div></div>
+                    <div class="row"><div class="label">キーポジ</div><div class="val">${d.keys}</div></div>
+                </div>
+                <div class="effect-tag">効果: ${d.effect}</div>
+            </div>
+        `).join('');
+    }
+
+    [qEl, pEl, lEl].forEach(el => el.addEventListener('input', render));
+    window.onload = render;
+</script>
+</body>
+</html>

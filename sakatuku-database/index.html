@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>プリスキンのサカつくDB - ホーム</title>
+<style>
+:root {
+  --primary: #007bff;
+  --accent: #00bcd4;
+  --dark: #222;
+  --bg-gradient: linear-gradient(135deg, #4fc3f7, #007bff);
+}
+
+body {
+  font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f8fafc;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* ===== ナビゲーション（ロゴ左・メニュー右寄せ） ===== */
+.topnav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--dark);
+  color: #fff;
+  height: 60px;
+  padding: 0 15px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.logo {
+  font-weight: 800;
+  font-size: 0.95rem;
+  background: linear-gradient(90deg, #4fc3f7, #007bff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  flex-shrink: 0;
+  text-decoration: none;
+  margin-right: 15px;
+}
+
+.nav-links {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  gap: 5px;
+}
+
+.nav-links::-webkit-scrollbar { display: none; }
+
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+  padding: 8px 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: 5px;
+  transition: opacity 0.2s;
+}
+
+.nav-links a:hover {
+  opacity: 0.7;
+}
+
+/* ===== ヒーローセクション ===== */
+.hero {
+  text-align: center;
+  padding: 50px 20px 70px;
+  background: var(--bg-gradient);
+  color: #fff;
+  clip-path: ellipse(160% 100% at 50% 0%);
+}
+
+.hero h1 {
+  font-size: 1.8em;
+  margin-bottom: 15px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.hero p {
+  font-size: 0.95em;
+  max-width: 600px;
+  margin: 0 auto 30px;
+  opacity: 0.95;
+}
+
+/* ボタン：スマホ2カラム */
+.hero-btns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  max-width: 450px;
+  margin: 0 auto;
+}
+
+.hero-btns a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 10px;
+  background: #fff;
+  color: var(--primary);
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 0.85rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.hero-btns a.btn-primary {
+  background: var(--dark);
+  color: #fff;
+}
+
+/* ===== コンテンツエリア ===== */
+.container {
+  max-width: 1000px;
+  margin: -30px auto 40px;
+  padding: 0 15px;
+}
+
+.features {
+  background: #fff;
+  border-radius: 15px;
+  padding: 25px 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.features h2 {
+  text-align: center;
+  color: var(--dark);
+  margin-bottom: 20px;
+  font-size: 1.4em;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+}
+
+.feature-item {
+  padding: 15px;
+  border-radius: 10px;
+  background: #fdfdfd;
+  border: 1px solid #eee;
+}
+
+.feature-item h3 {
+  margin: 0 0 8px 0;
+  color: var(--primary);
+  font-size: 1.05em;
+  display: flex;
+  align-items: center;
+}
+
+.feature-item p {
+  font-size: 0.85em;
+  color: #666;
+  margin: 0;
+}
+
+/* ===== フッター ===== */
+footer {
+  text-align: center;
+  padding: 40px 15px;
+  background: var(--dark);
+  color: #999;
+}
+
+.footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  font-size: 0.8rem;
+  margin-bottom: 15px;
+}
+
+.footer-nav a { color: var(--accent); text-decoration: none; }
+.copyright { font-size: 0.75rem; }
+
+/* ===== PCレイアウト調整 ===== */
+@media (min-width: 768px) {
+  .topnav { padding: 0 40px; }
+  .logo { font-size: 1.4em; }
+  .nav-links { gap: 10px; }
+  .nav-links a { font-size: 0.95rem; padding: 8px 15px; }
+
+  .hero { padding: 90px 20px 110px; }
+  .hero h1 { font-size: 2.8em; }
+  .hero p { font-size: 1.1em; }
+  .hero-btns { grid-template-columns: repeat(3, 1fr); max-width: 850px; }
+  
+  .feature-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
+}
+</style>
+</head>
+
+<body>
+
+<header class="topnav">
+  <a href="index.html" class="logo">プリスキンのサカつくDB</a>
+  <nav class="nav-links">
+    <a href="index.html">ホーム</a>
+    <a href="builder.html">スカッド</a>
+    <a href="search.html">選手検索</a>
+    <a href="formation-search.html">フォメコン検索</a>
+    <a href="skills.html">スキル検索</a>
+  </nav>
+</header>
+
+<div class="hero">
+  <h1>プリスキンのサカつくDB</h1>
+  <p>
+    サカつく2026の攻略に役立つデータベースサイトです。<br>
+    スカッドビルドから、選手・スキル・フォメコン検索まで、チーム作りをサポートします。
+  </p>
+  <div class="hero-btns">
+    <a href="builder.html" class="btn-primary">スカッドビルダー</a>
+    <a href="formation-search.html">フォメコン検索</a>
+    <a href="search.html">選手検索</a>
+    <a href="skills.html">スキル検索</a>
+    <a href="https://www.myballpark-blog.com" target="_blank">攻略ブログ</a>
+  </div>
+</div>
+
+<div class="container">
+  <section class="features">
+    <h2>提供ツール一覧</h2>
+    <div class="feature-grid">
+      <div class="feature-item">
+        <h3>フォメコン検索</h3>
+        <p>ポリシーや解放レベルから必要なフォーメーションを検索。キーポジションや発動条件を瞬時に確認できます。</p>
+      </div>
+      <div class="feature-item">
+        <h3>スカッドビルダー</h3>
+        <p>フォーメーションに選手を配置。コンボ条件の確認や画像保存が可能です。</p>
+      </div>
+      <div class="feature-item">
+        <h3>選手検索データベース</h3>
+        <p>ポジション・プレイスタイルなどで絞り込み。データに載っていない選手の登録も可能です。</p>
+      </div>
+      <div class="feature-item">
+        <h3>スキル検索</h3>
+        <p>必要なスキルがどの方法で取得できるか、検索できます。</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="footer-nav">
+    <a href="index.html">ホーム</a>
+    <a href="builder.html">スカッド</a>
+    <a href="formation-search.html">フォメコン検索</a>
+    <a href="search.html">選手検索</a>
+    <a href="skills.html">スキル検索</a>
+  </div>
+  <p class="copyright">&copy; 2026 プリスキンのサカつくDB <br><a href="terms.html" style="color:#777; text-decoration: none;">利用規約</a></p>
+</footer>
+
+</body>
+</html>
