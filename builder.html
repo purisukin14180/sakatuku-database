@@ -73,8 +73,6 @@
             border: 1px solid var(--border);
         }
 
-        .selector-label { font-size: 0.75rem; font-weight: bold; color: #64748b; display: block; margin-bottom: 8px; }
-        
         #formationSelect { 
             width: 100%; padding: 12px; border-radius: 8px; border: 2px solid #eee; 
             font-size: 1rem; font-weight: bold; background-color: #f1f5f9; cursor: pointer;
@@ -109,27 +107,44 @@
         .penalty-top { top: 0; border-top: none; }
         .penalty-bottom { bottom: 0; border-bottom: none; }
 
+        /* --- 選手枠の改善 --- */
         .position {
-            position: absolute; width: 18%; height: 13%; background: rgba(0,0,0,0.8); 
+            position: absolute; 
+            width: 22%; /* 18% -> 22% */
+            height: 15%; /* 13% -> 15% */
+            background: rgba(0,0,0,0.8); 
             border-radius: 6px; color: #fff; display: flex; flex-direction: column; 
             align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.2); 
             z-index: 10; transform: translateX(-50%); transition: transform 0.1s, background 0.2s;
             cursor: pointer;
+            padding: 2px;
         }
         .position:active { transform: translateX(-50%) scale(0.92); background: rgba(50,50,50,0.95); }
         .position.is-key { border: 2.5px solid var(--gold); box-shadow: 0 0 15px rgba(212, 175, 55, 0.4); }
         .position.is-key::before {
-            content: "KEY"; position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
-            background: var(--gold); color: #000; font-size: 0.6rem; font-weight: 900;
-            padding: 1px 6px; border-radius: 3px;
+            content: "KEY"; position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+            background: var(--gold); color: #000; font-size: 0.55rem; font-weight: 900;
+            padding: 1px 6px; border-radius: 3px; z-index: 11;
         }
 
-        .target-style { font-size: 0.45rem; margin-top: 2px; font-weight: 800; text-align: center; line-height: 1.1; pointer-events: none; }
+        .target-style { font-size: 0.45rem; margin-top: 1px; font-weight: 800; text-align: center; line-height: 1.1; pointer-events: none; }
         .target-style.met { color: #4ade80; }
         .target-style.not-met { color: #fbbf24; opacity: 0.9; }
 
-        .player-name { font-size: 0.65rem; font-weight: bold; width: 95%; text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; pointer-events: none; }
-        .player-style { font-size: 0.5rem; opacity: 0.8; color: #fff; pointer-events: none; }
+        /* 名前が長い場合の折り返し処理 */
+        .player-name { 
+            font-size: clamp(0.55rem, 2vw, 0.7rem); 
+            font-weight: bold; width: 100%; text-align: center; 
+            line-height: 1.1;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            word-break: break-all;
+            pointer-events: none;
+            margin-bottom: 1px;
+        }
+        .player-style { font-size: 0.5rem; opacity: 0.9; color: #4fc3f7; pointer-events: none; white-space: nowrap; }
 
         .f-name-display { position: absolute; bottom: 12px; left: 15px; font-weight: 900; font-size: 1rem; text-shadow: 2px 2px 4px #000; z-index: 20; color: #fff; }
         .f-check-display { position: absolute; bottom: 12px; right: 15px; text-align: right; z-index: 20; text-shadow: 2px 2px 4px #000; color: #fff; }
@@ -184,7 +199,6 @@
 
 <div class="container">
     <div class="card">
-        <span class="selector-label">フォーメーションコンボ選択</span>
         <select id="formationSelect">
             <option value="la-dea">ラ・デア'22</option>
             <option value="la-roja">ラ・ロハ'24</option>
@@ -332,15 +346,11 @@
         
         <br>
         <span class="section-title">戦術メモ・編成の狙い</span>
-        <textarea id="userMemo" placeholder="・特定のコンボの注意点&#10;・交代要員のメモ&#10;・得意戦術の組み合わせなど..."></textarea>
+        <textarea id="userMemo" placeholder="・特定のコンボの注意点&#10;・交代要員のメモなど..."></textarea>
     </div>
 </div>
 
 <script>
-    // --- データの初期化 ---
-    // formationState: 各フォメごとの現在の選手配置
-    // formationMemos: 各フォメごとの現在のメモ内容
-    // savedFormations: 名前を付けて保存した完成済みスカッド
     let formationState = JSON.parse(localStorage.getItem('formationState')) || {};
     let formationMemos = JSON.parse(localStorage.getItem('formationMemos')) || {};
     let savedFormations = JSON.parse(localStorage.getItem('savedFormations')) || {};
@@ -372,7 +382,6 @@
 
     function getLv(str){ if(!str) return 0; return str.includes('Ⅲ')?3:(str.includes('Ⅱ')?2:1); }
 
-    // --- コンボ発動判定 ---
     function checkActive(f){
         const conf = formationData[f]; if(!conf) return;
         let missing = []; const state = formationState[f] || {};
@@ -386,15 +395,11 @@
         else fCheckDisp.innerHTML = `<div class="status-inactive">未発動</div><div style="font-size:10px;color:#eee">不足: ${missing.join(', ')}</div>`;
     }
 
-    // --- フォーメーション切替時の処理 ---
     formationSelect.addEventListener('change', () => {
         const f = formationSelect.value;
         const data = formationData[f];
         const color = POLICY_DATA[data.policy].color;
-        
-        // フィールド表示切替
         fields.forEach(fd => fd.style.display = (fd.id === 'field-' + f) ? 'block' : 'none');
-        
         if(data) {
             formationSelect.style.borderColor = color;
             fNameDisp.textContent = data.label;
@@ -407,37 +412,11 @@
                 <div class="desc-effect">効果: ${data.effect}</div>
             `;
         }
-        
-        // メモの復元
         memoArea.value = formationMemos[f] || "";
-        
-        // 最後に選んだフォメを記憶
         localStorage.setItem('lastFormation', f);
-        
-        // 選手の描画
         loadFormation(f);
     });
 
-    // --- ポジションクリック（削除または検索へ） ---
-    document.querySelectorAll('.position').forEach(p=>p.addEventListener('click',(e)=>{
-        e.stopPropagation();
-        const f=p.closest('.field').id.replace('field-','');
-        const pos=p.dataset.pos;
-        const player=formationState[f]?.[pos];
-        if(player){
-            if(confirm(player.name+' を削除しますか？')){
-                delete formationState[f][pos];
-                localStorage.setItem('formationState',JSON.stringify(formationState));
-                loadFormation(f);
-            }
-        }else{
-            // 検索ページへ移動する前に現在の状態を保存
-            localStorage.setItem('currentPosition',JSON.stringify({formation:f,pos:pos}));
-            window.location.href='search.html';
-        }
-    }));
-
-    // --- フィールドへの選手描画ロジック ---
     function loadFormation(f){
         const el = document.getElementById('field-'+f); if(!el) return;
         const conf = formationData[f];
@@ -461,9 +440,10 @@
             }
 
             if(p){
+                // 選手情報の表示を改善
                 posNode.innerHTML=`<div class="player-name">${p.name}</div><div class="player-style">${p.playstyle||""}</div>${targetHtml}`;
                 const policyColors = {'ポゼッション':'#ff9800','カウンター':'#f44336','リアクション':'#2196f3','ムービング':'#4caf50'};
-                posNode.style.background = 'rgba(0,0,0,0.85)';
+                posNode.style.background = 'rgba(15, 23, 42, 0.9)'; // 視認性のための背景色調整
                 posNode.style.borderLeft = `4px solid ${policyColors[p.policy] || '#ccc'}`;
             }else{
                 posNode.innerHTML = `<span style="font-weight:bold;opacity:0.4;font-size:0.7rem;">${posId}</span>${targetHtml}`;
@@ -474,14 +454,28 @@
         checkActive(f);
     }
 
-    // --- 初期ロード時の処理 ---
+    document.querySelectorAll('.position').forEach(p=>p.addEventListener('click',(e)=>{
+        e.stopPropagation();
+        const f=p.closest('.field').id.replace('field-','');
+        const pos=p.dataset.pos;
+        const player=formationState[f]?.[pos];
+        if(player){
+            if(confirm(player.name+' を削除しますか？')){
+                delete formationState[f][pos];
+                localStorage.setItem('formationState',JSON.stringify(formationState));
+                loadFormation(f);
+            }
+        }else{
+            localStorage.setItem('currentPosition',JSON.stringify({formation:f,pos:pos}));
+            window.location.href='search.html';
+        }
+    }));
+
     window.addEventListener('load',()=>{
-        // 1. 最後に見ていたフォメを復元
         const lastF = localStorage.getItem('lastFormation') || 'la-dea';
         formationSelect.value = lastF;
         formationSelect.dispatchEvent(new Event('change'));
 
-        // 2. 検索から戻ってきた時の選手登録
         const sp=JSON.parse(localStorage.getItem('selectedPlayer')), cp=JSON.parse(localStorage.getItem('currentPosition'));
         if(sp && cp){
             formationState[cp.formation] ??= {}; 
@@ -494,14 +488,12 @@
         updateSelect();
     });
 
-    // --- メモのオートセーブ ---
     memoArea.addEventListener('input', () => {
         const f = formationSelect.value;
         formationMemos[f] = memoArea.value;
         localStorage.setItem('formationMemos', JSON.stringify(formationMemos));
     });
 
-    // --- スカッド「別名で保存」管理 ---
     function updateSelect(){
         const s=document.getElementById('loadFormation'); s.innerHTML='<option value="">保存済みスカッドを読込</option>';
         for(let n in savedFormations){let o=document.createElement('option'); o.value=n; o.textContent=n; s.appendChild(o);}
@@ -512,7 +504,7 @@
         if(!n){alert('スカッド名を入力してください');return;}
         const f=formationSelect.value;
         savedFormations[n]={ 
-            formation: f, // どのフォメを使っているかも保存
+            formation: f,
             players: JSON.parse(JSON.stringify(formationState[f]||{})), 
             memo: memoArea.value 
         };
@@ -525,19 +517,13 @@
         const n=document.getElementById('loadFormation').value; if(!n)return;
         const target = savedFormations[n];
         if(target){
-            // 保存時のフォーメーションに切り替え
             formationSelect.value = target.formation;
             formationSelect.dispatchEvent(new Event('change'));
-            
-            // データの反映
             formationState[target.formation] = JSON.parse(JSON.stringify(target.players));
             formationMemos[target.formation] = target.memo;
             memoArea.value = target.memo;
-            
-            // 全体保存の更新
             localStorage.setItem('formationState',JSON.stringify(formationState));
             localStorage.setItem('formationMemos',JSON.stringify(formationMemos));
-            
             loadFormation(target.formation);
             alert('読み込み完了');
         }
