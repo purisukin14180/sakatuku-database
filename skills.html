@@ -7,7 +7,7 @@
     <style>
         :root {
             --primary: #007bff;
-            --accent: #00bcd4;
+            --accent: #007bff;
             --dark: #222;
             --light-bg: #f8fafc;
             --border: #e2e8f0;
@@ -152,10 +152,10 @@
             <input type="text" id="nameSearch" placeholder="スキル・選手・効果で検索..." class="flex-1">
             <select id="rarityFilter" class="flex-1">
                 <option value="">すべてのレア度</option>
-                <option value="金">金 (SSR)</option>
-                <option value="銀">銀 (SR)</option>
-                <option value="銅">銅 (R)</option>
-                <option value="緑">緑 (一般)</option>
+                <option value="金">金 </option>
+                <option value="銀">銀 </option>
+                <option value="銅">銅 </option>
+                <option value="緑">緑 </option>
             </select>
         </div>
         <div class="search-row">
@@ -208,16 +208,17 @@
     let allSkills = [];
     let mySkills = JSON.parse(localStorage.getItem('mySkills')) || [];
 
+    // JSONデータのsmallCatと一字一句一致するように修正しました
     const categoryMap = {
         "シュート": ["ゴール前でのダイレクトシュート", "ゴール前でのシュート", "エリア外からのロングシュート", "ゴール前でのヘディングシュート", "直接ゴールを狙うFK"],
         "ドリブル": ["シュートにつなげるドリブル", "ショートパスを誘発するドリブル", "敵陣を切り裂くドリブル"],
-        "パス": ["シュートを誘発するショートパス", "ロングシュートを誘発するパス", "シュートを誘発するクロス", "CFに当てる楔のパス", "CFからの落としのショートパス", "トラップを誘発するロングパス", "ボールを進めるショートパス", "ドリブルを誘発するパス", "後方からのショートパス", "ゴール前の味方にパスを届けるFK"],
+        "パス": ["シュートを誘発するショートパス", "ロングシュートを誘発するパス", "シュートを誘発するクロス", "CFに当てる楔のパス", "CFからの落としのショートパス", "トラップを誘発するロングパス", "ボールを進めるショートパス", "ドリブルを誘発するパス", "後方からのショートパス", "ゴール前の味方に届けるFK"],
         "トラップ": ["ショートパスにつなげるトラップ", "ドリブルにつなげるトラップ"],
-        "コンタクト": ["相手選手に対する激しいコンタクト"],
-        "タックル": ["相手からボールを奪いに行くタックル", "ドリブルにつなげるタックル"],
+        "コンタクト": ["激しいコンタクト"],
+        "タックル": ["ボールを奪いに行くタックル", "ドリブルにつなげるタックル"],
         "パスカット": ["チャンスの芽を摘むパスカット", "フィードにつなげるパスカット"],
-        "GKセーブ": ["ゴールを死守する GKセーブ"],
-        "GK飛び出し": ["GKの冷静な飛び出し"]
+        "GKセーブ": ["ゴールを死守するGKセーブ"],
+        "GK飛び出し": ["冷静な飛び出し"]
     };
 
     async function loadSkillData() {
@@ -265,17 +266,13 @@
             const matchSmallCat = !smallCatQuery || s.smallCat === smallCatQuery;
             const matchOwned = !ownedOnly || isOwned;
 
-            // --- 厳密な絞り込み（SRでSSRが出ないように修正） ---
             let matchMethod = true;
             if (methodQuery) {
-                // method と source を結合して検索対象にする
                 const combinedText = (s.method || '') + ' ' + (s.source || '');
                 if (methodQuery === 'SR') {
-                    // 正規表現: "SR" という文字の直後に "S" が続かない場合のみマッチ
                     const regexSR = /SR(?![S])/;
                     matchMethod = regexSR.test(combinedText);
                 } else {
-                    // SSRやその他のキーワードは通常どおり判定
                     matchMethod = combinedText.includes(methodQuery);
                 }
             }
