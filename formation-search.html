@@ -227,6 +227,7 @@
             <option value="10">Lv.10解放</option>
             <option value="13">Lv.13解放</option>
             <option value="20">Lv.20解放</option>
+            <option value="イベント">イベント限定</option>
         </select>
     </div>
 </div>
@@ -265,20 +266,27 @@
         });
 
         countEl.textContent = `${filtered.length} 件`;
-        listEl.innerHTML = filtered.map(d => `
-            <div class="combo-card policy-${pClass[d.policy]}">
-                <div class="card-top">
-                    <div class="combo-title">${d.name}</div>
-                    <div class="p-badge" style="background:${colors[d.policy]}">${d.policy}</div>
+        listEl.innerHTML = filtered.map(d => {
+            // 解放条件の表示を調整
+            const levelDisplay = d.level === "イベント" 
+                ? "イベント限定（無料）" 
+                : `Lv.${d.level}（メダル${d.coin}枚）`;
+
+            return `
+                <div class="combo-card policy-${pClass[d.policy]}">
+                    <div class="card-top">
+                        <div class="combo-title">${d.name}</div>
+                        <div class="p-badge" style="background:${colors[d.policy]}">${d.policy}</div>
+                    </div>
+                    <div class="details">
+                        <div class="row"><div class="label">フォーメ</div><div class="val">${d.formation}</div></div>
+                        <div class="row"><div class="label">解放条件</div><div class="val">${levelDisplay}</div></div>
+                        <div class="row"><div class="label">キーポジ</div><div class="val">${d.keys}</div></div>
+                    </div>
+                    <div class="effect-tag">効果: ${d.effect}</div>
                 </div>
-                <div class="details">
-                    <div class="row"><div class="label">フォーメ</div><div class="val">${d.formation}</div></div>
-                    <div class="row"><div class="label">解放条件</div><div class="val">Lv.${d.level}（メダル${d.coin}枚）</div></div>
-                    <div class="row"><div class="label">キーポジ</div><div class="val">${d.keys}</div></div>
-                </div>
-                <div class="effect-tag">効果: ${d.effect}</div>
-            </div>
-        `).join('');
+            `;
+        }).join('');
     }
 
     [qEl, pEl, lEl].forEach(el => el.addEventListener('input', render));
