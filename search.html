@@ -19,7 +19,7 @@
             margin: 0; padding: 0; background-color: var(--light-bg); color: #333; line-height: 1.6;
         }
 
-        /* ===== ナビゲーション（ホームのデザインと統一） ===== */
+        /* ===== ナビゲーション ===== */
         .topnav {
             display: flex; justify-content: space-between; align-items: center;
             background: var(--dark); color: #fff; height: 60px; padding: 0 15px;
@@ -61,56 +61,61 @@
         .filter-title { font-size: 0.85rem; font-weight: bold; cursor: pointer; background: #f8fafc; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; }
         .filter-options { display: none; padding: 10px; background: #fff; max-height: 400px; overflow-y: auto; }
 
-        .style-group-label { display: block; font-size: 0.7rem; color: #64748b; font-weight: bold; margin: 12px 0 6px 4px; border-bottom: 1px solid #f1f5f9; padding-bottom: 2px; }
+        .style-group-label { display: block; font-size: 0.7rem; color: #007bff; font-weight: bold; margin: 12px 0 6px 4px; border-bottom: 1px solid #e2e8f0; padding-bottom: 2px; }
 
         .filter-btn { padding: 6px 10px; margin: 2px; border: 1px solid var(--border); background: #fff; cursor: pointer; font-size: 0.75rem; border-radius: 6px; transition: 0.2s; }
         .filter-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
 
         /* 選手追加フォーム */
-        .create-form { background: #f0f9ff; padding: 15px; border-radius: 12px; margin-top: 20px; border: 1px solid #bae6fd; margin-bottom: 40px;}
-        .create-form h4 { margin: 0 0 10px; font-size: 0.9rem; color: var(--primary); }
-        .create-form input, .create-form select { width: 100%; padding: 8px; margin-bottom: 8px; border-radius: 6px; border: 1px solid #cbd5e1; box-sizing: border-box; font-size: 0.8rem; }
-        .submit-btn { width: 100%; padding: 12px; background: var(--dark); color: white; border: none; cursor: pointer; font-weight: bold; border-radius: 8px; font-size: 0.85rem; }
+        .create-form-section { background: #f0f9ff; border: 1px solid #bae6fd; margin-bottom: 40px; border-radius: 8px; overflow: hidden; }
+        .create-form-title { font-size: 0.85rem; font-weight: bold; cursor: pointer; background: #e0f2fe; padding: 10px 15px; color: var(--primary); display: flex; justify-content: space-between; align-items: center; }
+        .create-form-content { display: none; padding: 15px; background: #f0f9ff; }
+        .create-form-content label { display: block; font-size: 0.7rem; color: #64748b; margin-top: 5px; }
+        .create-form-content input, .create-form-content select { width: 100%; padding: 8px; margin-bottom: 8px; border-radius: 6px; border: 1px solid #cbd5e1; box-sizing: border-box; font-size: 0.8rem; }
+        .submit-btn { width: 100%; padding: 12px; background: var(--dark); color: white; border: none; cursor: pointer; font-weight: bold; border-radius: 8px; font-size: 0.85rem; margin-top: 10px;}
 
         /* ===== メインコンテンツ ===== */
-        .main { flex: 1; padding: 20px; background: #fff; overflow-x: auto; }
+        .main { flex: 1; padding: 20px; background: #fff; }
         .main h1 { font-size: 1.5rem; margin-top: 0; color: var(--dark); }
         
-        table { border-collapse: collapse; width: 100%; min-width: 850px; }
-        th { background: #f1f5f9; padding: 12px; border-bottom: 2px solid var(--border); text-align: left; font-size: 0.75rem; color: #475569; position: sticky; top: 0; z-index: 10; }
-        td { padding: 12px; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
+        .table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        table { border-collapse: collapse; width: 100%; min-width: 100%; }
+        th { background: #f1f5f9; padding: 12px 8px; border-bottom: 2px solid var(--border); text-align: left; font-size: 0.7rem; color: #475569; position: sticky; top: 0; z-index: 10; }
+        td { padding: 12px 8px; border-bottom: 1px solid var(--border); font-size: 0.8rem; }
 
-        .policy-badge { padding: 4px 8px; border-radius: 4px; color: white; font-size: 0.7rem; font-weight: bold; }
+        .desktop-only { display: table-cell; }
+
+        .policy-badge { padding: 4px 8px; border-radius: 4px; color: white; font-size: 0.65rem; font-weight: bold; white-space: nowrap; }
         .policy-possession { background: #f59e0b; }
         .policy-counter { background: #ef4444; }
         .policy-reaction { background: #3b82f6; }
         .policy-moving { background: #10b981; }
 
-        .action-btn { padding: 6px 12px; cursor: pointer; border: 1px solid var(--border); border-radius: 6px; font-size: 0.75rem; background: #fff; }
+        .action-btn { padding: 6px 10px; cursor: pointer; border: 1px solid var(--border); border-radius: 6px; font-size: 0.7rem; background: #fff; }
         .action-btn.owned { background: #fef3c7; border-color: #fbbf24; color: #92400e; }
-        .delete-btn { background: #fee2e2; color: #b91c1c; border: none; margin-left: 4px; }
+        .action-btn.detail-btn { background: var(--primary); color: white; border: none; }
+        .delete-btn { background: #fee2e2; color: #b91c1c; border: none; margin-top: 4px; display: block; }
         
         .name-link { color: var(--primary); font-weight: bold; cursor: pointer; text-decoration: none; }
-        .name-link:hover { text-decoration: underline; }
 
-        /* ===== PCレイアウト調整 ===== */
-        @media (min-width: 768px) {
-            .topnav { padding: 0 40px; }
-            .logo { font-size: 1.4em; }
-            .nav-links { gap: 10px; }
-            .nav-links a { font-size: 0.95rem; padding: 8px 15px; }
-        }
+        /* ===== 詳細モーダル ===== */
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; }
+        .modal-content { background: white; width: 100%; max-width: 400px; border-radius: 16px; overflow: hidden; animation: slideUp 0.3s ease-out; }
+        .modal-header { background: var(--bg-gradient); color: white; padding: 20px; text-align: center; }
+        .modal-header h2 { margin: 0; font-size: 1.2rem; }
+        .modal-body { padding: 20px; }
+        .modal-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f1f5f9; }
+        .modal-label { font-weight: bold; color: #64748b; font-size: 0.85rem; }
+        .modal-val { font-weight: 600; color: var(--dark); }
+        .modal-footer { padding: 15px; text-align: center; }
+        .close-btn { width: 100%; padding: 12px; background: #f1f5f9; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
+
+        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
         @media (max-width: 900px) { 
             .container { flex-direction: column; } 
-            .sidebar { width: 100%; border-right: none; height: auto; position: relative; top: 0; } 
-        }
-
-        @media (max-width: 600px) {
-            .sidebar { padding: 10px; }
-            .filter-btn { padding: 10px 12px; font-size: 0.85rem; }
-            td, th { padding: 8px 4px; font-size: 0.75rem; }
-            .create-form input, .create-form select { font-size: 1rem; padding: 12px; }
+            .sidebar { width: 100%; border-right: none; height: auto; position: relative; top: 0; }
+            .desktop-only { display: none; }
         }
     </style>
 </head>
@@ -131,7 +136,7 @@
         <div class="sidebar">
             <h3>選手絞り込み</h3>
             <input type="text" id="nameSearch" placeholder="選手名で検索..." oninput="saveFilters();search()">
-
+            
             <div class="filter-section">
                 <div class="filter-title">表示設定</div>
                 <div style="padding:10px;">
@@ -150,6 +155,16 @@
             </div>
 
             <div class="filter-section">
+                <div class="filter-title" onclick="toggleSection('policySection')">ポリシー <span>▼</span></div>
+                <div id="policySection" class="filter-options">
+                    <button class="filter-btn" data-type="policy" data-value="ポゼッション" onclick="toggleFilter('policy','ポゼッション')">ポゼッション</button>
+                    <button class="filter-btn" data-type="policy" data-value="カウンター" onclick="toggleFilter('policy','カウンター')">カウンター</button>
+                    <button class="filter-btn" data-type="policy" data-value="リアクション" onclick="toggleFilter('policy','リアクション')">リアクション</button>
+                    <button class="filter-btn" data-type="policy" data-value="ムービング" onclick="toggleFilter('policy','ムービング')">ムービング</button>
+                </div>
+            </div>
+
+            <div class="filter-section">
                 <div class="filter-title" onclick="toggleSection('methodSection')">入手法 <span>▼</span></div>
                 <div id="methodSection" class="filter-options">
                     <button class="filter-btn" data-type="method" data-value="ワールドSP" onclick="toggleFilter('method','ワールドSP')">ワールドSP</button>
@@ -163,21 +178,21 @@
             <div class="filter-section">
                 <div class="filter-title" onclick="toggleSection('styleSection')">プレースタイル <span>▼</span></div>
                 <div id="styleSection" class="filter-options">
-                    <span class="style-group-label">FWスタイル</span>
+                    <span class="style-group-label">FW</span>
                     <button class="filter-btn" data-type="style" data-value="ストライカーⅢ" onclick="toggleFilter('style','ストライカーⅢ')">ストライカーⅢ</button>
                     <button class="filter-btn" data-type="style" data-value="ストライカーⅡ" onclick="toggleFilter('style','ストライカーⅡ')">ストライカーⅡ</button>
                     <button class="filter-btn" data-type="style" data-value="ラインブレーカーⅢ" onclick="toggleFilter('style','ラインブレーカーⅢ')">ラインブレーカーⅢ</button>
                     <button class="filter-btn" data-type="style" data-value="ラインブレーカーⅡ" onclick="toggleFilter('style','ラインブレーカーⅡ')">ラインブレーカーⅡ</button>
                     <button class="filter-btn" data-type="style" data-value="ポストプレーヤーⅢ" onclick="toggleFilter('style','ポストプレーヤーⅢ')">ポストプレーヤーⅢ</button>
                     <button class="filter-btn" data-type="style" data-value="ポストプレーヤーⅡ" onclick="toggleFilter('style','ポストプレーヤーⅡ')">ポストプレーヤーⅡ</button>
-
+                    
                     <span class="style-group-label">FW・MF共通</span>
                     <button class="filter-btn" data-type="style" data-value="ドリブラーⅢ" onclick="toggleFilter('style','ドリブラーⅢ')">ドリブラーⅢ</button>
                     <button class="filter-btn" data-type="style" data-value="ドリブラーⅡ" onclick="toggleFilter('style','ドリブラーⅡ')">ドリブラーⅡ</button>
                     <button class="filter-btn" data-type="style" data-value="サイドアタッカーⅢ" onclick="toggleFilter('style','サイドアタッカーⅢ')">サイドアタッカーⅢ</button>
                     <button class="filter-btn" data-type="style" data-value="サイドアタッカーⅡ" onclick="toggleFilter('style','サイドアタッカーⅡ')">サイドアタッカーⅡ</button>
 
-                    <span class="style-group-label">MFスタイル</span>
+                    <span class="style-group-label">MF</span>
                     <button class="filter-btn" data-type="style" data-value="アタッカーⅢ" onclick="toggleFilter('style','アタッカーⅢ')">アタッカーⅢ</button>
                     <button class="filter-btn" data-type="style" data-value="アタッカーⅡ" onclick="toggleFilter('style','アタッカーⅡ')">アタッカーⅡ</button>
                     <button class="filter-btn" data-type="style" data-value="セントラルMFⅢ" onclick="toggleFilter('style','セントラルMFⅢ')">セントラルMFⅢ</button>
@@ -187,7 +202,7 @@
                     <button class="filter-btn" data-type="style" data-value="ハードマーカーⅢ" onclick="toggleFilter('style','ハードマーカーⅢ')">ハードマーカーⅢ</button>
                     <button class="filter-btn" data-type="style" data-value="ハードマーカーⅡ" onclick="toggleFilter('style','ハードマーカーⅡ')">ハードマーカーⅡ</button>
 
-                    <span class="style-group-label">DFスタイル</span>
+                    <span class="style-group-label">DF</span>
                     <button class="filter-btn" data-type="style" data-value="攻撃的FBⅢ" onclick="toggleFilter('style','攻撃的FBⅢ')">攻撃的FBⅢ</button>
                     <button class="filter-btn" data-type="style" data-value="攻撃的FBⅡ" onclick="toggleFilter('style','攻撃的FBⅡ')">攻撃的FBⅡ</button>
                     <button class="filter-btn" data-type="style" data-value="守備的FBⅢ" onclick="toggleFilter('style','守備的FBⅢ')">守備的FBⅢ</button>
@@ -197,7 +212,7 @@
                     <button class="filter-btn" data-type="style" data-value="ストッパーⅢ" onclick="toggleFilter('style','ストッパーⅢ')">ストッパーⅢ</button>
                     <button class="filter-btn" data-type="style" data-value="ストッパーⅡ" onclick="toggleFilter('style','ストッパーⅡ')">ストッパーⅡ</button>
 
-                    <span class="style-group-label">GKスタイル</span>
+                    <span class="style-group-label">GK</span>
                     <button class="filter-btn" data-type="style" data-value="スイーパーGKⅢ" onclick="toggleFilter('style','スイーパーGKⅢ')">スイーパーGKⅢ</button>
                     <button class="filter-btn" data-type="style" data-value="スイーパーGKⅡ" onclick="toggleFilter('style','スイーパーGKⅡ')">スイーパーGKⅡ</button>
                     <button class="filter-btn" data-type="style" data-value="オーソドックスGKⅢ" onclick="toggleFilter('style','オーソドックスGKⅢ')">オーソドックスGKⅢ</button>
@@ -222,58 +237,98 @@
                 </div>
             </div>
 
-            <div class="filter-section">
-                <div class="filter-title" onclick="toggleSection('policySection')">ポリシー <span>▼</span></div>
-                <div id="policySection" class="filter-options">
-                    <button class="filter-btn" data-type="policy" data-value="ポゼッション" onclick="toggleFilter('policy','ポゼッション')">ポゼッション</button>
-                    <button class="filter-btn" data-type="policy" data-value="カウンター" onclick="toggleFilter('policy','カウンター')">カウンター</button>
-                    <button class="filter-btn" data-type="policy" data-value="リアクション" onclick="toggleFilter('policy','リアクション')">リアクション</button>
-                    <button class="filter-btn" data-type="policy" data-value="ムービング" onclick="toggleFilter('policy','ムービング')">ムービング</button>
+            <div class="create-form-section">
+                <div class="create-form-title" onclick="toggleSection('createFormContent')">＋ 選手を手動で追加 <span>▼</span></div>
+                <div id="createFormContent" class="create-form-content">
+                    <label>選手名</label>
+                    <input type="text" id="newName" placeholder="例：エムバペ">
+                    <label>レアリティ</label>
+                    <select id="newRarity">
+                        <option value="☆3">☆3</option><option value="☆2">☆2</option><option value="☆1">☆1</option>
+                    </select>
+                    <label>入手法</label>
+                    <select id="newMethod">
+                        <option value="ワールドSP">ワールドSP</option><option value="JリーグSP">JリーグSP</option>
+                        <option value="KリーグSP">KリーグSP</option><option value="配布SP">配布SP</option>
+                        <option value="モード内">モード内</option>
+                    </select>
+                    <label>ポジション</label>
+                    <select id="newPos">
+                        <option value="CF">CF</option><option value="RW">RW</option><option value="LW">LW</option>
+                        <option value="AM">AM</option><option value="RM">RM</option><option value="LM">LM</option>
+                        <option value="DM">DM</option><option value="RB">RB</option><option value="LB">LB</option>
+                        <option value="CB">CB</option><option value="GK">GK</option>
+                    </select>
+                    <label>ポリシー</label>
+                    <select id="newPolicy">
+                        <option value="ポゼッション">ポゼッション</option><option value="カウンター">カウンター</option>
+                        <option value="リアクション">リアクション</option><option value="ムービング">ムービング</option>
+                    </select>
+                    <label>プレースタイル</label>
+                    <select id="newStyle">
+                        <optgroup label="FW">
+                            <option value="ストライカーⅢ">ストライカーⅢ</option><option value="ストライカーⅡ">ストライカーⅡ</option>
+                            <option value="ラインブレーカーⅢ">ラインブレーカーⅢ</option><option value="ラインブレーカーⅡ">ラインブレーカーⅡ</option>
+                            <option value="ポストプレーヤーⅢ">ポストプレーヤーⅢ</option><option value="ポストプレーヤーⅡ">ポストプレーヤーⅡ</option>
+                        </optgroup>
+                        <optgroup label="FW/MF共通">
+                            <option value="ドリブラーⅢ">ドリブラーⅢ</option><option value="ドリブラーⅡ">ドリブラーⅡ</option>
+                            <option value="サイドアタッカーⅢ">サイドアタッカーⅢ</option><option value="サイドアタッカーⅡ">サイドアタッカーⅡ</option>
+                        </optgroup>
+                        <optgroup label="MF">
+                            <option value="アタッカーⅢ">アタッカーⅢ</option><option value="アタッカーⅡ">アタッカーⅡ</option>
+                            <option value="セントラルMFⅢ">セントラルMFⅢ</option><option value="セントラルMFⅡ">セントラルMFⅡ</option>
+                            <option value="パサーⅢ">パサーⅢ</option><option value="パサーⅡ">パサーⅡ</option>
+                            <option value="ハードマーカーⅢ">ハードマーカーⅢ</option><option value="ハードマーカーⅡ">ハードマーカーⅡ</option>
+                        </optgroup>
+                        <optgroup label="DF">
+                            <option value="攻撃的FBⅢ">攻撃的FBⅢ</option><option value="攻撃的FBⅡ">攻撃的FBⅡ</option>
+                            <option value="守備的FBⅢ">守備的FBⅢ</option><option value="守備的FBⅡ">守備的FBⅡ</option>
+                            <option value="組立CBⅢ">組立CBⅢ</option><option value="組立CBⅡ">組立CBⅡ</option>
+                            <option value="ストッパーⅢ">ストッパーⅢ</option><option value="ストッパーⅡ">ストッパーⅡ</option>
+                        </optgroup>
+                        <optgroup label="GK">
+                            <option value="スイーパーGKⅢ">スイーパーGKⅢ</option><option value="スイーパーGKⅡ">スイーパーGKⅡ</option>
+                            <option value="オーソドックスGKⅢ">オーソドックスGKⅢ</option><option value="オーソドックスGKⅡ">オーソドックスGKⅡ</option>
+                        </optgroup>
+                    </select>
+                    <button class="submit-btn" onclick="addPlayer()">リストに保存</button>
                 </div>
-            </div>
-
-            <div class="create-form">
-                <h4>手動で選手を追加</h4>
-                <input type="text" id="newName" placeholder="選手名">
-                <select id="newRarity">
-                    <option value="☆3">☆3</option><option value="☆2">☆2</option><option value="☆1">☆1</option>
-                </select>
-                <select id="newMethod">
-                    <option value="ワールドSP">ワールドSP</option><option value="JリーグSP">JリーグSP</option>
-                    <option value="KリーグSP">KリーグSP</option><option value="配布SP">配布SP</option>
-                    <option value="モード内">モード内</option>
-                </select>
-                <select id="newPos">
-                    <option value="CF">CF</option><option value="RW">RW</option><option value="LW">LW</option>
-                    <option value="AM">AM</option><option value="RM">RM</option><option value="LM">LM</option>
-                    <option value="DM">DM</option><option value="RB">RB</option><option value="LB">LB</option>
-                    <option value="CB">CB</option><option value="GK">GK</option>
-                </select>
-                <select id="newPolicy">
-                    <option value="ポゼッション">ポゼッション</option><option value="カウンター">カウンター</option>
-                    <option value="リアクション">リアクション</option><option value="ムービング">ムービング</option>
-                </select>
-                <input type="text" id="newStyle" placeholder="スタイル名">
-                <button class="submit-btn" onclick="addPlayer()">リストに保存</button>
             </div>
         </div>
 
         <div class="main">
             <h1>選手検索データベース</h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th>名前</th>
-                        <th>レア</th>
-                        <th>入手法</th>
-                        <th>ポジ</th>
-                        <th>ポリシー</th>
-                        <th>スタイル</th>
-                        <th>操作</th>
-                    </tr>
-                </thead>
-                <tbody id="results"></tbody>
-            </table>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>名前</th>
+                            <th class="desktop-only">レア</th>
+                            <th class="desktop-only">入手法</th>
+                            <th>ポジ</th>
+                            <th>ポリシー</th>
+                            <th class="desktop-only">スタイル</th>
+                            <th>詳細/操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="results"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="detailModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header"><h2 id="modalName">選手名</h2></div>
+            <div class="modal-body">
+                <div class="modal-row"><span class="modal-label">レアリティ</span><span id="modalRarity" class="modal-val"></span></div>
+                <div class="modal-row"><span class="modal-label">入手法</span><span id="modalMethod" class="modal-val"></span></div>
+                <div class="modal-row"><span class="modal-label">メインポジ</span><span id="modalPos" class="modal-val"></span></div>
+                <div class="modal-row"><span class="modal-label">ポリシー</span><span id="modalPolicy" class="modal-val"></span></div>
+                <div class="modal-row"><span class="modal-label">プレースタイル</span><span id="modalStyle" class="modal-val"></span></div>
+            </div>
+            <div class="modal-footer"><button class="close-btn" onclick="closeModal()">閉じる</button></div>
         </div>
     </div>
 
@@ -343,19 +398,36 @@
                 
                 html += `<tr>
                     <td><a class="name-link" onclick="sendToBuilder('${playerData}')">${p.name}</a></td>
-                    <td>${p.rarity}</td>
-                    <td style="font-size:0.75rem; color:#64748b;">${p.method || '-'}</td>
+                    <td class="desktop-only">${p.rarity}</td>
+                    <td class="desktop-only" style="font-size:0.75rem; color:#64748b;">${p.method || '-'}</td>
                     <td><b>${p.position}</b></td>
                     <td><span class="policy-badge ${pClass}">${p.policy}</span></td>
-                    <td style="font-size:0.8rem;">${p.playstyle || '-'}</td>
-                    <td style="white-space:nowrap;">
-                        <button class="action-btn ${isOwned ? 'owned' : ''}" onclick="toggleOwned('${p.name}')">${isOwned ? '解除' : '手持'}</button>
-                        ${p.isCustom ? `<button class="action-btn delete-btn" onclick="deletePlayer('${p.name}')">削除</button>` : ''}
+                    <td class="desktop-only" style="font-size:0.8rem;">${p.playstyle || '-'}</td>
+                    <td>
+                        <div style="display:flex; flex-direction:column; gap:4px;">
+                            <button class="action-btn detail-btn" onclick="openModal('${playerData}')">詳細</button>
+                            <button class="action-btn ${isOwned ? 'owned' : ''}" onclick="toggleOwned('${p.name}')">${isOwned ? '解除' : '手持'}</button>
+                            ${p.isCustom ? `<button class="action-btn delete-btn" onclick="deletePlayer('${p.name}')">削除</button>` : ''}
+                        </div>
                     </td>
                 </tr>`;
             });
             document.getElementById("results").innerHTML = html;
         }
+
+        function openModal(encodedData) {
+            const p = JSON.parse(decodeURIComponent(encodedData));
+            document.getElementById('modalName').innerText = p.name;
+            document.getElementById('modalRarity').innerText = p.rarity;
+            document.getElementById('modalMethod').innerText = p.method || '-';
+            document.getElementById('modalPos').innerText = p.position;
+            document.getElementById('modalPolicy').innerText = p.policy;
+            document.getElementById('modalStyle').innerText = p.playstyle || '-';
+            document.getElementById('detailModal').style.display = 'flex';
+        }
+
+        function closeModal() { document.getElementById('detailModal').style.display = 'none'; }
+        window.onclick = (e) => { if (e.target == document.getElementById('detailModal')) closeModal(); }
 
         function getPolicyClass(p) {
             const classes = { "ポゼッション": "policy-possession", "カウンター": "policy-counter", "リアクション": "policy-reaction", "ムービング": "policy-moving" };
@@ -384,7 +456,6 @@
             createdPlayers.push(newP);
             localStorage.setItem('createdPlayers', JSON.stringify(createdPlayers));
             document.getElementById('newName').value = "";
-            document.getElementById('newStyle').value = "";
             search();
         }
 
@@ -399,7 +470,7 @@
             document.querySelectorAll(".filter-btn[data-type]").forEach(btn => {
                 const type = btn.getAttribute("data-type");
                 const val = btn.getAttribute("data-value");
-                btn.classList.toggle("active", filters[type].includes(val));
+                btn.classList.toggle("active", (filters[type] || []).includes(val));
             });
             document.getElementById('showAll').classList.toggle('active', showMode === 'all');
             document.getElementById('showOwned').classList.toggle('active', showMode === 'owned');
