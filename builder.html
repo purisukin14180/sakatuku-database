@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <title>サカつく スカッドビルダー | プリスキンのサカつくDB</title>
+    <style>
+        :root {
+            --primary: #007bff;
+            --accent: #00bcd4;
+            --dark: #222;
+            --light-bg: #f8fafc;
+            --border: #e2e8f0;
+            --bg-gradient: linear-gradient(135deg, #4fc3f7, #007bff);
+            --field-line: rgba(255,255,255,0.8);
+            --gold: #d4af37;
+            --effect-bg: #fff9c4;
+            --effect-text: #f57f17;
+        }
+
+        * {
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+            box-sizing: border-box;
+        }
+
+        body { 
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            margin: 0; background-color: var(--light-bg);
+            background-image: radial-gradient(#d1d9e0 1px, transparent 1px);
+            background-size: 20px 20px;
+            color: #333; line-height: 1.6;
+            padding-bottom: env(safe-area-inset-bottom);
+            user-select: none;
+        }
+
+        /* ===== ナビゲーション ===== */
+        .topnav {
+            display: flex; justify-content: space-between; align-items: center;
+            background: var(--dark); color: #fff; height: 60px; padding: 0 15px;
+            position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            padding-top: env(safe-area-inset-top);
+        }
+
+        .logo {
+            font-weight: 800; font-size: 0.95rem; background: linear-gradient(90deg, #4fc3f7, #007bff);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            flex-shrink: 0; text-decoration: none; margin-right: 15px;
+        }
+
+        .nav-links { display: flex; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; gap: 5px; }
+        .nav-links::-webkit-scrollbar { display: none; }
+        .nav-links a { color: #fff; text-decoration: none; padding: 8px 10px; font-size: 0.8rem; font-weight: 600; border-radius: 5px; transition: opacity 0.2s; }
+        .nav-links a:hover { opacity: 0.7; }
+        .nav-links a.current { background: rgba(255,255,255,0.15); }
+
+        /* ===== ページヘッダー ===== */
+        .page-header {
+            text-align: center; padding: 40px 20px 60px;
+            background: var(--bg-gradient); color: #fff;
+            clip-path: ellipse(160% 100% at 50% 0%);
+        }
+        .page-header h1 { font-size: 1.8em; margin: 0; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+
+        .container { max-width: 900px; margin: -20px auto 40px; padding: 0 15px; }
+
+        .card { 
+            background: #fff; padding: 20px; border-radius: 15px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .selector-label { font-size: 0.75rem; font-weight: bold; color: #64748b; display: block; margin-bottom: 8px; }
+        
+        #formationSelect { 
+            width: 100%; padding: 12px; border-radius: 8px; border: 2px solid #eee; 
+            font-size: 1rem; font-weight: bold; background-color: #f1f5f9; cursor: pointer;
+            border-left-width: 10px; transition: 0.3s;
+            -webkit-appearance: none;
+        }
+
+        #formationDesc { 
+            margin-top: 15px; padding: 15px; background: #fff; 
+            border-radius: 10px; font-size: 0.8rem; border-left: 6px solid var(--primary);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02); line-height: 1.6;
+        }
+        .desc-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .desc-combo-name { font-size: 1rem; font-weight: 800; color: #1e293b; }
+        .desc-policy { padding: 4px 10px; border-radius: 6px; color: #fff; font-size: 0.7rem; font-weight: bold; }
+        .desc-f-type { color: #64748b; font-weight: bold; margin-bottom: 6px; display: block; }
+        .desc-section-title { font-weight: 800; color: #334155; margin-top: 10px; display: block; border-bottom: 1px solid #f1f5f9; padding-bottom: 4px; margin-bottom: 6px; }
+        .desc-effect { background: var(--effect-bg); color: var(--effect-text); padding: 8px 12px; border-radius: 6px; font-weight: bold; margin-top: 10px; border: 1px solid rgba(245,127,23,0.1); }
+
+        /* ===== フィールドデザイン ===== */
+        #field-container {
+            position: relative; width: 100%; max-width: 500px; margin: 20px auto;
+            aspect-ratio: 50 / 60; background: #1b5e20; border-radius: 15px;
+            overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+            border: 4px solid #2e7d32;
+        }
+        .field { position: relative; width: 100%; height: 100%; display: none; background: linear-gradient(to bottom, #2e7d32 0%, #1b5e20 100%); }
+        .field::before { content: ""; position: absolute; top: 50%; left: 0; width: 100%; height: 2px; background: var(--field-line); }
+        .field::after { content: ""; position: absolute; top: 50%; left: 50%; width: 25%; aspect-ratio: 1; border: 2px solid var(--field-line); border-radius: 50%; transform: translate(-50%,-50%); }
+
+        .penalty-top, .penalty-bottom { position: absolute; left: 50%; transform: translateX(-50%); width: 60%; height: 16%; border: 2px solid var(--field-line); pointer-events: none; }
+        .penalty-top { top: 0; border-top: none; }
+        .penalty-bottom { bottom: 0; border-bottom: none; }
+
+        .position {
+            position: absolute; width: 18%; height: 13%; background: rgba(0,0,0,0.8); 
+            border-radius: 6px; color: #fff; display: flex; flex-direction: column; 
+            align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.2); 
+            z-index: 10; transform: translateX(-50%); transition: transform 0.1s, background 0.2s;
+            cursor: pointer;
+        }
+        .position:active { transform: translateX(-50%) scale(0.92); background: rgba(50,50,50,0.95); }
+        .position.is-key { border: 2.5px solid var(--gold); box-shadow: 0 0 15px rgba(212, 175, 55, 0.4); }
+        .position.is-key::before {
+            content: "KEY"; position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+            background: var(--gold); color: #000; font-size: 0.6rem; font-weight: 900;
+            padding: 1px 6px; border-radius: 3px;
+        }
+
+        .target-style { font-size: 0.45rem; margin-top: 2px; font-weight: 800; text-align: center; line-height: 1.1; pointer-events: none; }
+        .target-style.met { color: #4ade80; }
+        .target-style.not-met { color: #fbbf24; opacity: 0.9; }
+
+        .player-name { font-size: 0.65rem; font-weight: bold; width: 95%; text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; pointer-events: none; }
+        .player-style { font-size: 0.5rem; opacity: 0.8; color: #fff; pointer-events: none; }
+
+        .f-name-display { position: absolute; bottom: 12px; left: 15px; font-weight: 900; font-size: 1rem; text-shadow: 2px 2px 4px #000; z-index: 20; color: #fff; }
+        .f-check-display { position: absolute; bottom: 12px; right: 15px; text-align: right; z-index: 20; text-shadow: 2px 2px 4px #000; color: #fff; }
+        .status-active { color: #facc15; font-weight: 900; font-size: 0.9rem; }
+        .status-inactive { color: #f87171; font-weight: 900; font-size: 0.8rem; }
+
+        /* ===== 管理・メモエリア ===== */
+        .admin-card { max-width: 500px; margin: 20px auto 80px; }
+        .section-title { display: block; font-weight: 800; margin-bottom: 12px; font-size: 0.95rem; border-left: 5px solid var(--primary); padding-left: 10px; color: #1e293b; }
+        .save-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+        
+        input, select, textarea { 
+            width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; 
+            font-size: 0.9rem; background: #f8fafc; box-sizing: border-box;
+        }
+        
+        textarea { height: 180px; line-height: 1.6; resize: none; user-select: text; }
+        input { user-select: text; }
+        
+        button { padding: 12px; border-radius: 8px; border: none; font-weight: 800; cursor: pointer; transition: 0.2s; }
+        button:active { transform: scale(0.96); }
+        #saveFormation { background: var(--primary); color: white; }
+        #loadBtn { background: #28a745; color: white; width: 65%; margin-right: 5%; }
+        #deleteBtn { background: #ef4444; color: white; width: 30%; }
+
+        @media (min-width: 768px) {
+            .topnav { padding: 0 40px; }
+            .logo { font-size: 1.4em; }
+            .nav-links { gap: 10px; }
+            .nav-links a { font-size: 0.95rem; padding: 8px 15px; }
+            .page-header { padding: 60px 20px 80px; }
+            .page-header h1 { font-size: 2.5em; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="topnav">
+    <a href="index.html" class="logo">プリスキンのサカつくDB</a>
+    <nav class="nav-links">
+        <a href="index.html">ホーム</a>
+        <a href="builder.html" class="current">スカッド</a>
+        <a href="search.html">選手検索</a>
+        <a href="formation-search.html">フォメコン検索</a>
+        <a href="skills.html">スキル検索</a>
+    </nav>
+</header>
+
+<div class="page-header">
+    <h1>スカッドビルダー</h1>
+</div>
+
+<div class="container">
+    <div class="card">
+        <span class="selector-label">フォーメーションコンボ選択</span>
+        <select id="formationSelect">
+            <option value="la-dea">ラ・デア'22</option>
+            <option value="la-roja">ラ・ロハ'24</option>
+            <option value="les-bleus">レ・ブルー'98</option>
+            <option value="diabolo-milano">ディアボロ・ディ・ミラノ'99</option>
+            <option value="gorden-zonen">ゴーデンゾーネン'94</option>
+            <option value="selecaodas-kinas">セレソン・ダス・キナス'16</option>
+            <option value="soberano">ソベラーノ'94</option>
+            <option value="albiceleste">アルビセレステ'01</option>
+        </select>
+        <div id="formationDesc"></div>
+    </div>
+
+    <div id="field-container">
+        <div class="field" id="field-la-dea">
+            <div class="penalty-top"></div><div class="penalty-bottom"></div>
+            <div class="position" style="top:84%; left:50%;" data-pos="GK">GK</div>
+            <div class="position" style="top:65%; left:20%;" data-pos="LCB">LCB</div>
+            <div class="position" style="top:65%; left:50%;" data-pos="CCB">CCB</div>
+            <div class="position" style="top:65%; left:80%;" data-pos="RCB">RCB</div>
+            <div class="position" style="top:45%; left:35%;" data-pos="LDM">LDM</div>
+            <div class="position" style="top:45%; left:65%;" data-pos="RDM">RDM</div>
+            <div class="position" style="top:32%; left:12%;" data-pos="LM">LM</div>
+            <div class="position" style="top:25%; left:50%;" data-pos="CAM">CAM</div>
+            <div class="position" style="top:32%; left:88%;" data-pos="RM">RM</div>
+            <div class="position" style="top:6%; left:35%;" data-pos="LCF">LCF</div>
+            <div class="position" style="top:6%; left:65%;" data-pos="RCF">RCF</div>
+        </div>
+        <div class="field" id="field-la-roja">
+            <div class="penalty-top"></div><div class="penalty-bottom"></div>
+            <div class="position" style="top:84%; left:50%;" data-pos="GK">GK</div>
+            <div class="position" style="top:68%; left:12%;" data-pos="LB">LB</div>
+            <div class="position" style="top:68%; left:37%;" data-pos="LCB">LCB</div>
+            <div class="position" style="top:68%; left:63%;" data-pos="RCB">RCB</div>
+            <div class="position" style="top:68%; left:88%;" data-pos="RB">RB</div>
+            <div class="position" style="top:45%; left:30%;" data-pos="LDM">LDM</div>
+            <div class="position" style="top:45%; left:70%;" data-pos="RDM">RDM</div>
+            <div class="position" style="top:25%; left:50%;" data-pos="AM">AM</div>
+            <div class="position" style="top:7%; left:12%;" data-pos="LW">LW</div>
+            <div class="position" style="top:5%; left:50%;" data-pos="CF">CF</div>
+            <div class="position" style="top:7%; left:88%;" data-pos="RW">RW</div>
+        </div>
+        <div class="field" id="field-les-bleus">
+            <div class="penalty-top"></div><div class="penalty-bottom"></div>
+            <div class="position" style="top:84%; left:50%;" data-pos="GK">GK</div>
+            <div class="position" style="top:68%; left:12%;" data-pos="LB">LB</div>
+            <div class="position" style="top:68%; left:37%;" data-pos="LCB">LCB</div>
+            <div class="position" style="top:68%; left:63%;" data-pos="RCB">RCB</div>
+            <div class="position" style="top:68%; left:88%;" data-pos="RB">RB</div>
+            <div class="position" style="top:48%; left:22%;" data-pos="LDM">LDM</div>
+            <div class="position" style="top:52%; left:50%;" data-pos="CDM">CDM</div>
+            <div class="position" style="top:48%; left:78%;" data-pos="RDM">RDM</div>
+            <div class="position" style="top:28%; left:50%;" data-pos="AM">AM</div>
+            <div class="position" style="top:6%; left:35%;" data-pos="LCF">LCF</div>
+            <div class="position" style="top:6%; left:65%;" data-pos="RCF">RCF</div>
+        </div>
+        <div class="field" id="field-diabolo-milano">
+            <div class="penalty-top"></div><div class="penalty-bottom"></div>
+            <div class="position" style="top:84%; left:50%;" data-pos="GK">GK</div>
+            <div class="position" style="top:68%; left:22%;" data-pos="LCB">LCB</div>
+            <div class="position" style="top:68%; left:50%;" data-pos="CCB">CCB</div>
+            <div class="position" style="top:68%; left:78%;" data-pos="RCB">RCB</div>
+            <div class="position" style="top:45%; left:35%;" data-pos="LDM">LDM</div>
+            <div class="position" style="top:45%; left:65%;" data-pos="RDM">RDM</div>
+            <div class="position" style="top:32%; left:12%;" data-pos="LM">LM</div>
+            <div class="position" style="top:32%; left:88%;" data-pos="RM">RM</div>
+            <div class="position" style="top:7%; left:12%;" data-pos="LW">LW</div>
+            <div class="position" style="top:5%; left:50%;" data-pos="CF">CF</div>
+            <div class="position" style="top:7%; left:88%;" data-pos="RW">RW</div>
+        </div>
+        <div class="field" id="field-gorden-zonen">
+            <div class="penalty-top"></div><div class="penalty-bottom"></div>
+            <div class="position" style="top:84%; left:50%;" data-pos="GK">GK</div>
+            <div class="position" style="top:68%; left:22%;" data-pos="LCB">LCB</div>
+            <div class="position" style="top:68%; left:50%;" data-pos="CCB">CCB</div>
+            <div class="position" style="top:68%; left:78%;" data-pos="RCB">RCB</div>
+            <div class="position" style="top:45%; left:35%;" data-pos="LDM">LDM</div>
+            <div class="position" style="top:45%; left:65%;" data-pos="RDM">RDM</div>
+            <div class="position" style="top:25%; left:35%;" data-pos="LAM">LAM</div>
+            <div class="position" style="top:25%; left:65%;" data-pos="RAM">RAM</div>
+            <div class="position" style="top:7%; left:12%;" data-pos="LW">LW</div>
+            <div class="position" style="top:5%; left:50%;" data-pos="CF">CF</div>
+            <div class="position" style="top:7%; left:88%;" data-pos="RW">RW</div>
+        </div>
+        <div class="field" id="field-selecaodas-kinas">
+            <div class="penalty-top"></div><div class="penalty-bottom"></div>
+            <div class="position" style="top:84%; left:50%;" data-pos="GK">GK</div>
+            <div class="position" style="top:68%; left:12%;" data-pos="LB">LB</div>
+            <div class="position" style="top:68%; left:37%;" data-pos="LCB">LCB</div>
+            <div class="position" style="top:68%; left:63%;" data-pos="RCB">RCB</div>
+            <div class="position" style="top:68%; left:88%;" data-pos="RB">RB</div>
+            <div class="position" style="top:48%; left:50%;" data-pos="DM">DM</div>
+            <div class="position" style="top:32%; left:12%;" data-pos="LM">LM</div>
+            <div class="position" style="top:28%; left:50%;" data-pos="AM">AM</div>
+            <div class="position" style="top:32%; left:88%;" data-pos="RM">RM</div>
+            <div class="position" style="top:6%; left:35%;" data-pos="LCF">LCF</div>
+            <div class="position" style="top:6%; left:65%;" data-pos="RCF">RCF</div>
+        </div>
+        <div class="field" id="field-soberano">
+            <div class="penalty-top"></div><div class="penalty-bottom"></div>
+            <div class="position" style="top:84%; left:50%;" data-pos="GK">GK</div>
+            <div class="position" style="top:68%; left:12%;" data-pos="LB">LB</div>
+            <div class="position" style="top:68%; left:37%;" data-pos="LCB">LCB</div>
+            <div class="position" style="top:68%; left:63%;" data-pos="RCB">RCB</div>
+            <div class="position" style="top:68%; left:88%;" data-pos="RB">RB</div>
+            <div class="position" style="top:48%; left:50%;" data-pos="DM">DM</div>
+            <div class="position" style="top:30%; left:22%;" data-pos="LAM">LAM</div>
+            <div class="position" style="top:32%; left:50%;" data-pos="CAM">CAM</div>
+            <div class="position" style="top:30%; left:78%;" data-pos="RAM">RAM</div>
+            <div class="position" style="top:6%; left:35%;" data-pos="LCF">LCF</div>
+            <div class="position" style="top:6%; left:65%;" data-pos="RCF">RCF</div>
+        </div>
+        <div class="field" id="field-albiceleste">
+            <div class="penalty-top"></div><div class="penalty-bottom"></div>
+            <div class="position" style="top:84%; left:50%;" data-pos="GK">GK</div>
+            <div class="position" style="top:68%; left:22%;" data-pos="LCB">LCB</div>
+            <div class="position" style="top:68%; left:50%;" data-pos="CCB">CCB</div>
+            <div class="position" style="top:68%; left:78%;" data-pos="RCB">RCB</div>
+            <div class="position" style="top:48%; left:50%;" data-pos="DM">DM</div>
+            <div class="position" style="top:32%; left:12%;" data-pos="LM">LM</div>
+            <div class="position" style="top:28%; left:50%;" data-pos="AM">AM</div>
+            <div class="position" style="top:32%; left:88%;" data-pos="RM">RM</div>
+            <div class="position" style="top:7%; left:12%;" data-pos="LW">LW</div>
+            <div class="position" style="top:5%; left:50%;" data-pos="CF">CF</div>
+            <div class="position" style="top:7%; left:88%;" data-pos="RW">RW</div>
+        </div>
+
+        <div id="disp-f-name" class="f-name-display"></div>
+        <div id="disp-f-check" class="f-check-display"></div>
+    </div>
+
+    <div class="card admin-card">
+        <span class="section-title">スカッド保存・管理</span>
+        <div class="save-controls">
+            <input type="text" id="saveName" placeholder="保存名を入力">
+            <button id="saveFormation">別名で保存</button>
+        </div>
+        <div class="save-controls">
+            <select id="loadFormation"></select>
+            <div style="display: flex; width: 100%;">
+                <button id="loadBtn">読込</button>
+                <button id="deleteBtn">消去</button>
+            </div>
+        </div>
+        
+        <br>
+        <span class="section-title">戦術メモ・編成の狙い</span>
+        <textarea id="userMemo" placeholder="・特定のコンボの注意点&#10;・交代要員のメモ&#10;・得意戦術の組み合わせなど..."></textarea>
+    </div>
+</div>
+
+<script>
+    // --- データの初期化 ---
+    // formationState: 各フォメごとの現在の選手配置
+    // formationMemos: 各フォメごとの現在のメモ内容
+    // savedFormations: 名前を付けて保存した完成済みスカッド
+    let formationState = JSON.parse(localStorage.getItem('formationState')) || {};
+    let formationMemos = JSON.parse(localStorage.getItem('formationMemos')) || {};
+    let savedFormations = JSON.parse(localStorage.getItem('savedFormations')) || {};
+
+    const formationSelect = document.getElementById('formationSelect');
+    const fields = document.querySelectorAll('.field');
+    const descDiv = document.getElementById('formationDesc');
+    const fNameDisp = document.getElementById('disp-f-name');
+    const fCheckDisp = document.getElementById('disp-f-check');
+    const memoArea = document.getElementById('userMemo');
+
+    const POLICY_DATA = {
+        'ポゼッション': { color: '#ff9800' },
+        'カウンター': { color: '#f44336' },
+        'リアクション': { color: '#2196f3' },
+        'ムービング': { color: '#4caf50' }
+    };
+
+    const formationData = {
+        'la-dea': { label: "ラ・デア'22", policy: "ポゼッション", fType: "3-5-2 B", keyText: "CB(ストッパー Lv.2↑)、RM(ドリブラー Lv.2↑)、LCF(ラインブレイカー Lv.3↑)", effect: "冷静さ・パスカット・ジャンプ・コンタクト 80%UP", keys: [{pos:'CCB',s:'ストッパー',l:2,label:'ストッパーⅡ'},{pos:'RM',s:'ドリブラー',l:2,label:'ドリブラーⅡ'},{pos:'LCF',s:'ラインブレイカー',l:3,label:'ラインブレイカーⅢ'}] },
+        'la-roja': { label: "ラ・ロハ'24", policy: "ポゼッション", fType: "4-3-3 B", keyText: "RB(攻撃的FB Lv.2↑)、RDM(パサー Lv.2↑)、RW(ドリブラー Lv.3↑)", effect: "冷静さ・キック精度・パスカット・コンタクト 80%UP", keys: [{pos:'RB',s:'攻撃的FB',l:2,label:'攻撃的FBⅡ'},{pos:'RDM',s:'パサー',l:2,label:'パサーⅡ'},{pos:'RW',s:'ドリブラー',l:3,label:'ドリブラーⅢ'}] },
+        'les-bleus': { label: "レ・ブルー'98", policy: "カウンター", fType: "4-4-2 D", keyText: "LB(守備的FB Lv.2↑)、AM(セントラルMF Lv.2↑)、RCF(ストライカー Lv.3↑)", effect: "キック力・ジャンプ・コンタクト・敏捷性 80%UP", keys: [{pos:'LB',s:'守備的FB',l:2,label:'守備的FBⅡ'},{pos:'AM',s:'セントラルMF',l:2,label:'セントラルMFⅡ'},{pos:'RCF',s:'ストライカー',l:3,label:'ストライカーⅢ'}] },
+        'diabolo-milano': { label: "ディアボロ・ディ・ミラノ'99", policy: "カウンター", fType: "3-4-3 B", keyText: "RCB(組立CB Lv.2↑)、RDM(セントラルMF Lv.3↑)、LW(ドリブラー Lv.2↑)", effect: "キック力・突破力・ジャンプ・コンタクト 80%UP", keys: [{pos:'RCB',s:'組立CB',l:2,label:'組立CBⅡ'},{pos:'RDM',s:'セントラルMF',l:3,label:'セントラルMFⅢ'},{pos:'LW',s:'ドリブラー',l:2,label:'ドリブラーⅡ'}] },
+        'gorden-zonen': { label: "ゴーデンゾーネン'94", policy: "リアクション", fType: "3-4-3 C", keyText: "CB(ストッパー Lv.2↑)、LDM(ハードマーカー Lv.2↑)、RDM(セントラルMF Lv.3↑)", effect: "キック精度・突破力・コンタクト・スタミナ 80%UP", keys: [{pos:'CCB',s:'ストッパー',l:2,label:'ストッパーⅡ'},{pos:'LDM',s:'ハードマーカー',l:2,label:'ハードマーカーⅡ'},{pos:'RDM',s:'セントラルMF',l:3,label:'セントラルMFⅢ'}] },
+        'selecaodas-kinas': { label: "セレソン・ダス・キナス'16", policy: "リアクション", fType: "4-4-2 A", keyText: "LB(攻撃的FB Lv.2↑)、LM(サイドアタッカー Lv.2↑)、RCF(ストライカー Lv.3↑)", effect: "パスカット・ジャンプ・コンタクト・走力 80%UP", keys: [{pos:'LB',s:'攻撃的FB',l:2,label:'攻撃的FBⅡ'},{pos:'LM',s:'サイドアタッカー',l:2,label:'サイドアタッカーⅡ'},{pos:'RCF',s:'ストライカー',l:3,label:'ストライカーⅢ'}] },
+        'soberano': { label: "ソベラーノ'94", policy: "ムービング", fType: "4-4-2 E", keyText: "LAM(パサー Lv.2↑)、RAM(アタッカー Lv.2↑)、LCF(ストライカー Lv.3↑)", effect: "キック力・突破力・コンタクト・スタミナ 80%UP", keys: [{pos:'LAM',s:'パサー',l:2,label:'パサーⅡ'},{pos:'RAM',s:'アタッカー',l:2,label:'アタッカーⅡ'},{pos:'LCF',s:'ストライカー',l:3,label:'ストライカーⅢ'}] },
+        'albiceleste': { label: "アルビセレステ'01", policy: "ムービング", fType: "3-4-3 A", keyText: "LCB(組立CB Lv.2↑)、LM(サイドアタッカー Lv.3↑)、CF(ストライカー Lv.2↑)", effect: "キック力・突破力・マーク・パスカット 80%UP", keys: [{pos:'LCB',s:'組立CB',l:2,label:'組立CBⅡ'},{pos:'LM',s:'サイドアタッカー',l:3,label:'サイドアタッカーⅢ'},{pos:'CF',s:'ストライカー',l:2,label:'ストライカーⅡ'}] }
+    };
+
+    function getLv(str){ if(!str) return 0; return str.includes('Ⅲ')?3:(str.includes('Ⅱ')?2:1); }
+
+    // --- コンボ発動判定 ---
+    function checkActive(f){
+        const conf = formationData[f]; if(!conf) return;
+        let missing = []; const state = formationState[f] || {};
+        conf.keys.forEach(k => {
+            const p = state[k.pos];
+            if(!p || !p.playstyle){ missing.push(k.pos); return; }
+            const pName = p.playstyle.replace(/[ⅠⅡⅢ]/g, '').trim();
+            if(pName === k.s && getLv(p.playstyle) >= k.l){} else { missing.push(k.pos); }
+        });
+        if(missing.length === 0) fCheckDisp.innerHTML = '<div class="status-active">コンボ発動中</div>';
+        else fCheckDisp.innerHTML = `<div class="status-inactive">未発動</div><div style="font-size:10px;color:#eee">不足: ${missing.join(', ')}</div>`;
+    }
+
+    // --- フォーメーション切替時の処理 ---
+    formationSelect.addEventListener('change', () => {
+        const f = formationSelect.value;
+        const data = formationData[f];
+        const color = POLICY_DATA[data.policy].color;
+        
+        // フィールド表示切替
+        fields.forEach(fd => fd.style.display = (fd.id === 'field-' + f) ? 'block' : 'none');
+        
+        if(data) {
+            formationSelect.style.borderColor = color;
+            fNameDisp.textContent = data.label;
+            descDiv.style.borderLeftColor = color;
+            descDiv.innerHTML = `
+                <div class="desc-header"><span class="desc-combo-name">${data.label}</span><span class="desc-policy" style="background:${color}">${data.policy}</span></div>
+                <span class="desc-f-type">基本: ${data.fType}</span>
+                <span class="desc-section-title">キーポジション条件</span>
+                <div class="desc-keys">${data.keyText}</div>
+                <div class="desc-effect">効果: ${data.effect}</div>
+            `;
+        }
+        
+        // メモの復元
+        memoArea.value = formationMemos[f] || "";
+        
+        // 最後に選んだフォメを記憶
+        localStorage.setItem('lastFormation', f);
+        
+        // 選手の描画
+        loadFormation(f);
+    });
+
+    // --- ポジションクリック（削除または検索へ） ---
+    document.querySelectorAll('.position').forEach(p=>p.addEventListener('click',(e)=>{
+        e.stopPropagation();
+        const f=p.closest('.field').id.replace('field-','');
+        const pos=p.dataset.pos;
+        const player=formationState[f]?.[pos];
+        if(player){
+            if(confirm(player.name+' を削除しますか？')){
+                delete formationState[f][pos];
+                localStorage.setItem('formationState',JSON.stringify(formationState));
+                loadFormation(f);
+            }
+        }else{
+            // 検索ページへ移動する前に現在の状態を保存
+            localStorage.setItem('currentPosition',JSON.stringify({formation:f,pos:pos}));
+            window.location.href='search.html';
+        }
+    }));
+
+    // --- フィールドへの選手描画ロジック ---
+    function loadFormation(f){
+        const el = document.getElementById('field-'+f); if(!el) return;
+        const conf = formationData[f];
+        
+        el.querySelectorAll('.position').forEach(posNode=>{
+            const posId = posNode.dataset.pos;
+            const p = formationState[f]?.[posId];
+            const keyConfig = conf.keys.find(k => k.pos === posId);
+            
+            posNode.classList.remove('is-key');
+            let targetHtml = "";
+            
+            if(keyConfig) {
+                posNode.classList.add('is-key');
+                let isMet = false;
+                if(p && p.playstyle){
+                    const pName = p.playstyle.replace(/[ⅠⅡⅢ]/g, '').trim();
+                    isMet = (pName === keyConfig.s && getLv(p.playstyle) >= keyConfig.l);
+                }
+                targetHtml = `<div class="target-style ${isMet ? 'met' : 'not-met'}">${isMet ? '✔ ' : ''}${keyConfig.label}</div>`;
+            }
+
+            if(p){
+                posNode.innerHTML=`<div class="player-name">${p.name}</div><div class="player-style">${p.playstyle||""}</div>${targetHtml}`;
+                const policyColors = {'ポゼッション':'#ff9800','カウンター':'#f44336','リアクション':'#2196f3','ムービング':'#4caf50'};
+                posNode.style.background = 'rgba(0,0,0,0.85)';
+                posNode.style.borderLeft = `4px solid ${policyColors[p.policy] || '#ccc'}`;
+            }else{
+                posNode.innerHTML = `<span style="font-weight:bold;opacity:0.4;font-size:0.7rem;">${posId}</span>${targetHtml}`;
+                posNode.style.background = 'rgba(0,0,0,0.4)';
+                posNode.style.borderLeft = 'none';
+            }
+        });
+        checkActive(f);
+    }
+
+    // --- 初期ロード時の処理 ---
+    window.addEventListener('load',()=>{
+        // 1. 最後に見ていたフォメを復元
+        const lastF = localStorage.getItem('lastFormation') || 'la-dea';
+        formationSelect.value = lastF;
+        formationSelect.dispatchEvent(new Event('change'));
+
+        // 2. 検索から戻ってきた時の選手登録
+        const sp=JSON.parse(localStorage.getItem('selectedPlayer')), cp=JSON.parse(localStorage.getItem('currentPosition'));
+        if(sp && cp){
+            formationState[cp.formation] ??= {}; 
+            formationState[cp.formation][cp.pos] = sp;
+            localStorage.setItem('formationState', JSON.stringify(formationState));
+            localStorage.removeItem('selectedPlayer'); 
+            localStorage.removeItem('currentPosition');
+            loadFormation(cp.formation);
+        }
+        updateSelect();
+    });
+
+    // --- メモのオートセーブ ---
+    memoArea.addEventListener('input', () => {
+        const f = formationSelect.value;
+        formationMemos[f] = memoArea.value;
+        localStorage.setItem('formationMemos', JSON.stringify(formationMemos));
+    });
+
+    // --- スカッド「別名で保存」管理 ---
+    function updateSelect(){
+        const s=document.getElementById('loadFormation'); s.innerHTML='<option value="">保存済みスカッドを読込</option>';
+        for(let n in savedFormations){let o=document.createElement('option'); o.value=n; o.textContent=n; s.appendChild(o);}
+    }
+
+    document.getElementById('saveFormation').addEventListener('click',()=>{
+        const n=document.getElementById('saveName').value.trim(); 
+        if(!n){alert('スカッド名を入力してください');return;}
+        const f=formationSelect.value;
+        savedFormations[n]={ 
+            formation: f, // どのフォメを使っているかも保存
+            players: JSON.parse(JSON.stringify(formationState[f]||{})), 
+            memo: memoArea.value 
+        };
+        localStorage.setItem('savedFormations',JSON.stringify(savedFormations));
+        updateSelect(); 
+        alert('「' + n + '」として保存しました');
+    });
+
+    document.getElementById('loadBtn').addEventListener('click',()=>{
+        const n=document.getElementById('loadFormation').value; if(!n)return;
+        const target = savedFormations[n];
+        if(target){
+            // 保存時のフォーメーションに切り替え
+            formationSelect.value = target.formation;
+            formationSelect.dispatchEvent(new Event('change'));
+            
+            // データの反映
+            formationState[target.formation] = JSON.parse(JSON.stringify(target.players));
+            formationMemos[target.formation] = target.memo;
+            memoArea.value = target.memo;
+            
+            // 全体保存の更新
+            localStorage.setItem('formationState',JSON.stringify(formationState));
+            localStorage.setItem('formationMemos',JSON.stringify(formationMemos));
+            
+            loadFormation(target.formation);
+            alert('読み込み完了');
+        }
+    });
+
+    document.getElementById('deleteBtn').addEventListener('click',()=>{
+        const n=document.getElementById('loadFormation').value; if(!n)return;
+        if(confirm('このスカッドデータを削除しますか？')){ 
+            delete savedFormations[n]; 
+            localStorage.setItem('savedFormations',JSON.stringify(savedFormations)); 
+            updateSelect(); 
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>プリスキンのサカつくDB - 利用規約</title>
+<style>
+:root {
+  --primary: #007bff;
+  --accent: #00bcd4;
+  --dark: #222;
+  --bg-gradient: linear-gradient(135deg, #4fc3f7, #007bff);
+}
+
+body {
+  font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f8fafc;
+  /* ホームと共通の質感：ドット背景 */
+  background-image: radial-gradient(#d1d9e0 1px, transparent 1px);
+  background-size: 20px 20px;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* ===== ナビゲーション（ホームと完全統一） ===== */
+.topnav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--dark);
+  color: #fff;
+  height: 60px;
+  padding: 0 15px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.logo {
+  font-weight: 800;
+  font-size: 0.95rem;
+  background: linear-gradient(90deg, #4fc3f7, #007bff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  flex-shrink: 0;
+  text-decoration: none;
+  margin-right: 15px;
+}
+
+.nav-links {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  gap: 5px;
+}
+
+.nav-links::-webkit-scrollbar { display: none; }
+
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+  padding: 8px 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: 5px;
+  transition: opacity 0.2s;
+}
+
+.nav-links a:hover {
+  opacity: 0.7;
+}
+
+/* ===== ページヘッダー ===== */
+.page-header {
+  text-align: center;
+  padding: 50px 20px 70px;
+  background: var(--bg-gradient);
+  color: #fff;
+  clip-path: ellipse(160% 100% at 50% 0%);
+}
+
+.page-header h1 {
+  font-size: 1.8em;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* ===== メインコンテンツエリア ===== */
+.container {
+  max-width: 850px;
+  margin: -30px auto 60px;
+  padding: 0 15px;
+}
+
+main {
+  background: #fff;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+h2 {
+  display: flex;
+  align-items: center;
+  margin-top: 40px;
+  font-size: 1.25rem;
+  color: var(--dark);
+  border-bottom: 2px solid #f0f2f5;
+  padding-bottom: 8px;
+}
+
+h2::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 24px;
+  background: var(--primary);
+  margin-right: 12px;
+  border-radius: 3px;
+}
+
+p {
+  margin: 15px 0;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+/* ===== リスト・強調ボックス（規約用） ===== */
+ul {
+  padding-left: 0;
+  list-style: none;
+}
+
+li {
+  position: relative;
+  padding-left: 28px;
+  margin-bottom: 12px;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+li::before {
+  content: "⚽";
+  position: absolute;
+  left: 0;
+  font-size: 0.8rem;
+  top: 2px;
+}
+
+.info-box {
+  background: #f0f7ff;
+  border-left: 4px solid var(--primary);
+  padding: 20px;
+  margin: 25px 0;
+  border-radius: 0 10px 10px 0;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+/* ===== フッター（ホームと完全統一） ===== */
+footer {
+  text-align: center;
+  padding: 40px 15px;
+  background: var(--dark);
+  color: #999;
+}
+
+.footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  font-size: 0.8rem;
+  margin-bottom: 15px;
+}
+
+.footer-nav a { color: var(--accent); text-decoration: none; }
+.copyright { font-size: 0.75rem; }
+
+/* PCレイアウト調整 */
+@media (min-width: 768px) {
+  .topnav { padding: 0 40px; }
+  .logo { font-size: 1.4em; }
+  .nav-links { gap: 10px; }
+  .nav-links a { font-size: 0.95rem; padding: 8px 15px; }
+
+  .page-header { padding: 80px 20px 100px; }
+  .page-header h1 { font-size: 2.5em; }
+}
+
+@media (max-width: 600px) {
+  main { padding: 25px; }
+}
+</style>
+</head>
+<body>
+
+<header class="topnav">
+  <a href="index.html" class="logo">プリスキンのサカつくDB</a>
+  <nav class="nav-links">
+    <a href="index.html">ホーム</a>
+    <a href="builder.html">スカッド</a>
+    <a href="search.html">選手検索</a>
+    <a href="formation-search.html">フォメコン検索</a>
+    <a href="skills.html">スキル検索</a>
+  </nav>
+</header>
+
+<div class="page-header">
+  <h1>利用規約</h1>
+</div>
+
+<div class="container">
+  <main>
+    <p>このウェブサイト「プリスキンのサカつくDB」（以下「当サイト」）の利用に関して、以下の条件に同意いただいた場合に限りご利用ください。当サイトは、はてなブログで運営中の攻略情報をより便利に活用するためのツール群を提供しています。</p>
+
+    <h2>1. 免責事項</h2>
+    <p>当サイトに掲載されている情報は、可能な限り正確に提供していますが、完全性や正確性を保証するものではありません。当サイトの情報を利用したことによる損害について、一切の責任を負いません。</p>
+
+    <h2>2. データの出典について</h2>
+    <div class="info-box">
+      当サイトで提供する選手データやゲーム情報は、すべて<strong>サカつく2026</strong>（SEGA社）を参考に作成された個人ファンサイトです。
+    </div>
+    <p>当サイトはゲーム公式とは一切関係がなく、ゲームデータの正確性や最新版であることを保証するものではありません。</p>
+
+    <h2>3. 知的財産権</h2>
+    <p>当サイト内の文章や独自ツール（スカッドビルダー、スキル検索システム等）のプログラム著作権は当サイト運営者に帰属します。サカつく2026由来のデータや画像などの著作権はSEGA社に帰属します。無断転載、複製、再配布を禁止します。</p>
+
+    <h2>4. 禁止事項</h2>
+    <ul>
+      <li>当サイトの情報を営利目的で無断使用すること</li>
+      <li>システムの解析、不正アクセスや破壊行為</li>
+      <li>その他、公序良俗に反する行為</li>
+    </ul>
+
+    <h2>5. スクリーンショットの利用について</h2>
+    <p>当サイトの「スカッドビルダー」で作成した画面は、以下の用途で自由にご利用いただけます。</p>
+    <ul>
+      <li>個人ブログ（はてなブログ等）での攻略記事への貼り付け</li>
+      <li>SNS（X等）でのチーム紹介、スカッド共有</li>
+    </ul>
+    <p>※ただし、画像内のサイトロゴを隠す行為や、当サイトのイメージを著しく損なう形での改変はご遠慮ください。</p>
+
+    <h2>6. 規約の変更</h2>
+    <p>当サイトは、利用者への事前通知なしに本規約を変更することがあります。最新の規約をご確認の上、ご利用ください。</p>
+  </main>
+</div>
+
+<footer>
+  <div class="footer-nav">
+    <a href="index.html">ホーム</a>
+    <a href="builder.html">スカッド</a>
+    <a href="formation-search.html">フォメコン検索</a>
+    <a href="search.html">選手検索</a>
+    <a href="skills.html">スキル検索</a>
+  </div>
+  <p class="copyright">&copy; 2026 プリスキンのサカつくDB <br><a href="terms.html" style="color:#777; text-decoration: none;">利用規約</a></p>
+</footer>
+
+</body>
+</html>

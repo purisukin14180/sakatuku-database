@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プリスキンのサカつくDB - 選手検索</title>
+    <style>
+        :root {
+            --primary: #007bff;
+            --accent: #00bcd4;
+            --dark: #222;
+            --light-bg: #f8fafc;
+            --border: #e2e8f0;
+            --bg-gradient: linear-gradient(135deg, #4fc3f7, #007bff);
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            margin: 0; padding: 0; background-color: var(--light-bg); color: #333; line-height: 1.6;
+        }
+
+        /* ===== ナビゲーション（ホームのデザインと統一） ===== */
+        .topnav {
+            display: flex; justify-content: space-between; align-items: center;
+            background: var(--dark); color: #fff; height: 60px; padding: 0 15px;
+            position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .logo {
+            font-weight: 800; font-size: 0.95rem; background: linear-gradient(90deg, #4fc3f7, #007bff);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            flex-shrink: 0; text-decoration: none; margin-right: 15px;
+        }
+
+        .nav-links {
+            display: flex; overflow-x: auto; white-space: nowrap;
+            -webkit-overflow-scrolling: touch; gap: 5px;
+        }
+        .nav-links::-webkit-scrollbar { display: none; }
+
+        .nav-links a {
+            color: #fff; text-decoration: none; padding: 8px 10px; font-size: 0.8rem;
+            font-weight: 600; border-radius: 5px; transition: opacity 0.2s;
+        }
+        .nav-links a:hover { opacity: 0.7; }
+        .nav-links a.current { background: rgba(255,255,255,0.15); }
+
+        /* ===== レイアウト ===== */
+        .container { display: flex; max-width: 1400px; margin: 0 auto; min-height: calc(100vh - 60px); }
+
+        /* ===== サイドバー ===== */
+        .sidebar { 
+            width: 320px; background: #fff; padding: 20px; border-right: 1px solid var(--border); 
+            overflow-y: auto; height: calc(100vh - 60px); position: sticky; top: 60px; box-sizing: border-box; 
+        }
+        .sidebar h3 { font-size: 1.1rem; margin-top: 0; color: var(--dark); border-left: 4px solid var(--primary); padding-left: 10px; margin-bottom: 20px; }
+
+        #nameSearch { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 20px; font-size: 0.9rem; background: #f1f5f9; box-sizing: border-box; }
+
+        .filter-section { margin-bottom: 10px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
+        .filter-title { font-size: 0.85rem; font-weight: bold; cursor: pointer; background: #f8fafc; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; }
+        .filter-options { display: none; padding: 10px; background: #fff; max-height: 400px; overflow-y: auto; }
+
+        .style-group-label { display: block; font-size: 0.7rem; color: #64748b; font-weight: bold; margin: 12px 0 6px 4px; border-bottom: 1px solid #f1f5f9; padding-bottom: 2px; }
+
+        .filter-btn { padding: 6px 10px; margin: 2px; border: 1px solid var(--border); background: #fff; cursor: pointer; font-size: 0.75rem; border-radius: 6px; transition: 0.2s; }
+        .filter-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+
+        /* 選手追加フォーム */
+        .create-form { background: #f0f9ff; padding: 15px; border-radius: 12px; margin-top: 20px; border: 1px solid #bae6fd; margin-bottom: 40px;}
+        .create-form h4 { margin: 0 0 10px; font-size: 0.9rem; color: var(--primary); }
+        .create-form input, .create-form select { width: 100%; padding: 8px; margin-bottom: 8px; border-radius: 6px; border: 1px solid #cbd5e1; box-sizing: border-box; font-size: 0.8rem; }
+        .submit-btn { width: 100%; padding: 12px; background: var(--dark); color: white; border: none; cursor: pointer; font-weight: bold; border-radius: 8px; font-size: 0.85rem; }
+
+        /* ===== メインコンテンツ ===== */
+        .main { flex: 1; padding: 20px; background: #fff; overflow-x: auto; }
+        .main h1 { font-size: 1.5rem; margin-top: 0; color: var(--dark); }
+        
+        table { border-collapse: collapse; width: 100%; min-width: 850px; }
+        th { background: #f1f5f9; padding: 12px; border-bottom: 2px solid var(--border); text-align: left; font-size: 0.75rem; color: #475569; position: sticky; top: 0; z-index: 10; }
+        td { padding: 12px; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
+
+        .policy-badge { padding: 4px 8px; border-radius: 4px; color: white; font-size: 0.7rem; font-weight: bold; }
+        .policy-possession { background: #f59e0b; }
+        .policy-counter { background: #ef4444; }
+        .policy-reaction { background: #3b82f6; }
+        .policy-moving { background: #10b981; }
+
+        .action-btn { padding: 6px 12px; cursor: pointer; border: 1px solid var(--border); border-radius: 6px; font-size: 0.75rem; background: #fff; }
+        .action-btn.owned { background: #fef3c7; border-color: #fbbf24; color: #92400e; }
+        .delete-btn { background: #fee2e2; color: #b91c1c; border: none; margin-left: 4px; }
+        
+        .name-link { color: var(--primary); font-weight: bold; cursor: pointer; text-decoration: none; }
+        .name-link:hover { text-decoration: underline; }
+
+        /* ===== PCレイアウト調整 ===== */
+        @media (min-width: 768px) {
+            .topnav { padding: 0 40px; }
+            .logo { font-size: 1.4em; }
+            .nav-links { gap: 10px; }
+            .nav-links a { font-size: 0.95rem; padding: 8px 15px; }
+        }
+
+        @media (max-width: 900px) { 
+            .container { flex-direction: column; } 
+            .sidebar { width: 100%; border-right: none; height: auto; position: relative; top: 0; } 
+        }
+
+        @media (max-width: 600px) {
+            .sidebar { padding: 10px; }
+            .filter-btn { padding: 10px 12px; font-size: 0.85rem; }
+            td, th { padding: 8px 4px; font-size: 0.75rem; }
+            .create-form input, .create-form select { font-size: 1rem; padding: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="topnav">
+        <a href="index.html" class="logo">プリスキンのサカつくDB</a>
+        <nav class="nav-links">
+            <a href="index.html">ホーム</a>
+            <a href="builder.html">スカッド</a>
+            <a href="search.html" class="current">選手検索</a>
+            <a href="formation-search.html">フォメコン検索</a>
+            <a href="skills.html">スキル検索</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="sidebar">
+            <h3>選手絞り込み</h3>
+            <input type="text" id="nameSearch" placeholder="選手名で検索..." oninput="saveFilters();search()">
+
+            <div class="filter-section">
+                <div class="filter-title">表示設定</div>
+                <div style="padding:10px;">
+                    <button id="showAll" class="filter-btn active" onclick="toggleShow('all')">全表示</button>
+                    <button id="showOwned" class="filter-btn" onclick="toggleShow('owned')">手持ちのみ</button>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <div class="filter-title" onclick="toggleSection('raritySection')">レアリティ <span>▼</span></div>
+                <div id="raritySection" class="filter-options">
+                    <button class="filter-btn" data-type="rarity" data-value="☆3" onclick="toggleFilter('rarity','☆3')">☆3</button>
+                    <button class="filter-btn" data-type="rarity" data-value="☆2" onclick="toggleFilter('rarity','☆2')">☆2</button>
+                    <button class="filter-btn" data-type="rarity" data-value="☆1" onclick="toggleFilter('rarity','☆1')">☆1</button>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <div class="filter-title" onclick="toggleSection('methodSection')">入手法 <span>▼</span></div>
+                <div id="methodSection" class="filter-options">
+                    <button class="filter-btn" data-type="method" data-value="ワールドSP" onclick="toggleFilter('method','ワールドSP')">ワールドSP</button>
+                    <button class="filter-btn" data-type="method" data-value="JリーグSP" onclick="toggleFilter('method','JリーグSP')">JリーグSP</button>
+                    <button class="filter-btn" data-type="method" data-value="KリーグSP" onclick="toggleFilter('method','KリーグSP')">KリーグSP</button>
+                    <button class="filter-btn" data-type="method" data-value="配布SP" onclick="toggleFilter('method','配布SP')">配布SP</button>
+                    <button class="filter-btn" data-type="method" data-value="モード内" onclick="toggleFilter('method','モード内')">モード内</button>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <div class="filter-title" onclick="toggleSection('styleSection')">プレースタイル <span>▼</span></div>
+                <div id="styleSection" class="filter-options">
+                    <span class="style-group-label">FWスタイル</span>
+                    <button class="filter-btn" data-type="style" data-value="ストライカーⅢ" onclick="toggleFilter('style','ストライカーⅢ')">ストライカーⅢ</button>
+                    <button class="filter-btn" data-type="style" data-value="ストライカーⅡ" onclick="toggleFilter('style','ストライカーⅡ')">ストライカーⅡ</button>
+                    <button class="filter-btn" data-type="style" data-value="ラインブレーカーⅢ" onclick="toggleFilter('style','ラインブレーカーⅢ')">ラインブレーカーⅢ</button>
+                    <button class="filter-btn" data-type="style" data-value="ラインブレーカーⅡ" onclick="toggleFilter('style','ラインブレーカーⅡ')">ラインブレーカーⅡ</button>
+                    <button class="filter-btn" data-type="style" data-value="ポストプレーヤーⅢ" onclick="toggleFilter('style','ポストプレーヤーⅢ')">ポストプレーヤーⅢ</button>
+                    <button class="filter-btn" data-type="style" data-value="ポストプレーヤーⅡ" onclick="toggleFilter('style','ポストプレーヤーⅡ')">ポストプレーヤーⅡ</button>
+
+                    <span class="style-group-label">FW・MF共通</span>
+                    <button class="filter-btn" data-type="style" data-value="ドリブラーⅢ" onclick="toggleFilter('style','ドリブラーⅢ')">ドリブラーⅢ</button>
+                    <button class="filter-btn" data-type="style" data-value="ドリブラーⅡ" onclick="toggleFilter('style','ドリブラーⅡ')">ドリブラーⅡ</button>
+                    <button class="filter-btn" data-type="style" data-value="サイドアタッカーⅢ" onclick="toggleFilter('style','サイドアタッカーⅢ')">サイドアタッカーⅢ</button>
+                    <button class="filter-btn" data-type="style" data-value="サイドアタッカーⅡ" onclick="toggleFilter('style','サイドアタッカーⅡ')">サイドアタッカーⅡ</button>
+
+                    <span class="style-group-label">MFスタイル</span>
+                    <button class="filter-btn" data-type="style" data-value="アタッカーⅢ" onclick="toggleFilter('style','アタッカーⅢ')">アタッカーⅢ</button>
+                    <button class="filter-btn" data-type="style" data-value="アタッカーⅡ" onclick="toggleFilter('style','アタッカーⅡ')">アタッカーⅡ</button>
+                    <button class="filter-btn" data-type="style" data-value="セントラルMFⅢ" onclick="toggleFilter('style','セントラルMFⅢ')">セントラルMFⅢ</button>
+                    <button class="filter-btn" data-type="style" data-value="セントラルMFⅡ" onclick="toggleFilter('style','セントラルMFⅡ')">セントラルMFⅡ</button>
+                    <button class="filter-btn" data-type="style" data-value="パサーⅢ" onclick="toggleFilter('style','パサーⅢ')">パサーⅢ</button>
+                    <button class="filter-btn" data-type="style" data-value="パサーⅡ" onclick="toggleFilter('style','パサーⅡ')">パサーⅡ</button>
+                    <button class="filter-btn" data-type="style" data-value="ハードマーカーⅢ" onclick="toggleFilter('style','ハードマーカーⅢ')">ハードマーカーⅢ</button>
+                    <button class="filter-btn" data-type="style" data-value="ハードマーカーⅡ" onclick="toggleFilter('style','ハードマーカーⅡ')">ハードマーカーⅡ</button>
+
+                    <span class="style-group-label">DFスタイル</span>
+                    <button class="filter-btn" data-type="style" data-value="攻撃的FBⅢ" onclick="toggleFilter('style','攻撃的FBⅢ')">攻撃的FBⅢ</button>
+                    <button class="filter-btn" data-type="style" data-value="攻撃的FBⅡ" onclick="toggleFilter('style','攻撃的FBⅡ')">攻撃的FBⅡ</button>
+                    <button class="filter-btn" data-type="style" data-value="守備的FBⅢ" onclick="toggleFilter('style','守備的FBⅢ')">守備的FBⅢ</button>
+                    <button class="filter-btn" data-type="style" data-value="守備的FBⅡ" onclick="toggleFilter('style','守備的FBⅡ')">守備的FBⅡ</button>
+                    <button class="filter-btn" data-type="style" data-value="組立CBⅢ" onclick="toggleFilter('style','組立CBⅢ')">組立CBⅢ</button>
+                    <button class="filter-btn" data-type="style" data-value="組立CBⅡ" onclick="toggleFilter('style','組立CBⅡ')">組立CBⅡ</button>
+                    <button class="filter-btn" data-type="style" data-value="ストッパーⅢ" onclick="toggleFilter('style','ストッパーⅢ')">ストッパーⅢ</button>
+                    <button class="filter-btn" data-type="style" data-value="ストッパーⅡ" onclick="toggleFilter('style','ストッパーⅡ')">ストッパーⅡ</button>
+
+                    <span class="style-group-label">GKスタイル</span>
+                    <button class="filter-btn" data-type="style" data-value="スイーパーGKⅢ" onclick="toggleFilter('style','スイーパーGKⅢ')">スイーパーGKⅢ</button>
+                    <button class="filter-btn" data-type="style" data-value="スイーパーGKⅡ" onclick="toggleFilter('style','スイーパーGKⅡ')">スイーパーGKⅡ</button>
+                    <button class="filter-btn" data-type="style" data-value="オーソドックスGKⅢ" onclick="toggleFilter('style','オーソドックスGKⅢ')">オーソドックスGKⅢ</button>
+                    <button class="filter-btn" data-type="style" data-value="オーソドックスGKⅡ" onclick="toggleFilter('style','オーソドックスGKⅡ')">オーソドックスGKⅡ</button>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <div class="filter-title" onclick="toggleSection('positionSection')">ポジション <span>▼</span></div>
+                <div id="positionSection" class="filter-options">
+                    <button class="filter-btn" data-type="position" data-value="GK" onclick="toggleFilter('position','GK')">GK</button>
+                    <button class="filter-btn" data-type="position" data-value="CB" onclick="toggleFilter('position','CB')">CB</button>
+                    <button class="filter-btn" data-type="position" data-value="LB" onclick="toggleFilter('position','LB')">LB</button>
+                    <button class="filter-btn" data-type="position" data-value="RB" onclick="toggleFilter('position','RB')">RB</button>
+                    <button class="filter-btn" data-type="position" data-value="DM" onclick="toggleFilter('position','DM')">DM</button>
+                    <button class="filter-btn" data-type="position" data-value="LM" onclick="toggleFilter('position','LM')">LM</button>
+                    <button class="filter-btn" data-type="position" data-value="RM" onclick="toggleFilter('position','RM')">RM</button>
+                    <button class="filter-btn" data-type="position" data-value="AM" onclick="toggleFilter('position','AM')">AM</button>
+                    <button class="filter-btn" data-type="position" data-value="LW" onclick="toggleFilter('position','LW')">LW</button>
+                    <button class="filter-btn" data-type="position" data-value="RW" onclick="toggleFilter('position','RW')">RW</button>
+                    <button class="filter-btn" data-type="position" data-value="CF" onclick="toggleFilter('position','CF')">CF</button>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <div class="filter-title" onclick="toggleSection('policySection')">ポリシー <span>▼</span></div>
+                <div id="policySection" class="filter-options">
+                    <button class="filter-btn" data-type="policy" data-value="ポゼッション" onclick="toggleFilter('policy','ポゼッション')">ポゼッション</button>
+                    <button class="filter-btn" data-type="policy" data-value="カウンター" onclick="toggleFilter('policy','カウンター')">カウンター</button>
+                    <button class="filter-btn" data-type="policy" data-value="リアクション" onclick="toggleFilter('policy','リアクション')">リアクション</button>
+                    <button class="filter-btn" data-type="policy" data-value="ムービング" onclick="toggleFilter('policy','ムービング')">ムービング</button>
+                </div>
+            </div>
+
+            <div class="create-form">
+                <h4>手動で選手を追加</h4>
+                <input type="text" id="newName" placeholder="選手名">
+                <select id="newRarity">
+                    <option value="☆3">☆3</option><option value="☆2">☆2</option><option value="☆1">☆1</option>
+                </select>
+                <select id="newMethod">
+                    <option value="ワールドSP">ワールドSP</option><option value="JリーグSP">JリーグSP</option>
+                    <option value="KリーグSP">KリーグSP</option><option value="配布SP">配布SP</option>
+                    <option value="モード内">モード内</option>
+                </select>
+                <select id="newPos">
+                    <option value="CF">CF</option><option value="RW">RW</option><option value="LW">LW</option>
+                    <option value="AM">AM</option><option value="RM">RM</option><option value="LM">LM</option>
+                    <option value="DM">DM</option><option value="RB">RB</option><option value="LB">LB</option>
+                    <option value="CB">CB</option><option value="GK">GK</option>
+                </select>
+                <select id="newPolicy">
+                    <option value="ポゼッション">ポゼッション</option><option value="カウンター">カウンター</option>
+                    <option value="リアクション">リアクション</option><option value="ムービング">ムービング</option>
+                </select>
+                <input type="text" id="newStyle" placeholder="スタイル名">
+                <button class="submit-btn" onclick="addPlayer()">リストに保存</button>
+            </div>
+        </div>
+
+        <div class="main">
+            <h1>選手検索データベース</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>名前</th>
+                        <th>レア</th>
+                        <th>入手法</th>
+                        <th>ポジ</th>
+                        <th>ポリシー</th>
+                        <th>スタイル</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody id="results"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        let jsonPlayers = [];
+        let createdPlayers = JSON.parse(localStorage.getItem('createdPlayers') || '[]');
+        let ownedPlayers = JSON.parse(localStorage.getItem('ownedPlayers') || '[]');
+        let showMode = 'all'; 
+        let filters = { rarity: [], policy: [], position: [], method: [], style: [] };
+
+        async function init() {
+            loadFilters();
+            try {
+                const response = await fetch('players.json');
+                if (response.ok) { jsonPlayers = await response.json(); }
+            } catch (e) { console.warn("JSONデータが見つかりません。"); }
+            updateButtons();
+            search();
+        }
+
+        function toggleSection(id) {
+            const el = document.getElementById(id);
+            el.style.display = (el.style.display === "block") ? "none" : "block";
+        }
+
+        function toggleFilter(type, value) {
+            if (filters[type].includes(value)) {
+                filters[type] = filters[type].filter(v => v !== value);
+            } else {
+                filters[type].push(value);
+            }
+            updateButtons();
+            saveFilters();
+            search();
+        }
+
+        function toggleShow(mode) {
+            showMode = mode;
+            updateButtons();
+            saveFilters();
+            search();
+        }
+
+        function search() {
+            const nameInput = document.getElementById("nameSearch").value.toLowerCase();
+            const all = jsonPlayers.concat(createdPlayers);
+            
+            const filtered = all.filter(p => {
+                if (nameInput && !p.name.toLowerCase().includes(nameInput)) return false;
+                if (filters.rarity.length && !filters.rarity.includes(p.rarity)) return false;
+                if (filters.policy.length && !filters.policy.includes(p.policy)) return false;
+                if (filters.position.length && !filters.position.includes(p.position)) return false;
+                if (filters.method.length && !filters.method.includes(p.method)) return false;
+                if (filters.style.length && !filters.style.includes(p.playstyle)) return false;
+                if (showMode === 'owned' && !ownedPlayers.includes(p.name)) return false;
+                return true;
+            });
+            render(filtered);
+        }
+
+        function render(list) {
+            let html = "";
+            list.forEach(p => {
+                const pClass = getPolicyClass(p.policy);
+                const isOwned = ownedPlayers.includes(p.name);
+                const playerData = encodeURIComponent(JSON.stringify(p));
+                
+                html += `<tr>
+                    <td><a class="name-link" onclick="sendToBuilder('${playerData}')">${p.name}</a></td>
+                    <td>${p.rarity}</td>
+                    <td style="font-size:0.75rem; color:#64748b;">${p.method || '-'}</td>
+                    <td><b>${p.position}</b></td>
+                    <td><span class="policy-badge ${pClass}">${p.policy}</span></td>
+                    <td style="font-size:0.8rem;">${p.playstyle || '-'}</td>
+                    <td style="white-space:nowrap;">
+                        <button class="action-btn ${isOwned ? 'owned' : ''}" onclick="toggleOwned('${p.name}')">${isOwned ? '解除' : '手持'}</button>
+                        ${p.isCustom ? `<button class="action-btn delete-btn" onclick="deletePlayer('${p.name}')">削除</button>` : ''}
+                    </td>
+                </tr>`;
+            });
+            document.getElementById("results").innerHTML = html;
+        }
+
+        function getPolicyClass(p) {
+            const classes = { "ポゼッション": "policy-possession", "カウンター": "policy-counter", "リアクション": "policy-reaction", "ムービング": "policy-moving" };
+            return classes[p] || "";
+        }
+
+        function toggleOwned(name) {
+            if (ownedPlayers.includes(name)) ownedPlayers = ownedPlayers.filter(n => n !== name);
+            else ownedPlayers.push(name);
+            localStorage.setItem('ownedPlayers', JSON.stringify(ownedPlayers));
+            search();
+        }
+
+        function addPlayer() {
+            const name = document.getElementById('newName').value;
+            if (!name) return alert("選手名を入力してください");
+            const newP = {
+                name: name,
+                rarity: document.getElementById('newRarity').value,
+                method: document.getElementById('newMethod').value,
+                position: document.getElementById('newPos').value,
+                policy: document.getElementById('newPolicy').value,
+                playstyle: document.getElementById('newStyle').value,
+                isCustom: true 
+            };
+            createdPlayers.push(newP);
+            localStorage.setItem('createdPlayers', JSON.stringify(createdPlayers));
+            document.getElementById('newName').value = "";
+            document.getElementById('newStyle').value = "";
+            search();
+        }
+
+        function deletePlayer(name) {
+            if (!confirm(name + " を削除しますか？")) return;
+            createdPlayers = createdPlayers.filter(p => p.name !== name);
+            localStorage.setItem('createdPlayers', JSON.stringify(createdPlayers));
+            search();
+        }
+
+        function updateButtons() {
+            document.querySelectorAll(".filter-btn[data-type]").forEach(btn => {
+                const type = btn.getAttribute("data-type");
+                const val = btn.getAttribute("data-value");
+                btn.classList.toggle("active", filters[type].includes(val));
+            });
+            document.getElementById('showAll').classList.toggle('active', showMode === 'all');
+            document.getElementById('showOwned').classList.toggle('active', showMode === 'owned');
+        }
+
+        function saveFilters() {
+            localStorage.setItem("searchFilters_v10", JSON.stringify({ filters, showMode, name: document.getElementById("nameSearch").value }));
+        }
+
+        function loadFilters() {
+            const saved = JSON.parse(localStorage.getItem("searchFilters_v10"));
+            if (saved) {
+                filters = saved.filters || filters;
+                showMode = saved.showMode || 'all';
+                document.getElementById("nameSearch").value = saved.name || "";
+            }
+        }
+
+        function sendToBuilder(encodedData) {
+            const player = JSON.parse(decodeURIComponent(encodedData));
+            localStorage.setItem('selectedPlayer', JSON.stringify(player));
+            window.location.href = 'builder.html';
+        }
+
+        init();
+    </script>
+</body>
+</html>
