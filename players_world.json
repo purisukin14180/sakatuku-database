@@ -1,0 +1,632 @@
+[
+  {
+    "id": "wsp_001",
+    "name": "マイク・メニャン",
+    "position": "GK",
+    "playstyle": "オーソドックスGKⅡ",
+    "policy": "ポゼッション",
+    "method": "ワールドSP",
+    "rarity": "☆3",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_002",
+    "name": "リベイロ",
+    "position": "CB",
+    "playstyle": "ストッパーⅡ",
+    "policy": "ポゼッション",
+    "method": "ワールドSP",
+    "rarity": "☆3",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_003",
+    "name": "ガブリエウ",
+    "position": "CB",
+    "playstyle": "ストッパーⅡ",
+    "policy": "ポゼッション",
+    "method": "ワールドSP",
+    "rarity": "☆3",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_004",
+    "name": "ティンバー",
+    "position": "LB",
+    "playstyle": "守備的FBⅡ",
+    "policy": "ポゼッション",
+    "method": "ワールドSP",
+    "rarity": "☆3",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_005",
+    "name": "ファビアン",
+    "position": "DM",
+    "playstyle": "パサーⅡ",
+    "policy": "ポゼッション",
+    "method": "ワールドSP",
+    "rarity": "☆3",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_006",
+    "name": "ルカ・モドリッチ",
+    "position": "DM",
+    "playstyle": "パサーⅢ",
+    "policy": "ポゼッション",
+    "method": "ワールドSP",
+    "rarity": "☆3",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_007",
+    "name": "クアドラード",
+    "position": "RM",
+    "playstyle": "ドリブラーⅡ",
+    "policy": "ポゼッション",
+    "method": "ワールドSP",
+    "rarity": "☆3",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_008",
+    "name": "イスコ",
+    "position": "AM",
+    "playstyle": "セントラルMFⅡ",
+    "policy": "ポゼッション",
+    "method": "ワールドSP",
+    "rarity": "☆3",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_009",
+    "name": "三苫薫",
+    "position": "LW",
+    "playstyle": "ドリブラーⅡ",
+    "policy": "ポゼッション",
+    "method": "ワールドSP",
+    "rarity": "☆3",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_010",
+    "name": "ブカヨ・サカ",
+    "position": "RW",
+    "playstyle": "ドリブラーⅢ",
+    "policy": "ポゼッション",
+    "method": "ワールドSP",
+    "rarity": "☆3",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_011",
+    "name": "ソン・フンミン",
+    "position": "CF",
+    "playstyle": "ラインブレーカーⅢ",
+    "policy": "ポゼッション",
+    "method": "ワールドSP",
+    "rarity": "☆3",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_012",
+    "name": "ヤクブ・キヴィオル",
+    "position": "CB",
+    "playstyle": "ストッパーⅡ",
+    "policy": "ポゼッション",
+    "method": "ワールドSP",
+    "rarity": "☆2",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_013",
+    "name": "ペルビス・エストゥピニャン",
+    "position": "LB",
+    "playstyle": "攻撃的FBⅡ",
+    "policy": "ポゼッション",
+    "method": "ワールドSP",
+    "rarity": "☆2",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_014",
+    "name": "サーレマーケルス",
+    "position": "RM",
+    "playstyle": "ドリブラーⅡ",
+    "policy": "ポゼッション",
+    "method": "ワールドSP",
+    "rarity": "☆2",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_015",
+    "name": "マッテオ・ポリターノ",
+    "position": "RM",
+    "playstyle": "サイドアタッカーⅡ",
+    "policy": "ポゼッション",
+    "method": "ワールドSP",
+    "rarity": "☆2",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_016",
+    "name": "デイヴィ・クラーセン",
+    "position": "DM",
+    "playstyle": "パサーⅡ",
+    "policy": "ポゼッション",
+    "method": "ワールドSP",
+    "rarity": "☆2",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_017",
+    "name": "ブレナン・ジョンソン",
+    "position": "LW",
+    "playstyle": "サイドアタッカーⅡ",
+    "policy": "ポゼッション",
+    "method": "ワールドSP",
+    "rarity": "☆2",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_018",
+    "name": "リシャルリソン",
+    "position": "CF",
+    "playstyle": "ラインブレーカーⅡ",
+    "policy": "ポゼッション",
+    "method": "ワールドSP",
+    "rarity": "☆2",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_019",
+    "name": "ポープ",
+    "position": "GK",
+    "playstyle": "オーソドックスGKⅡ",
+    "policy": "カウンター",
+    "method": "ワールドSP",
+    "rarity": "☆3",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_020",
+    "name": "ガッティ",
+    "position": "CB",
+    "playstyle": "ストッパーⅡ",
+    "policy": "カウンター",
+    "method": "ワールドSP",
+    "rarity": "☆3",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_021",
+    "name": "スピナッツォーラ",
+    "position": "LB",
+    "playstyle": "守備的FBⅡ",
+    "policy": "カウンター",
+    "method": "ワールドSP",
+    "rarity": "☆3",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_022",
+    "name": "モリーナ",
+    "position": "RB",
+    "playstyle": "攻撃的FBⅡ",
+    "policy": "カウンター",
+    "method": "ワールドSP",
+    "rarity": "☆3",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_023",
+    "name": "アシュリ―・ヤング",
+    "position": "LM",
+    "playstyle": "サイドアタッカーⅡ",
+    "policy": "カウンター",
+    "method": "ワールドSP",
+    "rarity": "☆3",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_024",
+    "name": "アマド・ディアロ",
+    "position": "RM",
+    "playstyle": "サイドアタッカーⅡ",
+    "policy": "カウンター",
+    "method": "ワールドSP",
+    "rarity": "☆3",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_025",
+    "name": "ロドリゴ・ベンタンクール",
+    "position": "AM",
+    "playstyle": "セントラルMFⅡ",
+    "policy": "カウンター",
+    "method": "ワールドSP",
+    "rarity": "☆3",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_026",
+    "name": "ファン-ヒチャン",
+    "position": "LW",
+    "playstyle": "ドリブラーⅡ",
+    "policy": "カウンター",
+    "method": "ワールドSP",
+    "rarity": "☆3",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_027",
+    "name": "クィービーン・ケレハー",
+    "position": "GK",
+    "playstyle": "オーソドックスGKⅡ",
+    "policy": "カウンター",
+    "method": "ワールドSP",
+    "rarity": "☆2",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_028",
+    "name": "ニコラス・タグリアフィコ",
+    "position": "LB",
+    "playstyle": "守備的FBⅡ",
+    "policy": "カウンター",
+    "method": "ワールドSP",
+    "rarity": "☆2",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_029",
+    "name": "ケニー・テテ",
+    "position": "RB",
+    "playstyle": "守備的FBⅡ",
+    "policy": "カウンター",
+    "method": "ワールドSP",
+    "rarity": "☆2",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_030",
+    "name": "トゥーン・コープマイネルス",
+    "position": "AM",
+    "playstyle": "セントラルMFⅡ",
+    "policy": "カウンター",
+    "method": "ワールドSP",
+    "rarity": "☆2",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_031",
+    "name": "ニコロ・ザニオーロ",
+    "position": "LW",
+    "playstyle": "ドリブラーⅡ",
+    "policy": "カウンター",
+    "method": "ワールドSP",
+    "rarity": "☆2",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_032",
+    "name": "ゾマー",
+    "position": "GK",
+    "playstyle": "オーソドックスGKⅡ",
+    "policy": "リアクション",
+    "method": "ワールドSP",
+    "rarity": "☆3",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_033",
+    "name": "ジョアン・カンセロ",
+    "position": "LB",
+    "playstyle": "攻撃的FBⅡ",
+    "policy": "リアクション",
+    "method": "ワールドSP",
+    "rarity": "☆3",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_034",
+    "name": "リース・ジェイムズ",
+    "position": "RB",
+    "playstyle": "守備的FBⅡ",
+    "policy": "リアクション",
+    "method": "ワールドSP",
+    "rarity": "☆3",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_035",
+    "name": "バルベルデ",
+    "position": "DM",
+    "playstyle": "セントラルMFⅢ",
+    "policy": "リアクション",
+    "method": "ワールドSP",
+    "rarity": "☆3",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_036",
+    "name": "エル・シャーラウィ",
+    "position": "LM",
+    "playstyle": "サイドアタッカーⅡ",
+    "policy": "リアクション",
+    "method": "ワールドSP",
+    "rarity": "☆3",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_037",
+    "name": "ペドロ・ポロ",
+    "position": "RM",
+    "playstyle": "サイドアタッカーⅡ",
+    "policy": "リアクション",
+    "method": "ワールドSP",
+    "rarity": "☆3",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_038",
+    "name": "ジョアン・ペドロ",
+    "position": "AM",
+    "playstyle": "アタッカーⅡ",
+    "policy": "リアクション",
+    "method": "ワールドSP",
+    "rarity": "☆3",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_039",
+    "name": "ペドロ",
+    "position": "RW",
+    "playstyle": "サイドアタッカーⅡ",
+    "policy": "リアクション",
+    "method": "ワールドSP",
+    "rarity": "☆3",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_040",
+    "name": "ディアス",
+    "position": "RW",
+    "playstyle": "ドリブラーⅡ",
+    "policy": "リアクション",
+    "method": "ワールドSP",
+    "rarity": "☆3",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_041",
+    "name": "クヴァラツヘリア",
+    "position": "LW",
+    "playstyle": "サイドアタッカーⅢ",
+    "policy": "リアクション",
+    "method": "ワールドSP",
+    "rarity": "☆3",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_042",
+    "name": "ミゲル・アルミロン",
+    "position": "RW",
+    "playstyle": "ドリブラーⅡ",
+    "policy": "リアクション",
+    "method": "ワールドSP",
+    "rarity": "☆3",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_043",
+    "name": "ロナウド",
+    "position": "CF",
+    "playstyle": "ストライカーⅢ",
+    "policy": "リアクション",
+    "method": "ワールドSP",
+    "rarity": "☆3",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_044",
+    "name": "ウィルソン",
+    "position": "CF",
+    "playstyle": "ポストプレーヤーⅡ",
+    "policy": "リアクション",
+    "method": "ワールドSP",
+    "rarity": "☆3",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_045",
+    "name": "ラウタロ・マルティネス",
+    "position": "CF",
+    "playstyle": "ラインブレーカーⅡ",
+    "policy": "リアクション",
+    "method": "ワールドSP",
+    "rarity": "☆3",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_047",
+    "name": "ゼノ・デバスト",
+    "position": "CB",
+    "playstyle": "組立CBⅡ",
+    "policy": "リアクション",
+    "method": "ワールドSP",
+    "rarity": "☆2",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_048",
+    "name": "セルジーノ・デスト",
+    "position": "RB",
+    "playstyle": "攻撃的FBⅡ",
+    "policy": "リアクション",
+    "method": "ワールドSP",
+    "rarity": "☆2",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_049",
+    "name": "ドウグラス・ルイス",
+    "position": "DM",
+    "playstyle": "セントラルMFⅡ",
+    "policy": "リアクション",
+    "method": "ワールドSP",
+    "rarity": "☆2",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_050",
+    "name": "ハドソン=オドイ",
+    "position": "LM",
+    "playstyle": "サイドアタッカーⅡ",
+    "policy": "リアクション",
+    "method": "ワールドSP",
+    "rarity": "☆2",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_051",
+    "name": "フロリアン・トヴァン",
+    "position": "AM",
+    "playstyle": "パサーⅡ",
+    "policy": "リアクション",
+    "method": "ワールドSP",
+    "rarity": "☆2",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_052",
+    "name": "フランシスコ・トリンコン",
+    "position": "RW",
+    "playstyle": "ドリブラーⅡ",
+    "policy": "リアクション",
+    "method": "ワールドSP",
+    "rarity": "☆2",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_053",
+    "name": "ファン・ダイク",
+    "position": "CB",
+    "playstyle": "組立CBⅢ",
+    "policy": "ムービング",
+    "method": "ワールドSP",
+    "rarity": "☆3",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_054",
+    "name": "ルーク・ショー",
+    "position": "LB",
+    "playstyle": "守備的FBⅡ",
+    "policy": "ムービング",
+    "method": "ワールドSP",
+    "rarity": "☆3",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_055",
+    "name": "デ・ブライネ",
+    "position": "DM",
+    "playstyle": "パサーⅡ",
+    "policy": "ムービング",
+    "method": "ワールドSP",
+    "rarity": "☆3",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_056",
+    "name": "ロングスタッフ",
+    "position": "DM",
+    "playstyle": "セントラルMFⅡ",
+    "policy": "ムービング",
+    "method": "ワールドSP",
+    "rarity": "☆3",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_057",
+    "name": "ファン・インボム",
+    "position": "DM",
+    "playstyle": "パサーⅡ",
+    "policy": "ムービング",
+    "method": "ワールドSP",
+    "rarity": "☆3",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_058",
+    "name": "フォーデン",
+    "position": "LM",
+    "playstyle": "サイドアタッカーⅢ",
+    "policy": "ムービング",
+    "method": "ワールドSP",
+    "rarity": "☆3",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_059",
+    "name": "南野拓実",
+    "position": "AM",
+    "playstyle": "アタッカーⅡ",
+    "policy": "ムービング",
+    "method": "ワールドSP",
+    "rarity": "☆3",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_060",
+    "name": "マシュー・ライアン",
+    "position": "GK",
+    "playstyle": "スイーパーGKⅡ",
+    "policy": "ムービング",
+    "method": "ワールドSP",
+    "rarity": "☆2",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_061",
+    "name": "デ・ローン",
+    "position": "DM",
+    "playstyle": "ハードマーカーⅡ",
+    "policy": "ムービング",
+    "method": "ワールドSP",
+    "rarity": "☆2",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_062",
+    "name": "ブライス・メンデス",
+    "position": "AM",
+    "playstyle": "アタッカーⅡ",
+    "policy": "ムービング",
+    "method": "ワールドSP",
+    "rarity": "☆2",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_063",
+    "name": "ジェイミー・ヴァーディ",
+    "position": "CF",
+    "playstyle": "ストライカーⅡ",
+    "policy": "ムービング",
+    "method": "ワールドSP",
+    "rarity": "☆2",
+    "extra_skills": []
+  },
+  {
+    "id": "wsp_064",
+    "name": "ジョシュア・ザークツィー",
+    "position": "CF",
+    "playstyle": "ポストプレーヤーⅡ",
+    "policy": "ムービング",
+    "method": "ワールドSP",
+    "rarity": "☆2",
+    "extra_skills": []
+  }
+]

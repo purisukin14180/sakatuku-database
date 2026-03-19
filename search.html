@@ -170,7 +170,7 @@
                     <button class="filter-btn" data-type="method" data-value="ワールドSP" onclick="toggleFilter('method','ワールドSP')">ワールドSP</button>
                     <button class="filter-btn" data-type="method" data-value="JリーグSP" onclick="toggleFilter('method','JリーグSP')">JリーグSP</button>
                     <button class="filter-btn" data-type="method" data-value="KリーグSP" onclick="toggleFilter('method','KリーグSP')">KリーグSP</button>
-                    <button class="filter-btn" data-type="method" data-value="配布SP" onclick="toggleFilter('method','配布SP')">配布SP</button>
+                    <button class="filter-btn" data-type="method" data-value="配布・限定SP" onclick="toggleFilter('method','配布・限定SP')">配布・限定SP</button>
                     <button class="filter-btn" data-type="method" data-value="モード内" onclick="toggleFilter('method','モード内')">モード内</button>
                 </div>
             </div>
@@ -249,7 +249,8 @@
                     <label>入手法</label>
                     <select id="newMethod">
                         <option value="ワールドSP">ワールドSP</option><option value="JリーグSP">JリーグSP</option>
-                        <option value="KリーグSP">KリーグSP</option><option value="配布SP">配布SP</option>
+                        <option value="KリーグSP">KリーグSP</option>
+                        <option value="配布・限定SP">配布・限定SP</option>
                         <option value="モード内">モード内</option>
                     </select>
                     <label>ポジション</label>
@@ -341,10 +342,26 @@
 
         async function init() {
             loadFilters();
+            
+            const jsonFiles = [
+                'players_world.json',
+                'players_distribution.json',
+                'players_jleague.json',
+                'players_kleague.json',
+                'players_in_mode.json'
+            ];
+
             try {
-                const response = await fetch('players.json');
-                if (response.ok) { jsonPlayers = await response.json(); }
-            } catch (e) { console.warn("JSONデータが見つかりません。"); }
+                const results = await Promise.all(
+                    jsonFiles.map(file => 
+                        fetch(file)
+                            .then(res => res.ok ? res.json() : [])
+                            .catch(e => [])
+                    )
+                );
+                jsonPlayers = results.flat();
+            } catch (e) { console.error(e); }
+
             updateButtons();
             search();
         }
@@ -381,7 +398,19 @@
                 if (filters.rarity.length && !filters.rarity.includes(p.rarity)) return false;
                 if (filters.policy.length && !filters.policy.includes(p.policy)) return false;
                 if (filters.position.length && !filters.position.includes(p.position)) return false;
-                if (filters.method.length && !filters.method.includes(p.method)) return false;
+
+                // --- 入手法（method）の特殊判定 ---
+                if (filters.method.length) {
+                    const isMatch = filters.method.some(filterVal => {
+                        if (filterVal === "配布・限定SP") {
+                            // ボタンが「配布・限定SP」の時、JSON側の値が 配布 or 限定 どちらかを含めばOK
+                            return (p.method === "配布SP" || p.method === "限定SP" || p.method === "配布・限定SP");
+                        }
+                        return p.method === filterVal;
+                    });
+                    if (!isMatch) return false;
+                }
+
                 if (filters.style.length && !filters.style.includes(p.playstyle)) return false;
                 if (showMode === 'owned' && !ownedPlayers.includes(p.name)) return false;
                 return true;

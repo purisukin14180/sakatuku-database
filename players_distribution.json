@@ -1,0 +1,72 @@
+[
+  {
+    "id": "dsp_001",
+    "name": "李健和",
+    "position": "RM",
+    "playstyle": "ドリブラーⅡ",
+    "policy": "カウンター",
+    "method": "配布SP",
+    "rarity": "☆3",
+    "extra_skills": []
+  },
+  {
+    "id": "dsp_002",
+    "name": "河本鬼茂",
+    "position": "CF",
+    "playstyle": "ストライカーⅢ",
+    "policy": "カウンター",
+    "method": "配布SP",
+    "rarity": "☆3",
+    "extra_skills": []
+  },
+  {
+    "id": "dsp_003",
+    "name": "本田圭佑",
+    "position": "RM",
+    "playstyle": "サイドアタッカーⅢ",
+    "policy": "ムービング",
+    "method": "限定SP",
+    "rarity": "☆3",
+    "extra_skills": []
+  },
+  {
+    "id": "dsp_004",
+    "name": "ルベン・ディアス",
+    "position": "CB",
+    "playstyle": "ストッパーⅡ",
+    "policy": "ムービング",
+    "method": "配布SP",
+    "rarity": "☆3",
+    "extra_skills": []
+  },
+  {
+    "id": "dsp_005",
+    "name": "ラインデルス",
+    "position": "AM",
+    "playstyle": "パサーⅡ",
+    "policy": "ムービング",
+    "method": "配布SP",
+    "rarity": "☆3",
+    "extra_skills": []
+  },
+  {
+    "id": "dsp_006",
+    "name": "ハーランド",
+    "position": "CF",
+    "playstyle": "ストライカーⅡ",
+    "policy": "ムービング",
+    "method": "配布SP",
+    "rarity": "☆3",
+    "extra_skills": []
+  },
+  {
+    "id": "dsp_007",
+    "name": "メッシ",
+    "position": "RW",
+    "playstyle": "ドリブラーⅡ",
+    "policy": "リアクション",
+    "method": "配布SP",
+    "rarity": "☆3",
+    "extra_skills": []
+  }
+]
