@@ -7,7 +7,7 @@
     "policy": "カウンター",
     "method": "配布SP",
     "rarity": "☆3",
-    "extra_skills": []
+    "extra_skills": ["テクニカルドリブル"]
   },
   {
     "id": "dsp_002",
@@ -17,7 +17,7 @@
     "policy": "カウンター",
     "method": "配布SP",
     "rarity": "☆3",
-    "extra_skills": []
+    "extra_skills": ["点で合わせるシュート"]
   },
   {
     "id": "dsp_003",
@@ -27,7 +27,7 @@
     "policy": "ムービング",
     "method": "限定SP",
     "rarity": "☆3",
-    "extra_skills": []
+    "extra_skills": ["魔術師の弾道"]
   },
   {
     "id": "dsp_004",
@@ -37,37 +37,37 @@
     "policy": "ムービング",
     "method": "配布SP",
     "rarity": "☆3",
-    "extra_skills": []
+    "extra_skills": ["鋭角的なタックル"]
   },
   {
     "id": "dsp_005",
-    "name": "ラインデルス",
+    "name": "タイアニ・ラインデルス",
     "position": "AM",
     "playstyle": "パサーⅡ",
     "policy": "ムービング",
     "method": "配布SP",
     "rarity": "☆3",
-    "extra_skills": []
+    "extra_skills": ["敵陣を切り裂くパス"]
   },
   {
     "id": "dsp_006",
-    "name": "ハーランド",
+    "name": "アーリング・ハーランド",
     "position": "CF",
     "playstyle": "ストライカーⅡ",
     "policy": "ムービング",
     "method": "配布SP",
     "rarity": "☆3",
-    "extra_skills": []
+    "extra_skills": ["点で合わせるシュート"]
   },
   {
     "id": "dsp_007",
-    "name": "メッシ",
+    "name": "リオネル・メッシ",
     "position": "RW",
     "playstyle": "ドリブラーⅡ",
     "policy": "リアクション",
     "method": "配布SP",
     "rarity": "☆3",
-    "extra_skills": []
+    "extra_skills": ["切り裂くドリブル"]
   },
   {
     "id": "dsp_008",
