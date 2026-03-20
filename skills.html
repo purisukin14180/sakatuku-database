@@ -72,7 +72,12 @@
         .skill-cat-small { font-size: 0.7rem; color: #64748b; font-weight: bold; }
         .skill-name { font-weight: 800; font-size: 1.1rem; margin: 4px 0; color: var(--dark); cursor: pointer; }
         .skill-name:hover { text-decoration: underline; color: var(--primary); }
-        .source-info-simple { font-size: 0.75rem; color: #64748b; }
+        .source-info-simple { font-size: 0.75rem; color: #64748b; margin-top: 2px; }
+        .method-badge { 
+            display: inline-block; padding: 1px 6px; border-radius: 4px; 
+            background: #e2e8f0; color: #475569; font-size: 0.65rem; 
+            font-weight: bold; margin-right: 5px; vertical-align: middle;
+        }
 
         .rarity-金 { color: var(--gold); } .rarity-銀 { color: var(--silver); } .rarity-銅 { color: var(--bronze); } .rarity-緑 { color: var(--green); }
 
@@ -344,7 +349,10 @@
                         <span class="rarity-${s.rarity}">[${s.rarity}]</span> ${s.name}
                         ${isOwned ? '<span class="owned-badge">所持</span>' : ''}
                     </div>
-                    <div class="source-info-simple">習得元: ${s.source || '-'}</div>
+                    <div class="source-info-simple">
+                        <span class="method-badge">${s.method || '不明'}</span>
+                        習得元: ${s.source || '-'}
+                    </div>
                 </div>
                 <div class="btn-group">
                     <button class="action-btn detail-btn" onclick="openModal('${skillData}')">詳細</button>
