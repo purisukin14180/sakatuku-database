@@ -101,7 +101,7 @@
   },
   {
     "id": "wsp_011",
-    "name": "ソン・フンミン",
+    "name": "ソン_フンミン",
     "position": "CF",
     "playstyle": "ラインブレーカーⅢ",
     "policy": "ポゼッション",
@@ -117,7 +117,7 @@
     "policy": "ポゼッション",
     "method": "ワールドSP",
     "rarity": "☆2",
-    "extra_skills": []
+    "extra_skills": ["冴え渡るインターセプト"]
   },
   {
     "id": "wsp_013",
@@ -127,7 +127,7 @@
     "policy": "ポゼッション",
     "method": "ワールドSP",
     "rarity": "☆2",
-    "extra_skills": []
+    "extra_skills": ["ダイナミックタックル"]
   },
   {
     "id": "wsp_014",
@@ -137,7 +137,7 @@
     "policy": "ポゼッション",
     "method": "ワールドSP",
     "rarity": "☆2",
-    "extra_skills": []
+    "extra_skills": ["高速クロス"]
   },
   {
     "id": "wsp_015",
@@ -147,7 +147,7 @@
     "policy": "ポゼッション",
     "method": "ワールドSP",
     "rarity": "☆2",
-    "extra_skills": []
+    "extra_skills": ["華麗なトラップ"]
   },
   {
     "id": "wsp_016",
@@ -157,7 +157,7 @@
     "policy": "ポゼッション",
     "method": "ワールドSP",
     "rarity": "☆2",
-    "extra_skills": []
+    "extra_skills": ["確信のロングシュート"]
   },
   {
     "id": "wsp_017",
@@ -167,7 +167,7 @@
     "policy": "ポゼッション",
     "method": "ワールドSP",
     "rarity": "☆2",
-    "extra_skills": []
+    "extra_skills": ["狙いすましたシュート"]
   },
   {
     "id": "wsp_018",
@@ -177,7 +177,7 @@
     "policy": "ポゼッション",
     "method": "ワールドSP",
     "rarity": "☆2",
-    "extra_skills": []
+    "extra_skills": ["コントロールトラップ"]
   },
   {
     "id": "wsp_019",
@@ -221,7 +221,7 @@
   },
   {
     "id": "wsp_023",
-    "name": "アシュリ―・ヤング",
+    "name": "アシュリー・ヤング",
     "position": "LM",
     "playstyle": "サイドアタッカーⅡ",
     "policy": "カウンター",
@@ -267,7 +267,7 @@
     "policy": "カウンター",
     "method": "ワールドSP",
     "rarity": "☆2",
-    "extra_skills": []
+    "extra_skills": ["驚異的なセービング"]
   },
   {
     "id": "wsp_028",
@@ -277,7 +277,7 @@
     "policy": "カウンター",
     "method": "ワールドSP",
     "rarity": "☆2",
-    "extra_skills": []
+    "extra_skills": ["鋭角的なタックル"]
   },
   {
     "id": "wsp_029",
@@ -287,7 +287,7 @@
     "policy": "カウンター",
     "method": "ワールドSP",
     "rarity": "☆2",
-    "extra_skills": []
+    "extra_skills": ["冴え渡るインターセプト"]
   },
   {
     "id": "wsp_030",
@@ -297,7 +297,7 @@
     "policy": "カウンター",
     "method": "ワールドSP",
     "rarity": "☆2",
-    "extra_skills": []
+    "extra_skills": ["コントロールトラップ"]
   },
   {
     "id": "wsp_031",
@@ -307,7 +307,7 @@
     "policy": "カウンター",
     "method": "ワールドSP",
     "rarity": "☆2",
-    "extra_skills": []
+    "extra_skills": ["確信のロングシュート"]
   },
   {
     "id": "wsp_032",
@@ -450,6 +450,16 @@
     "extra_skills": ["魂のワンタッチ"]
   },
   {
+    "id": "wsp_046",
+    "name": "ティモシー・ウェア",
+    "position": "RM",
+    "playstyle": "サイドアタッカーⅡ",
+    "policy": "リアクション",
+    "method": "ワールドSP",
+    "rarity": "☆2",
+    "extra_skills": ["切り裂くドリブル"]
+  },
+  {
     "id": "wsp_047",
     "name": "ゼノ・デバスト",
     "position": "CB",
@@ -457,7 +467,7 @@
     "policy": "リアクション",
     "method": "ワールドSP",
     "rarity": "☆2",
-    "extra_skills": []
+    "extra_skills": ["意外性のあるミドルパス"]
   },
   {
     "id": "wsp_048",
@@ -467,7 +477,7 @@
     "policy": "リアクション",
     "method": "ワールドSP",
     "rarity": "☆2",
-    "extra_skills": []
+    "extra_skills": ["テクニカルドリブル"]
   },
   {
     "id": "wsp_049",
@@ -477,7 +487,7 @@
     "policy": "リアクション",
     "method": "ワールドSP",
     "rarity": "☆2",
-    "extra_skills": []
+    "extra_skills": ["冴え渡るインターセプト"]
   },
   {
     "id": "wsp_050",
@@ -487,7 +497,7 @@
     "policy": "リアクション",
     "method": "ワールドSP",
     "rarity": "☆2",
-    "extra_skills": []
+    "extra_skills": ["華麗なトラップ"]
   },
   {
     "id": "wsp_051",
@@ -497,7 +507,7 @@
     "policy": "リアクション",
     "method": "ワールドSP",
     "rarity": "☆2",
-    "extra_skills": []
+    "extra_skills": ["強引な中央突破"]
   },
   {
     "id": "wsp_052",
@@ -507,7 +517,7 @@
     "policy": "リアクション",
     "method": "ワールドSP",
     "rarity": "☆2",
-    "extra_skills": []
+    "extra_skills": ["高速クロス"]
   },
   {
     "id": "wsp_053",
@@ -587,7 +597,7 @@
     "policy": "ムービング",
     "method": "ワールドSP",
     "rarity": "☆2",
-    "extra_skills": []
+    "extra_skills": ["コントロールフィード"]
   },
   {
     "id": "wsp_061",
@@ -597,7 +607,7 @@
     "policy": "ムービング",
     "method": "ワールドSP",
     "rarity": "☆2",
-    "extra_skills": []
+    "extra_skills": ["鋭角的なタックル"]
   },
   {
     "id": "wsp_062",
@@ -607,7 +617,7 @@
     "policy": "ムービング",
     "method": "ワールドSP",
     "rarity": "☆2",
-    "extra_skills": []
+    "extra_skills": ["狙いすましたシュート"]
   },
   {
     "id": "wsp_063",
@@ -617,7 +627,7 @@
     "policy": "ムービング",
     "method": "ワールドSP",
     "rarity": "☆2",
-    "extra_skills": []
+    "extra_skills": ["点で合わせるシュート"]
   },
   {
     "id": "wsp_064",
@@ -627,6 +637,16 @@
     "policy": "ムービング",
     "method": "ワールドSP",
     "rarity": "☆2",
-    "extra_skills": []
+    "extra_skills": ["コントロールトラップ"]
+  },
+  {
+    "id": "wsp_065",
+    "name": "佐野航大",
+    "position": "LM",
+    "playstyle": "ドリブラーⅡ",
+    "policy": "カウンター",
+    "method": "ワールドSP",
+    "rarity": "☆2",
+    "extra_skills": ["テクニカルドリブル"]
   }
 ]
