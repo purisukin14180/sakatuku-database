@@ -108,10 +108,16 @@
         .skill-section h3 { font-size: 0.9rem; margin: 0 0 10px 0; color: var(--primary); }
         .slot-list { display: flex; flex-direction: column; gap: 8px; }
         .slot { display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 10px 15px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.85rem; }
+        .slot-name { font-weight: bold; cursor: pointer; color: var(--primary); text-decoration: underline; }
         .slot.empty { border-style: dashed; background: transparent; }
         .slot-btn { padding: 4px 10px; border-radius: 6px; border: none; cursor: pointer; font-size: 0.75rem; font-weight: bold; }
         .btn-add { background: var(--primary); color: white; }
         .btn-remove { background: #ef4444; color: white; }
+
+        /* スキル詳細サブモーダル用 */
+        #skillSubModal .modal-content { max-width: 350px; border: 2px solid var(--primary); z-index: 3000; }
+        .skill-detail-box { margin-top: 10px; padding: 10px; background: #f1f5f9; border-radius: 8px; font-size: 0.8rem; color: #475569; border-left: 4px solid var(--primary); }
+
         .modal-footer { padding: 15px; text-align: center; }
         .close-btn { width: 100%; padding: 12px; background: #f1f5f9; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
 
@@ -159,20 +165,7 @@
     </div>
 
     <div id="field-container">
-        <div class="field" id="field-la-dea">
-            <div class="penalty-top"></div><div class="penalty-bottom"></div>
-            <div class="position" style="top:84%; left:50%;" data-pos="GK">GK</div>
-            <div class="position" style="top:65%; left:20%;" data-pos="LCB">LCB</div>
-            <div class="position" style="top:65%; left:50%;" data-pos="CCB">CCB</div>
-            <div class="position" style="top:65%; left:80%;" data-pos="RCB">RCB</div>
-            <div class="position" style="top:45%; left:35%;" data-pos="LDM">LDM</div>
-            <div class="position" style="top:45%; left:65%;" data-pos="RDM">RDM</div>
-            <div class="position" style="top:32%; left:12%;" data-pos="LM">LM</div>
-            <div class="position" style="top:25%; left:50%;" data-pos="CAM">CAM</div>
-            <div class="position" style="top:32%; left:88%;" data-pos="RM">RM</div>
-            <div class="position" style="top:6%; left:35%;" data-pos="LCF">LCF</div>
-            <div class="position" style="top:6%; left:65%;" data-pos="RCF">RCF</div>
-        </div>
+        <div class="field" id="field-la-dea"><div class="penalty-top"></div><div class="penalty-bottom"></div><div class="position" style="top:84%; left:50%;" data-pos="GK">GK</div><div class="position" style="top:65%; left:20%;" data-pos="LCB">LCB</div><div class="position" style="top:65%; left:50%;" data-pos="CCB">CCB</div><div class="position" style="top:65%; left:80%;" data-pos="RCB">RCB</div><div class="position" style="top:45%; left:35%;" data-pos="LDM">LDM</div><div class="position" style="top:45%; left:65%;" data-pos="RDM">RDM</div><div class="position" style="top:32%; left:12%;" data-pos="LM">LM</div><div class="position" style="top:25%; left:50%;" data-pos="CAM">CAM</div><div class="position" style="top:32%; left:88%;" data-pos="RM">RM</div><div class="position" style="top:6%; left:35%;" data-pos="LCF">LCF</div><div class="position" style="top:6%; left:65%;" data-pos="RCF">RCF</div></div>
         <div class="field" id="field-la-roja"><div class="penalty-top"></div><div class="penalty-bottom"></div><div class="position" style="top:84%; left:50%;" data-pos="GK">GK</div><div class="position" style="top:68%; left:12%;" data-pos="LB">LB</div><div class="position" style="top:68%; left:37%;" data-pos="LCB">LCB</div><div class="position" style="top:68%; left:63%;" data-pos="RCB">RCB</div><div class="position" style="top:68%; left:88%;" data-pos="RB">RB</div><div class="position" style="top:45%; left:30%;" data-pos="LDM">LDM</div><div class="position" style="top:45%; left:70%;" data-pos="RDM">RDM</div><div class="position" style="top:25%; left:50%;" data-pos="AM">AM</div><div class="position" style="top:7%; left:12%;" data-pos="LW">LW</div><div class="position" style="top:5%; left:50%;" data-pos="CF">CF</div><div class="position" style="top:7%; left:88%;" data-pos="RW">RW</div></div>
         <div class="field" id="field-les-bleus"><div class="penalty-top"></div><div class="penalty-bottom"></div><div class="position" style="top:84%; left:50%;" data-pos="GK">GK</div><div class="position" style="top:68%; left:12%;" data-pos="LB">LB</div><div class="position" style="top:68%; left:37%;" data-pos="LCB">LCB</div><div class="position" style="top:68%; left:63%;" data-pos="RCB">RCB</div><div class="position" style="top:68%; left:88%;" data-pos="RB">RB</div><div class="position" style="top:48%; left:22%;" data-pos="LDM">LDM</div><div class="position" style="top:52%; left:50%;" data-pos="CDM">CDM</div><div class="position" style="top:48%; left:78%;" data-pos="RDM">RDM</div><div class="position" style="top:28%; left:50%;" data-pos="AM">AM</div><div class="position" style="top:6%; left:35%;" data-pos="LCF">LCF</div><div class="position" style="top:6%; left:65%;" data-pos="RCF">RCF</div></div>
         <div class="field" id="field-diabolo-milano"><div class="penalty-top"></div><div class="penalty-bottom"></div><div class="position" style="top:84%; left:50%;" data-pos="GK">GK</div><div class="position" style="top:68%; left:22%;" data-pos="LCB">LCB</div><div class="position" style="top:68%; left:50%;" data-pos="CCB">CCB</div><div class="position" style="top:68%; left:78%;" data-pos="RCB">RCB</div><div class="position" style="top:45%; left:35%;" data-pos="LDM">LDM</div><div class="position" style="top:45%; left:65%;" data-pos="RDM">RDM</div><div class="position" style="top:32%; left:12%;" data-pos="LM">LM</div><div class="position" style="top:32%; left:88%;" data-pos="RM">RM</div><div class="position" style="top:7%; left:12%;" data-pos="LW">LW</div><div class="position" style="top:5%; left:50%;" data-pos="CF">CF</div><div class="position" style="top:7%; left:88%;" data-pos="RW">RW</div></div>
@@ -187,15 +180,15 @@
 
     <div class="card admin-card">
         <span class="section-title">スカッド保存・管理</span>
-        <div class="save-controls">
-            <input type="text" id="saveName" placeholder="保存名を入力">
-            <button id="saveFormation">別名で保存</button>
+        <div class="save-controls" style="display: flex; gap: 10px; margin-bottom: 10px;">
+            <input type="text" id="saveName" placeholder="保存名を入力" style="flex: 1; padding: 10px; border-radius: 8px; border: 1px solid var(--border);">
+            <button id="saveFormation" style="padding: 10px 15px; border-radius: 8px; border: none; cursor: pointer;">別名で保存</button>
         </div>
         <div class="save-controls">
-            <select id="loadFormation"></select>
+            <select id="loadFormation" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 10px;"></select>
             <div style="display: flex; width: 100%;">
-                <button id="loadBtn">読込</button>
-                <button id="deleteBtn">消去</button>
+                <button id="loadBtn" style="padding: 12px; border: none; border-radius: 8px; cursor: pointer;">読込</button>
+                <button id="deleteBtn" style="padding: 12px; border: none; border-radius: 8px; cursor: pointer;">消去</button>
             </div>
         </div>
         <br>
@@ -231,10 +224,24 @@
     </div>
 </div>
 
+<div id="skillSubModal" class="modal" style="background: rgba(0,0,0,0.4); z-index: 3000;">
+    <div class="modal-content">
+        <div class="modal-header" style="background: var(--dark); padding: 15px;"><h2 id="subModalSkillName" style="font-size: 1rem;">スキル名</h2></div>
+        <div class="modal-body">
+            <div class="modal-row"><span class="modal-label">レアリティ</span><span id="subModalRarity" class="modal-val"></span></div>
+            <div class="modal-row"><span class="modal-label">習得元</span><span id="subModalSource" class="modal-val"></span></div>
+            <div class="modal-row"><span class="modal-label">方法</span><span id="subModalMethod" class="modal-val"></span></div>
+            <div id="subModalDetail" class="skill-detail-box"></div>
+        </div>
+        <div class="modal-footer"><button class="close-btn" onclick="closeSubModal()">閉じる</button></div>
+    </div>
+</div>
+
 <script>
     let formationState = JSON.parse(localStorage.getItem('formationState')) || {};
     let formationMemos = JSON.parse(localStorage.getItem('formationMemos')) || {};
     let savedFormations = JSON.parse(localStorage.getItem('savedFormations')) || {};
+    let allSkills = [];
     let currentActivePos = null;
 
     const formationSelect = document.getElementById('formationSelect');
@@ -251,56 +258,15 @@
         'ムービング': { color: '#4caf50' }
     };
 
-    // ★フォメコン名・発動効果をフル表記に修正
     const formationData = {
-        'la-dea': { 
-            label: "ラ・デア'22", policy: "ポゼッション", fType: "3-5-2 B", 
-            keyText: "CB(ストッパー Lv.2↑)、RM(ドリブラー Lv.2↑)、LCF(ラインブレイカー Lv.3↑)", 
-            effect: "冷静さ・パスカット・ジャンプ・コンタクト 80%UP", 
-            keys: [{pos:'CCB',s:'ストッパー',l:2,label:'ストッパーⅡ'},{pos:'RM',s:'ドリブラー',l:2,label:'ドリブラーⅡ'},{pos:'LCF',s:'ラインブレイカー',l:3,label:'ラインブレイカーⅢ'}] 
-        },
-        'la-roja': { 
-            label: "ラ・ロハ'24", policy: "ポゼッション", fType: "4-3-3 B", 
-            keyText: "RB(攻撃的FB Lv.2↑)、RDM(パサー Lv.2↑)、RW(ドリブラー Lv.3↑)", 
-            effect: "冷静さ・キック精度・パスカット・コンタクト 80%UP", 
-            keys: [{pos:'RB',s:'攻撃的FB',l:2,label:'攻撃的FBⅡ'},{pos:'RDM',s:'パサー',l:2,label:'パサーⅡ'},{pos:'RW',s:'ドリブラー',l:3,label:'ドリブラーⅢ'}] 
-        },
-        'les-bleus': { 
-            label: "レ・ブルー'98", policy: "カウンター", fType: "4-4-2 D", 
-            keyText: "LB(守備的FB Lv.2↑)、AM(セントラルMF Lv.2↑)、RCF(ストライカー Lv.3↑)", 
-            effect: "キック力・ジャンプ・コンタクト・敏捷性 80%UP", 
-            keys: [{pos:'LB',s:'守備的FB',l:2,label:'守備的FBⅡ'},{pos:'AM',s:'セントラルMF',l:2,label:'セントラルMFⅡ'},{pos:'RCF',s:'ストライカー',l:3,label:'ストライカーⅢ'}] 
-        },
-        'diabolo-milano': { 
-            label: "ディアボロ・ディ・ミラノ'99", policy: "カウンター", fType: "3-4-3 B", 
-            keyText: "RCB(組立CB Lv.2↑)、RDM(セントラルMF Lv.3↑)、LW(ドリブラー Lv.2↑)", 
-            effect: "キック力・突破力・ジャンプ・コンタクト 80%UP", 
-            keys: [{pos:'RCB',s:'組立CB',l:2,label:'組立CBⅡ'},{pos:'RDM',s:'セントラルMF',l:3,label:'セントラルMFⅢ'},{pos:'LW',s:'ドリブラー',l:2,label:'ドリブラーⅡ'}] 
-        },
-        'gorden-zonen': { 
-            label: "ゴーデンゾーネン'94", policy: "リアクション", fType: "3-4-3 C", 
-            keyText: "CB(ストッパー Lv.2↑)、LDM(ハードマーカー Lv.2↑)、RDM(セントラルMF Lv.3↑)", 
-            effect: "キック精度・突破力・コンタクト・スタミナ 80%UP", 
-            keys: [{pos:'CCB',s:'ストッパー',l:2,label:'ストッパーⅡ'},{pos:'LDM',s:'ハードマーカー',l:2,label:'ハードマーカーⅡ'},{pos:'RDM',s:'セントラルMF',l:3,label:'セントラルMFⅢ'}] 
-        },
-        'selecaodas-kinas': { 
-            label: "セレソン・ダス・キナス'16", policy: "リアクション", fType: "4-4-2 A", 
-            keyText: "LB(攻撃的FB Lv.2↑)、LM(サイドアタッカー Lv.2↑)、RCF(ストライカー Lv.3↑)", 
-            effect: "パスカット・ジャンプ・コンタクト・走力 80%UP", 
-            keys: [{pos:'LB',s:'攻撃的FB',l:2,label:'攻撃的FBⅡ'},{pos:'LM',s:'サイドアタッカー',l:2,label:'サイドアタッカーⅡ'},{pos:'RCF',s:'ストライカー',l:3,label:'ストライカーⅢ'}] 
-        },
-        'soberano': { 
-            label: "ソベラーノ'94", policy: "ムービング", fType: "4-4-2 E", 
-            keyText: "LAM(パサー Lv.2↑)、RAM(アタッカー Lv.2↑)、LCF(ストライカー Lv.3↑)", 
-            effect: "キック力・突破力・コンタクト・スタミナ 80%UP", 
-            keys: [{pos:'LAM',s:'パサー',l:2,label:'パサーⅡ'},{pos:'RAM',s:'アタッカー',l:2,label:'アタッカーⅡ'},{pos:'LCF',s:'ストライカー',l:3,label:'ストライカーⅢ'}] 
-        },
-        'albiceleste': { 
-            label: "アルビセレステ'01", policy: "ムービング", fType: "3-4-3 A", 
-            keyText: "LCB(組立CB Lv.2↑)、LM(サイドアタッカー Lv.3↑)、CF(ストライカー Lv.2↑)", 
-            effect: "キック力・突破力・マーク・パスカット 80%UP", 
-            keys: [{pos:'LCB',s:'組立CB',l:2,label:'組立CBⅡ'},{pos:'LM',s:'サイドアタッカー',l:3,label:'サイドアタッカーⅢ'},{pos:'CF',s:'ストライカー',l:2,label:'ストライカーⅡ'}] 
-        }
+        'la-dea': { label: "ラ・デア'22", policy: "ポゼッション", fType: "3-5-2 B", keyText: "CB(ストッパー Lv.2↑)、RM(ドリブラー Lv.2↑)、LCF(ラインブレイカー Lv.3↑)", effect: "冷静さ・パスカット・ジャンプ・コンタクト 80%UP", keys: [{pos:'CCB',s:'ストッパー',l:2,label:'ストッパーⅡ'},{pos:'RM',s:'ドリブラー',l:2,label:'ドリブラーⅡ'},{pos:'LCF',s:'ラインブレイカー',l:3,label:'ラインブレイカーⅢ'}] },
+        'la-roja': { label: "ラ・ロハ'24", policy: "ポゼッション", fType: "4-3-3 B", keyText: "RB(攻撃的FB Lv.2↑)、RDM(パサー Lv.2↑)、RW(ドリブラー Lv.3↑)", effect: "冷静さ・キック精度・パスカット・コンタクト 80%UP", keys: [{pos:'RB',s:'攻撃的FB',l:2,label:'攻撃的FBⅡ'},{pos:'RDM',s:'パサー',l:2,label:'パサーⅡ'},{pos:'RW',s:'ドリブラー',l:3,label:'ドリブラーⅢ'}] },
+        'les-bleus': { label: "レ・ブルー'98", policy: "カウンター", fType: "4-4-2 D", keyText: "LB(守備的FB Lv.2↑)、AM(セントラルMF Lv.2↑)、RCF(ストライカー Lv.3↑)", effect: "キック力・ジャンプ・コンタクト・敏捷性 80%UP", keys: [{pos:'LB',s:'守備的FB',l:2,label:'守備的FBⅡ'},{pos:'AM',s:'セントラルMF',l:2,label:'セントラルMFⅡ'},{pos:'RCF',s:'ストライカー',l:3,label:'ストライカーⅢ'}] },
+        'diabolo-milano': { label: "ディアボロ・ディ・ミラノ'99", policy: "カウンター", fType: "3-4-3 B", keyText: "RCB(組立CB Lv.2↑)、RDM(セントラルMF Lv.3↑)、LW(ドリブラー Lv.2↑)", effect: "キック力・突破力・ジャンプ・コンタクト 80%UP", keys: [{pos:'RCB',s:'組立CB',l:2,label:'組立CBⅡ'},{pos:'RDM',s:'セントラルMF',l:3,label:'セントラルMFⅢ'},{pos:'LW',s:'ドリブラー',l:2,label:'ドリブラーⅡ'}] },
+        'gorden-zonen': { label: "ゴーデンゾーネン'94", policy: "リアクション", fType: "3-4-3 C", keyText: "CB(ストッパー Lv.2↑)、LDM(ハードマーカー Lv.2↑)、RDM(セントラルMF Lv.3↑)", effect: "キック精度・突破力・コンタクト・スタミナ 80%UP", keys: [{pos:'CCB',s:'ストッパー',l:2,label:'ストッパーⅡ'},{pos:'LDM',s:'ハードマーカー',l:2,label:'ハードマーカーⅡ'},{pos:'RDM',s:'セントラルMF',l:3,label:'セントラルMFⅢ'}] },
+        'selecaodas-kinas': { label: "セレソン・ダス・キナス'16", policy: "リアクション", fType: "4-4-2 A", keyText: "LB(攻撃的FB Lv.2↑)、LM(サイドアタッカー Lv.2↑)、RCF(ストライカー Lv.3↑)", effect: "パスカット・ジャンプ・コンタクト・走力 80%UP", keys: [{pos:'LB',s:'攻撃的FB',l:2,label:'攻撃的FBⅡ'},{pos:'LM',s:'サイドアタッカー',l:2,label:'サイドアタッカーⅡ'},{pos:'RCF',s:'ストライカー',l:3,label:'ストライカーⅢ'}] },
+        'soberano': { label: "ソベラーノ'94", policy: "ムービング", fType: "4-4-2 E", keyText: "LAM(パサー Lv.2↑)、RAM(アタッカー Lv.2↑)、LCF(ストライカー Lv.3↑)", effect: "キック力・突破力・コンタクト・スタミナ 80%UP", keys: [{pos:'LAM',s:'パサー',l:2,label:'パサーⅡ'},{pos:'RAM',s:'アタッカー',l:2,label:'アタッカーⅡ'},{pos:'LCF',s:'ストライカー',l:3,label:'ストライカーⅢ'}] },
+        'albiceleste': { label: "アルビセレステ'01", policy: "ムービング", fType: "3-4-3 A", keyText: "LCB(組立CB Lv.2↑)、LM(サイドアタッカー Lv.3↑)、CF(ストライカー Lv.2↑)", effect: "キック力・突破力・マーク・パスカット 80%UP", keys: [{pos:'LCB',s:'組立CB',l:2,label:'組立CBⅡ'},{pos:'LM',s:'サイドアタッカー',l:3,label:'サイドアタッカーⅢ'},{pos:'CF',s:'ストライカー',l:2,label:'ストライカーⅡ'}] }
     };
 
     function getLv(str){ if(!str) return 0; return str.includes('Ⅲ')?3:(str.includes('Ⅱ')?2:1); }
@@ -364,12 +330,34 @@
         let html = "";
         slots.forEach((skillName, index) => {
             if (skillName) {
-                html += `<div class="slot"><span>${skillName}</span><button class="slot-btn btn-remove" onclick="removeSkillInBuilder('${player.name}', ${index})">解除</button></div>`;
+                html += `<div class="slot">
+                            <span class="slot-name" onclick="openSkillSubModal('${skillName}')">${skillName}</span>
+                            <button class="slot-btn btn-remove" onclick="removeSkillInBuilder('${player.name}', ${index})">解除</button>
+                         </div>`;
             } else {
                 html += `<div class="slot empty"><span>未設定</span><button class="slot-btn btn-add" onclick="goToSkillSelectInBuilder('${player.name}', ${index})">＋</button></div>`;
             }
         });
         document.getElementById('modalSlots').innerHTML = html;
+    }
+
+    // ★ 新機能: スキル詳細サブモーダル表示
+    function openSkillSubModal(skillName) {
+        const skill = allSkills.find(s => s.name === skillName);
+        if (!skill) {
+            alert("スキル詳細情報が見つかりません。");
+            return;
+        }
+        document.getElementById('subModalSkillName').innerText = skill.name;
+        document.getElementById('subModalRarity').innerText = skill.rarity || '-';
+        document.getElementById('subModalSource').innerText = skill.source || '-';
+        document.getElementById('subModalMethod').innerText = skill.method || '-';
+        document.getElementById('subModalDetail').innerText = skill.detail || '効果情報なし';
+        document.getElementById('skillSubModal').style.display = 'flex';
+    }
+
+    function closeSubModal() {
+        document.getElementById('skillSubModal').style.display = 'none';
     }
 
     function removeSkillInBuilder(playerName, index) {
@@ -488,7 +476,13 @@
         }
     });
 
-    window.addEventListener('load', () => {
+    async function init() {
+        // スキルデータの読み込み
+        try {
+            const skillRes = await fetch('skills.json');
+            if (skillRes.ok) allSkills = await skillRes.json();
+        } catch (e) { console.error("Skill Data Load Error:", e); }
+
         const lastF = localStorage.getItem('lastFormation') || 'la-dea';
         formationSelect.value = lastF;
         formationSelect.dispatchEvent(new Event('change'));
@@ -516,7 +510,7 @@
             }
         }
         updateSelect();
-    });
+    }
 
     memoArea.addEventListener('input', () => {
         const f = formationSelect.value;
@@ -531,11 +525,11 @@
 
     document.getElementById('saveFormation').addEventListener('click', () => {
         const n = document.getElementById('saveName').value.trim();
-        if(!n) return alert('名入力');
+        if(!n) return alert('保存名を入力してください');
         const f = formationSelect.value;
         savedFormations[n] = { formation: f, players: JSON.parse(JSON.stringify(formationState[f]||{})), memo: memoArea.value };
         localStorage.setItem('savedFormations', JSON.stringify(savedFormations));
-        updateSelect(); alert('保存');
+        updateSelect(); alert('保存しました');
     });
 
     document.getElementById('loadBtn').addEventListener('click', () => {
@@ -555,15 +549,21 @@
 
     document.getElementById('deleteBtn').addEventListener('click', () => {
         const n = document.getElementById('loadFormation').value; if(!n) return;
-        if(confirm('消去？')) { delete savedFormations[n]; localStorage.setItem('savedFormations', JSON.stringify(savedFormations)); updateSelect(); }
+        if(confirm('このスカッドを削除しますか？')) { delete savedFormations[n]; localStorage.setItem('savedFormations', JSON.stringify(savedFormations)); updateSelect(); }
     });
 
     window.onclick = (e) => {
         if (e.target.classList.contains('modal')) {
-            closeActionModal();
-            closeDetailModal();
+            if (e.target.id === 'skillSubModal') {
+                closeSubModal();
+            } else {
+                closeActionModal();
+                closeDetailModal();
+            }
         }
     }
+
+    init();
 </script>
 </body>
 </html>

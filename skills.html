@@ -7,7 +7,7 @@
     <style>
         :root {
             --primary: #007bff;
-            --accent: #007bff;
+            --accent: #00bcd4;
             --dark: #222;
             --light-bg: #f8fafc;
             --border: #e2e8f0;
@@ -20,10 +20,7 @@
 
         body {
             font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
-            margin: 0; padding: 0; background-color: var(--light-bg);
-            background-image: radial-gradient(#d1d9e0 1px, transparent 1px);
-            background-size: 20px 20px;
-            color: #333; line-height: 1.6;
+            margin: 0; padding: 0; background-color: var(--light-bg); color: #333; line-height: 1.6;
         }
 
         /* ===== ナビゲーション ===== */
@@ -32,98 +29,82 @@
             background: var(--dark); color: #fff; height: 60px; padding: 0 15px;
             position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
-
         .logo {
             font-weight: 800; font-size: 0.95rem; background: linear-gradient(90deg, #4fc3f7, #007bff);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            text-decoration: none; margin-right: 15px;
+            flex-shrink: 0; text-decoration: none; margin-right: 15px;
         }
-
         .nav-links { display: flex; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; gap: 5px; }
-        .nav-links::-webkit-scrollbar { display: none; }
-        .nav-links a { color: #fff; text-decoration: none; padding: 8px 10px; font-size: 0.8rem; font-weight: 600; border-radius: 5px; transition: opacity 0.2s; }
+        .nav-links a { color: #fff; text-decoration: none; padding: 8px 10px; font-size: 0.8rem; font-weight: 600; border-radius: 5px; }
         .nav-links a.current { background: rgba(255,255,255,0.15); }
 
-        /* ===== 付与モード通知バナー ===== */
-        .assign-banner {
-            background: #fff9c4; color: #856404; padding: 10px; text-align: center;
-            font-size: 0.85rem; font-weight: bold; border-bottom: 2px solid #fff176;
-            display: none; /* 通常は非表示 */
-        }
-
-        /* ===== ページヘッダー ===== */
-        .page-header {
-            text-align: center; padding: 40px 20px 60px;
-            background: var(--bg-gradient); color: #fff;
-            clip-path: ellipse(160% 100% at 50% 0%);
-        }
-        .page-header h1 { font-size: 1.8em; margin: 0; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        .assign-banner { background: #fff9c4; color: #856404; padding: 10px; text-align: center; font-size: 0.85rem; font-weight: bold; border-bottom: 2px solid #fff176; position: sticky; top: 60px; z-index: 999; }
 
         /* ===== レイアウト ===== */
-        .container { max-width: 900px; margin: -20px auto 40px; padding: 0 15px; }
+        .container { display: flex; max-width: 1400px; margin: 0 auto; min-height: calc(100vh - 60px); }
 
-        /* ===== 検索カード ===== */
-        .search-card { 
-            background: #fff; padding: 20px; border-radius: 15px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 20px;
-            border: 1px solid var(--border);
+        /* ===== サイドバー ===== */
+        .sidebar { 
+            width: 320px; background: #fff; padding: 20px; border-right: 1px solid var(--border); 
+            overflow-y: auto; height: calc(100vh - 60px); position: sticky; top: 60px; box-sizing: border-box; 
         }
-        
-        .search-row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 15px; }
-        
-        input, select { 
-            padding: 12px; border: 1px solid var(--border); border-radius: 8px; 
-            font-size: 16px; background: #f1f5f9; box-sizing: border-box;
-        }
-        .flex-1 { flex: 1; min-width: 140px; }
+        .sidebar h3 { font-size: 1.1rem; margin-top: 0; color: var(--dark); border-left: 4px solid var(--primary); padding-left: 10px; margin-bottom: 20px; }
+        #nameSearch { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 20px; font-size: 0.9rem; background: #f1f5f9; box-sizing: border-box; }
+        .filter-section { margin-bottom: 10px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
+        .filter-title { font-size: 0.85rem; font-weight: bold; cursor: pointer; background: #f8fafc; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; }
+        .filter-options { display: none; padding: 10px; background: #fff; max-height: 450px; overflow-y: auto; }
+        .filter-btn { padding: 6px 10px; margin: 2px; border: 1px solid var(--border); background: #fff; cursor: pointer; font-size: 0.75rem; border-radius: 6px; transition: 0.2s; }
+        .filter-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+        .cat-group-label { display: block; font-size: 0.7rem; color: #007bff; font-weight: bold; margin: 12px 0 6px 4px; border-bottom: 1px solid #e2e8f0; padding-bottom: 2px; }
 
-        .rarity-金 { color: var(--gold); font-weight: 800; }
-        .rarity-銀 { color: var(--silver); font-weight: 800; }
-        .rarity-銅 { color: var(--bronze); font-weight: 800; }
-        .rarity-緑 { color: var(--green); font-weight: 800; }
+        /* ===== メインコンテンツ ===== */
+        .main { flex: 1; padding: 20px; background: #fff; }
+        .main h1 { font-size: 1.5rem; margin-top: 0; color: var(--dark); }
 
-        /* ===== スキルリスト ===== */
+        /* スキルリスト */
         .skill-item { 
             background: #fff; border-left: 6px solid var(--primary); padding: 16px; 
             margin-bottom: 12px; border-radius: 10px; display: flex; 
             justify-content: space-between; align-items: center; 
             box-shadow: 0 4px 6px rgba(0,0,0,0.02); border: 1px solid var(--border);
         }
-
         .skill-info { flex: 1; padding-right: 15px; }
         .skill-cat-small { font-size: 0.7rem; color: #64748b; font-weight: bold; }
-        .skill-name { font-weight: 800; font-size: 1.1rem; margin: 4px 0; color: var(--dark); }
-        .skill-detail { font-size: 0.85rem; color: #475569; margin-bottom: 8px; background: #f8fafc; padding: 8px; border-radius: 6px; }
-        .source-info { font-size: 0.75rem; color: var(--primary); font-weight: 600; }
+        .skill-name { font-weight: 800; font-size: 1.1rem; margin: 4px 0; color: var(--dark); cursor: pointer; }
+        .skill-name:hover { text-decoration: underline; color: var(--primary); }
+        .source-info-simple { font-size: 0.75rem; color: #64748b; }
 
-        /* ===== ボタン類 ===== */
-        .btn-group { display: flex; flex-direction: column; gap: 8px; min-width: 100px; }
-        .btn-own { 
-            padding: 10px 16px; border-radius: 8px; border: none; 
-            cursor: pointer; transition: 0.2s; font-size: 0.8rem; font-weight: bold;
-        }
-        .btn-assign {
-            padding: 10px 16px; border-radius: 8px; background: var(--primary); color: #fff;
-            border: none; cursor: pointer; font-size: 0.8rem; font-weight: bold; display: none;
-        }
-        .is-not-owned { background: #f1f5f9; color: #64748b; border: 1px solid var(--border); }
-        .is-owned { background: var(--green); color: #fff; }
-        
-        .owned-badge { 
-            background: #fbbf24; color: #78350f; font-size: 0.65rem; 
-            padding: 2px 6px; border-radius: 4px; font-weight: 800; 
-            margin-left: 6px; vertical-align: middle;
-        }
+        .rarity-金 { color: var(--gold); } .rarity-銀 { color: var(--silver); } .rarity-銅 { color: var(--bronze); } .rarity-緑 { color: var(--green); }
 
-        /* ===== フッター ===== */
-        footer { text-align: center; padding: 40px 15px; background: var(--dark); color: #999; }
-        .footer-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; font-size: 0.8rem; margin-bottom: 15px; }
-        .footer-nav a { color: var(--accent); text-decoration: none; }
-        .copyright { font-size: 0.75rem; }
+        .btn-group { display: flex; flex-direction: column; gap: 6px; min-width: 100px; }
+        .action-btn { padding: 8px 10px; cursor: pointer; border: 1px solid var(--border); border-radius: 6px; font-size: 0.7rem; font-weight: bold; background: #fff; }
+        .action-btn.is-owned { background: #fef3c7; border-color: #fbbf24; color: #92400e; }
+        .action-btn.detail-btn { background: var(--primary); color: white; border: none; }
+        .action-btn.assign-btn { background: var(--green); color: white; border: none; }
 
-        @media (max-width: 600px) {
+        .owned-badge { background: #fbbf24; color: #78350f; font-size: 0.65rem; padding: 2px 6px; border-radius: 4px; font-weight: 800; margin-left: 6px; }
+
+        /* ===== 詳細モーダル ===== */
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; }
+        .modal-content { background: white; width: 100%; max-width: 450px; border-radius: 16px; overflow: hidden; animation: slideUp 0.3s ease-out; }
+        .modal-header { background: var(--bg-gradient); color: white; padding: 20px; text-align: center; }
+        .modal-header h2 { margin: 0; font-size: 1.2rem; }
+        .modal-body { padding: 20px; }
+        .modal-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f1f5f9; }
+        .modal-label { font-weight: bold; color: #64748b; font-size: 0.85rem; }
+        .modal-val { font-weight: 600; color: var(--dark); text-align: right; flex: 1; padding-left: 10px; }
+        .modal-detail-box { margin-top: 15px; background: #f8fafc; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 0.9rem; line-height: 1.5; color: #334155; }
+        .modal-footer { padding: 15px; text-align: center; }
+        .close-btn { width: 100%; padding: 12px; background: #f1f5f9; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
+
+        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        @media (max-width: 900px) { 
+            .container { flex-direction: column; } 
+            .sidebar { width: 100%; border-right: none; height: auto; position: relative; top: 0; }
             .skill-item { flex-direction: column; align-items: flex-start; }
-            .btn-group { width: 100%; margin-top: 12px; }
+            .btn-group { width: 100%; margin-top: 12px; flex-direction: row; flex-wrap: wrap; }
+            .btn-group button { flex: 1; min-width: 80px; }
         }
     </style>
 </head>
@@ -140,82 +121,95 @@
     </nav>
 </header>
 
-<div id="assignBanner" class="assign-banner">
+<div id="assignBanner" class="assign-banner" style="display:none;">
     <span id="targetPlayerName"></span> のスキル枠 <span id="targetSlotNum"></span> を選択中
-    <button onclick="cancelAssign()" style="margin-left:10px; font-size:0.7rem; cursor:pointer;">キャンセル</button>
-</div>
-
-<div class="page-header">
-    <h1>スキル検索</h1>
+    <button class="action-btn" onclick="cancelAssign()" style="margin-left:10px;">キャンセル</button>
 </div>
 
 <div class="container">
-    <div class="search-card">
-        <div class="search-row">
-            <input type="text" id="nameSearch" placeholder="スキル・選手・効果で検索..." class="flex-1">
-            <select id="rarityFilter" class="flex-1">
-                <option value="">すべてのレア度</option>
-                <option value="金">金 </option>
-                <option value="銀">銀 </option>
-                <option value="銅">銅 </option>
-                <option value="緑">緑 </option>
-            </select>
-        </div>
-        <div class="search-row">
-            <select id="typeFilter" class="flex-1" onchange="updateSmallCatOptions()">
-                <option value="">すべてのカテゴリ</option>
-                <option value="シュート">シュート</option>
-                <option value="ドリブル">ドリブル</option>
-                <option value="パス">パス</option>
-                <option value="トラップ">トラップ</option>
-                <option value="コンタクト">コンタクト</option>
-                <option value="タックル">タックル</option>
-                <option value="パスカット">パスカット</option>
-                <option value="GKセーブ">GKセーブ</option>
-                <option value="GK飛び出し">GK飛び出し</option>
-            </select>
-            <select id="smallCatFilter" class="flex-1">
-                <option value="">すべての詳細種別</option>
-            </select>
-        </div>
-        <div class="search-row">
-            <select id="methodFilter" class="flex-1">
-                <option value="">すべての習得方法</option>
-                <option value="継承">継承</option>
-                <option value="期限付き移籍">期限付き移籍</option>
-                <option value="固有">固有</option>
-                <option value="SR">SR選手</option>
-                <option value="SSR">SSR選手</option>
-            </select>
-            <div style="flex: 1; display: flex; align-items: center; justify-content: flex-end; font-size: 0.85rem; font-weight: 600;">
-                <label style="cursor: pointer;"><input type="checkbox" id="ownedOnly" style="width: auto; margin-right: 5px;"> 所持のみ表示</label>
+    <div class="sidebar">
+        <h3>スキル絞り込み</h3>
+        <input type="text" id="nameSearch" placeholder="スキル名・詳細で検索..." oninput="saveFilters(); renderSkills();">
+
+        <div class="filter-section">
+            <div class="filter-title">表示設定</div>
+            <div style="padding:10px;">
+                <button id="showAll" class="filter-btn active" onclick="toggleOwnedFilter('all')">全表示</button>
+                <button id="showOwned" class="filter-btn" onclick="toggleOwnedFilter('owned')">所持のみ</button>
             </div>
         </div>
+
+        <div class="filter-section">
+            <div class="filter-title" onclick="toggleSection('raritySection')">レアリティ <span>▼</span></div>
+            <div id="raritySection" class="filter-options">
+                <button class="filter-btn" data-type="rarity" data-value="金" onclick="toggleFilter('rarity','金')">金</button>
+                <button class="filter-btn" data-type="rarity" data-value="銀" onclick="toggleFilter('rarity','銀')">銀</button>
+                <button class="filter-btn" data-type="rarity" data-value="銅" onclick="toggleFilter('rarity','銅')">銅</button>
+                <button class="filter-btn" data-type="rarity" data-value="緑" onclick="toggleFilter('rarity','緑')">緑</button>
+            </div>
+        </div>
+
+        <div class="filter-section">
+            <div class="filter-title" onclick="toggleSection('typeSection')">カテゴリ <span>▼</span></div>
+            <div id="typeSection" class="filter-options">
+                <button class="filter-btn" data-type="type" data-value="シュート" onclick="toggleFilter('type','シュート')">シュート</button>
+                <button class="filter-btn" data-type="type" data-value="ドリブル" onclick="toggleFilter('type','ドリブル')">ドリブル</button>
+                <button class="filter-btn" data-type="type" data-value="パス" onclick="toggleFilter('type','パス')">パス</button>
+                <button class="filter-btn" data-type="type" data-value="トラップ" onclick="toggleFilter('type','トラップ')">トラップ</button>
+                <button class="filter-btn" data-type="type" data-value="コンタクト" onclick="toggleFilter('type','コンタクト')">コンタクト</button>
+                <button class="filter-btn" data-type="type" data-value="タックル" onclick="toggleFilter('type','タックル')">タックル</button>
+                <button class="filter-btn" data-type="type" data-value="パスカット" onclick="toggleFilter('type','パスカット')">パスカット</button>
+                <button class="filter-btn" data-type="type" data-value="GKセーブ" onclick="toggleFilter('type','GKセーブ')">GKセーブ</button>
+                <button class="filter-btn" data-type="type" data-value="GK飛び出し" onclick="toggleFilter('type','GK飛び出し')">GK飛び出し</button>
+            </div>
+        </div>
+
+        <div class="filter-section">
+            <div class="filter-title" onclick="toggleSection('smallCatSection')">詳細種別 <span>▼</span></div>
+            <div id="smallCatSection" class="filter-options">
+                <div id="smallCatContainer"></div>
+            </div>
+        </div>
+
+        <div class="filter-section">
+            <div class="filter-title" onclick="toggleSection('methodSection')">習得方法 <span>▼</span></div>
+            <div id="methodSection" class="filter-options">
+                <button class="filter-btn" data-type="method" data-value="継承" onclick="toggleFilter('method','継承')">継承</button>
+                <button class="filter-btn" data-type="method" data-value="期限付き移籍" onclick="toggleFilter('method','期限付き移籍')">期限付き</button>
+                <button class="filter-btn" data-type="method" data-value="固有" onclick="toggleFilter('method','固有')">固有</button>
+                <button class="filter-btn" data-type="method" data-value="SR" onclick="toggleFilter('method','SR')">SR選手</button>
+                <button class="filter-btn" data-type="method" data-value="SSR" onclick="toggleFilter('method','SSR')">SSR選手</button>
+            </div>
+        </div>
+
+        <button class="action-btn" style="width:100%; margin-top:10px; padding:12px;" onclick="resetFilters()">条件リセット</button>
     </div>
 
-    <div id="skillList">読み込み中...</div>
+    <div class="main">
+        <h1>スキルデータベース</h1>
+        <div id="skillList">読み込み中...</div>
+    </div>
 </div>
 
-<footer>
-    <div class="footer-nav">
-        <a href="index.html">ホーム</a>
-        <a href="builder.html">スカッド</a>
-        <a href="formation-search.html">フォメコン検索</a>
-        <a href="search.html">選手検索</a>
-        <a href="skills.html">スキル検索</a>
+<div id="skillDetailModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header"><h2 id="modalSkillName">スキル名</h2></div>
+        <div class="modal-body">
+            <div class="modal-row"><span class="modal-label">レアリティ</span><span id="modalRarity" class="modal-val"></span></div>
+            <div class="modal-row"><span class="modal-label">カテゴリ</span><span id="modalCategory" class="modal-val"></span></div>
+            <div class="modal-row"><span class="modal-label">習得方法</span><span id="modalMethod" class="modal-val"></span></div>
+            <div class="modal-row"><span class="modal-label">習得元</span><span id="modalSource" class="modal-val"></span></div>
+            <div id="modalDetail" class="modal-detail-box"></div>
+        </div>
+        <div class="modal-footer"><button class="close-btn" onclick="closeModal()">閉じる</button></div>
     </div>
-    <p class="copyright">&copy; 2026 プリスキンのサカつくDB</p>
-</footer>
+</div>
 
 <script>
     let allSkills = [];
     let mySkills = JSON.parse(localStorage.getItem('mySkills')) || [];
-    
-    // URLから情報を取得
-    const urlParams = new URLSearchParams(window.location.search);
-    const targetPid = urlParams.get('pid');
-    const targetSlot = urlParams.get('slot');
-    const fromBuilder = urlParams.get('from') === 'builder'; // builderからの遷移か判定
+    let filters = { rarity: [], type: [], smallCat: [], method: [] };
+    let showMode = 'all';
 
     const categoryMap = {
         "シュート": ["ゴール前でのダイレクトシュート", "ゴール前でのシュート", "エリア外からのロングシュート", "ゴール前でのヘディングシュート", "直接ゴールを狙うFK"],
@@ -229,7 +223,12 @@
         "GK飛び出し": ["冷静な飛び出し"]
     };
 
-    async function loadSkillData() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const targetPid = urlParams.get('pid');
+    const targetSlot = urlParams.get('slot');
+    const fromBuilder = urlParams.get('from') === 'builder';
+
+    async function init() {
         if (targetPid && targetSlot !== null) {
             document.getElementById('assignBanner').style.display = 'block';
             document.getElementById('targetPlayerName').innerText = targetPid;
@@ -239,56 +238,92 @@
         try {
             const response = await fetch('skills.json');
             allSkills = await response.json();
-            updateSmallCatOptions();
+            loadFilters();
+            updateSmallCatButtons();
             renderSkills();
         } catch (error) {
             document.getElementById('skillList').innerHTML = '<div style="text-align:center; padding:40px; color:#64748b;">skills.jsonが見つかりません。</div>';
         }
     }
 
-    function updateSmallCatOptions() {
-        const typeVal = document.getElementById('typeFilter').value;
-        const smallCatSelect = document.getElementById('smallCatFilter');
-        smallCatSelect.innerHTML = '<option value="">すべての詳細種別</option>';
-        if (typeVal && categoryMap[typeVal]) {
-            categoryMap[typeVal].forEach(cat => {
-                const opt = document.createElement('option');
-                opt.value = cat;
-                opt.textContent = cat;
-                smallCatSelect.appendChild(opt);
+    function toggleSection(id) {
+        const el = document.getElementById(id);
+        el.style.display = (el.style.display === "block") ? "none" : "block";
+    }
+
+    function updateSmallCatButtons() {
+        const container = document.getElementById('smallCatContainer');
+        container.innerHTML = "";
+        const selectedTypes = filters.type.length > 0 ? filters.type : Object.keys(categoryMap);
+        selectedTypes.forEach(type => {
+            if (!categoryMap[type]) return;
+            const label = document.createElement('span');
+            label.className = 'cat-group-label'; label.innerText = type;
+            container.appendChild(label);
+            categoryMap[type].forEach(cat => {
+                const btn = document.createElement('button');
+                btn.className = 'filter-btn'; btn.dataset.type = 'smallCat'; btn.dataset.value = cat; btn.innerText = cat;
+                btn.onclick = () => toggleFilter('smallCat', cat);
+                if (filters.smallCat.includes(cat)) btn.classList.add('active');
+                container.appendChild(btn);
             });
+        });
+    }
+
+    function toggleFilter(type, value) {
+        if (filters[type].includes(value)) filters[type] = filters[type].filter(v => v !== value);
+        else filters[type].push(value);
+        if (type === 'type') updateSmallCatButtons();
+        updateFilterButtons(); saveFilters(); renderSkills();
+    }
+
+    function toggleOwnedFilter(mode) {
+        showMode = mode; updateFilterButtons(); saveFilters(); renderSkills();
+    }
+
+    function updateFilterButtons() {
+        document.querySelectorAll(".filter-btn[data-type]").forEach(btn => {
+            const type = btn.dataset.type; const val = btn.dataset.value;
+            btn.classList.toggle("active", filters[type].includes(val));
+        });
+        document.getElementById('showAll').classList.toggle('active', showMode === 'all');
+        document.getElementById('showOwned').classList.toggle('active', showMode === 'owned');
+    }
+
+    function resetFilters() {
+        filters = { rarity: [], type: [], smallCat: [], method: [] };
+        showMode = 'all'; document.getElementById('nameSearch').value = "";
+        updateSmallCatButtons(); updateFilterButtons(); saveFilters(); renderSkills();
+    }
+
+    function saveFilters() {
+        localStorage.setItem('skillSearchFilters_v4', JSON.stringify({ filters, showMode, name: document.getElementById('nameSearch').value }));
+    }
+
+    function loadFilters() {
+        const saved = JSON.parse(localStorage.getItem('skillSearchFilters_v4'));
+        if (saved) {
+            filters = saved.filters || filters;
+            showMode = saved.showMode || 'all';
+            document.getElementById('nameSearch').value = saved.name || "";
+            updateFilterButtons();
         }
-        renderSkills();
     }
 
     function renderSkills() {
         const list = document.getElementById('skillList');
         const nameQuery = document.getElementById('nameSearch').value.toLowerCase();
-        const rarityQuery = document.getElementById('rarityFilter').value;
-        const typeQuery = document.getElementById('typeFilter').value;
-        const smallCatQuery = document.getElementById('smallCatFilter').value;
-        const methodQuery = document.getElementById('methodFilter').value;
-        const ownedOnly = document.getElementById('ownedOnly').checked;
-
         const filtered = allSkills.filter(s => {
             const isOwned = mySkills.includes(s.name);
-            const matchSearch = s.name.toLowerCase().includes(nameQuery) || 
-                                (s.source && s.source.toLowerCase().includes(nameQuery)) || 
-                                (s.detail && s.detail.toLowerCase().includes(nameQuery));
-            const matchRarity = !rarityQuery || s.rarity === rarityQuery;
-            const matchType = !typeQuery || s.type === typeQuery;
-            const matchSmallCat = !smallCatQuery || s.smallCat === smallCatQuery;
-            const matchOwned = !ownedOnly || isOwned;
-
+            const matchSearch = s.name.toLowerCase().includes(nameQuery) || (s.source && s.source.toLowerCase().includes(nameQuery)) || (s.detail && s.detail.toLowerCase().includes(nameQuery));
+            const matchRarity = filters.rarity.length === 0 || filters.rarity.includes(s.rarity);
+            const matchType = filters.type.length === 0 || filters.type.includes(s.type);
+            const matchSmallCat = filters.smallCat.length === 0 || filters.smallCat.includes(s.smallCat);
+            const matchOwned = showMode === 'all' || isOwned;
             let matchMethod = true;
-            if (methodQuery) {
+            if (filters.method.length > 0) {
                 const combinedText = (s.method || '') + ' ' + (s.source || '');
-                if (methodQuery === 'SR') {
-                    const regexSR = /SR(?![S])/;
-                    matchMethod = regexSR.test(combinedText);
-                } else {
-                    matchMethod = combinedText.includes(methodQuery);
-                }
+                matchMethod = filters.method.some(m => m === 'SR' ? /SR(?![S])/.test(combinedText) : combinedText.includes(m));
             }
             return matchSearch && matchRarity && matchType && matchSmallCat && matchMethod && matchOwned;
         });
@@ -299,26 +334,23 @@
             const isOwned = mySkills.includes(s.name);
             const div = document.createElement('div');
             div.className = 'skill-item';
-            const assignBtnHtml = (targetPid && targetSlot !== null) 
-                ? `<button class="btn-assign" style="display:block;" onclick="assignSkill('${s.name}')">このスキルを付与</button>` 
-                : '';
+            const skillData = encodeURIComponent(JSON.stringify(s));
+            const assignBtnHtml = (targetPid && targetSlot !== null) ? `<button class="action-btn assign-btn" onclick="assignSkill('${s.name}')">付与</button>` : '';
 
             div.innerHTML = `
                 <div class="skill-info">
                     <span class="skill-cat-small">${s.type} ＞ ${s.smallCat}</span>
-                    <div class="skill-name">
+                    <div class="skill-name" onclick="openModal('${skillData}')">
                         <span class="rarity-${s.rarity}">[${s.rarity}]</span> ${s.name}
                         ${isOwned ? '<span class="owned-badge">所持</span>' : ''}
                     </div>
-                    ${s.detail ? `<div class="skill-detail">${s.detail}</div>` : ''}
-                    <div class="source-info">
-                        習得元: ${s.source || '-'} <span style="color:#94a3b8; margin:0 5px;">|</span> 方法: ${s.method || '-'}
-                    </div>
+                    <div class="source-info-simple">習得元: ${s.source || '-'}</div>
                 </div>
                 <div class="btn-group">
+                    <button class="action-btn detail-btn" onclick="openModal('${skillData}')">詳細</button>
                     ${assignBtnHtml}
-                    <button class="btn-own ${isOwned ? 'is-owned' : 'is-not-owned'}" onclick="toggleOwn('${s.name}')">
-                        ${isOwned ? '✓ 所持中にする' : '未所持にする'}
+                    <button class="action-btn ${isOwned ? 'is-owned' : ''}" onclick="toggleOwn('${s.name}')">
+                        ${isOwned ? '✓ 手持' : '手持'}
                     </button>
                 </div>
             `;
@@ -326,30 +358,30 @@
         });
     }
 
-    // ★ 修正: 戻り先を動的に変更
-    function assignSkill(skillName) {
-        if (!targetPid || targetSlot === null) return;
-        
-        let equipped = JSON.parse(localStorage.getItem('equippedSkills')) || {};
-        if (!equipped[targetPid]) {
-            equipped[targetPid] = [null, null, null, null];
-        }
-        
-        equipped[targetPid][targetSlot] = skillName;
-        localStorage.setItem('equippedSkills', JSON.stringify(equipped));
-        
-        const returnPage = fromBuilder ? 'builder.html' : 'search.html';
-        alert(`${targetPid} に 「${skillName}」 をセットしました。`);
-        location.href = `${returnPage}?pid=${encodeURIComponent(targetPid)}`; 
+    function openModal(encodedData) {
+        const s = JSON.parse(decodeURIComponent(encodedData));
+        document.getElementById('modalSkillName').innerText = s.name;
+        document.getElementById('modalRarity').innerText = s.rarity;
+        document.getElementById('modalCategory').innerText = `${s.type} / ${s.smallCat}`;
+        document.getElementById('modalMethod').innerText = s.method || '-';
+        document.getElementById('modalSource').innerText = s.source || '-';
+        document.getElementById('modalDetail').innerText = s.detail || '効果詳細情報なし';
+        document.getElementById('skillDetailModal').style.display = 'flex';
     }
 
-    // ★ 修正: キャンセル時も正しいページに戻る
-    function cancelAssign() {
-        const returnPage = fromBuilder ? 'builder.html' : 'search.html';
-        if(confirm("スキル付与をキャンセルして戻りますか？")) {
-            location.href = `${returnPage}?pid=${encodeURIComponent(targetPid)}`;
-        }
+    function closeModal() { document.getElementById('skillDetailModal').style.display = 'none'; }
+    window.onclick = (e) => { if (e.target == document.getElementById('skillDetailModal')) closeModal(); }
+
+    function assignSkill(skillName) {
+        if (!targetPid || targetSlot === null) return;
+        let equipped = JSON.parse(localStorage.getItem('equippedSkills')) || {};
+        if (!equipped[targetPid]) equipped[targetPid] = [null, null, null, null];
+        equipped[targetPid][targetSlot] = skillName;
+        localStorage.setItem('equippedSkills', JSON.stringify(equipped));
+        location.href = `${fromBuilder ? 'builder.html' : 'search.html'}?pid=${encodeURIComponent(targetPid)}`; 
     }
+
+    function cancelAssign() { location.href = `${fromBuilder ? 'builder.html' : 'search.html'}?pid=${encodeURIComponent(targetPid)}`; }
 
     function toggleOwn(skillName) {
         const index = mySkills.indexOf(skillName);
@@ -359,11 +391,7 @@
         renderSkills();
     }
 
-    ['nameSearch', 'rarityFilter', 'smallCatFilter', 'methodFilter', 'ownedOnly'].forEach(id => {
-        document.getElementById(id).addEventListener(id === 'nameSearch' ? 'input' : 'change', renderSkills);
-    });
-
-    loadSkillData();
+    init();
 </script>
 </body>
 </html>

@@ -98,7 +98,7 @@
         
         .name-link { color: var(--primary); font-weight: bold; cursor: pointer; text-decoration: none; }
 
-        /* ===== 詳細モーダル ===== */
+        /* ===== モーダル共通 ===== */
         .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; }
         .modal-content { background: white; width: 100%; max-width: 400px; border-radius: 16px; overflow: hidden; animation: slideUp 0.3s ease-out; max-height: 90vh; overflow-y: auto; }
         .modal-header { background: var(--bg-gradient); color: white; padding: 20px; text-align: center; }
@@ -112,10 +112,15 @@
         .skill-section h3 { font-size: 0.9rem; margin: 0 0 10px 0; color: var(--primary); }
         .slot-list { display: flex; flex-direction: column; gap: 8px; }
         .slot { display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 10px 15px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.85rem; }
-        .slot.empty { border-style: dashed; background: transparent; }
+        .slot-name { font-weight: bold; cursor: pointer; color: var(--primary); text-decoration: underline; }
+        .slot.empty { border-style: dashed; background: transparent; cursor: default; }
         .slot-btn { padding: 4px 10px; border-radius: 6px; border: none; cursor: pointer; font-size: 0.75rem; font-weight: bold; }
         .btn-add { background: var(--primary); color: white; }
         .btn-remove { background: #ef4444; color: white; }
+
+        /* スキル詳細モーダル用 */
+        #skillSubModal .modal-content { max-width: 350px; border: 2px solid var(--primary); }
+        .skill-detail-box { margin-top: 10px; padding: 10px; background: #f1f5f9; border-radius: 8px; font-size: 0.8rem; color: #475569; border-left: 4px solid var(--primary); }
 
         .modal-footer { padding: 15px; text-align: center; }
         .close-btn { width: 100%; padding: 12px; background: #f1f5f9; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
@@ -325,7 +330,7 @@
         <div class="main">
             <h1>選手検索データベース</h1>
             <div class="table-wrapper">
-                <table>
+                <table id="playerTable">
                     <thead>
                         <tr>
                             <th>名前</th>
@@ -362,8 +367,22 @@
         </div>
     </div>
 
+    <div id="skillSubModal" class="modal" style="background: rgba(0,0,0,0.4); z-index: 3000;">
+        <div class="modal-content">
+            <div class="modal-header" style="background: var(--dark); padding: 15px;"><h2 id="subModalSkillName" style="font-size: 1rem;">スキル名</h2></div>
+            <div class="modal-body">
+                <div class="modal-row"><span class="modal-label">レアリティ</span><span id="subModalRarity" class="modal-val"></span></div>
+                <div class="modal-row"><span class="modal-label">習得元</span><span id="subModalSource" class="modal-val"></span></div>
+                <div class="modal-row"><span class="modal-label">方法</span><span id="subModalMethod" class="modal-val"></span></div>
+                <div id="subModalDetail" class="skill-detail-box"></div>
+            </div>
+            <div class="modal-footer"><button class="close-btn" onclick="closeSubModal()">閉じる</button></div>
+        </div>
+    </div>
+
     <script>
         let jsonPlayers = [];
+        let allSkills = []; // スキル情報保持用
         let createdPlayers = JSON.parse(localStorage.getItem('createdPlayers') || '[]');
         let ownedPlayers = JSON.parse(localStorage.getItem('ownedPlayers') || '[]');
         let showMode = 'all'; 
@@ -375,14 +394,12 @@
             const m = player.method || "";
             const extra = player.extra_skills || [];
 
-            // 正しい枠数を決定
             let slotsCount = 1;
             const isStandardSP = (m === "ワールドSP" || m === "JリーグSP" || m === "KリーグSP" || m === "限定SP");
             if (isStandardSP && r === "☆3") slotsCount = 4;
             else if (isStandardSP && r === "☆2") slotsCount = 3;
             else if ((m === "配布SP" || m === "モード内") && r === "☆3") slotsCount = 3;
 
-            // スロット配列を作成
             let slots = new Array(slotsCount).fill(null);
             if (extra.length > 0) slots[0] = extra[0];
             
@@ -391,11 +408,19 @@
 
         async function init() {
             loadFilters();
+            
+            // スキルデータの読み込み
+            try {
+                const skillRes = await fetch('skills.json');
+                if (skillRes.ok) allSkills = await skillRes.json();
+            } catch (e) { console.error("Skill Data Load Error:", e); }
+
             const jsonFiles = ['players_world.json', 'players_distribution.json', 'players_jleague.json', 'players_kleague.json', 'players_in_mode.json'];
             try {
                 const results = await Promise.all(jsonFiles.map(file => fetch(file).then(res => res.ok ? res.json() : []).catch(() => [])));
                 jsonPlayers = results.flat();
             } catch (e) { console.error("Data Load Error:", e); }
+            
             updateButtons();
             search();
             checkAutoOpen();
@@ -480,27 +505,22 @@
             document.getElementById('modalPolicy').innerText = p.policy;
             document.getElementById('modalStyle').innerText = p.playstyle || '-';
             
-            // 強制同期ロジック
             syncPlayerSkills(p);
-            
             renderSlots(p);
             document.getElementById('detailModal').style.display = 'flex';
         }
 
-        // ここが重要：保存データとJSONデータを比較し、不整合があれば上書きリセットする
         function syncPlayerSkills(player) {
             let equipped = JSON.parse(localStorage.getItem('equippedSkills')) || {};
             const savedSlots = equipped[player.name];
             const correctSlots = getInitialSlots(player);
 
-            // 保存データがない、または枠数が違う、または固有スキルがあるのに1枠目が違う場合、リセット
             if (!savedSlots || 
                 savedSlots.length !== correctSlots.length || 
                 (player.extra_skills && player.extra_skills.length > 0 && savedSlots[0] !== player.extra_skills[0] && savedSlots[0] === null)) {
                 
                 equipped[player.name] = correctSlots;
                 localStorage.setItem('equippedSkills', JSON.stringify(equipped));
-                console.log(`Synced ${player.name} to correct slots.`);
             }
         }
 
@@ -511,12 +531,34 @@
             let html = "";
             slots.forEach((skillName, index) => {
                 if (skillName) {
-                    html += `<div class="slot"><span>${skillName}</span><button class="slot-btn btn-remove" onclick="removeSkill('${player.name}', ${index}, '${encodeURIComponent(JSON.stringify(player))}')">解除</button></div>`;
+                    html += `<div class="slot">
+                                <span class="slot-name" onclick="openSkillSubModal('${skillName}')">${skillName}</span>
+                                <button class="slot-btn btn-remove" onclick="removeSkill('${player.name}', ${index}, '${encodeURIComponent(JSON.stringify(player))}')">解除</button>
+                             </div>`;
                 } else {
                     html += `<div class="slot empty"><span>未設定</span><button class="slot-btn btn-add" onclick="goToSkillSelect('${player.name}', ${index})">＋</button></div>`;
                 }
             });
             document.getElementById('modalSlots').innerHTML = html;
+        }
+
+        // ★ 新機能: スキル詳細サブモーダル表示
+        function openSkillSubModal(skillName) {
+            const skill = allSkills.find(s => s.name === skillName);
+            if (!skill) {
+                alert("スキル詳細情報が見つかりません。");
+                return;
+            }
+            document.getElementById('subModalSkillName').innerText = skill.name;
+            document.getElementById('subModalRarity').innerText = skill.rarity || '-';
+            document.getElementById('subModalSource').innerText = skill.source || '-';
+            document.getElementById('subModalMethod').innerText = skill.method || '-';
+            document.getElementById('subModalDetail').innerText = skill.detail || '効果情報なし';
+            document.getElementById('skillSubModal').style.display = 'flex';
+        }
+
+        function closeSubModal() {
+            document.getElementById('skillSubModal').style.display = 'none';
         }
 
         function goToSkillSelect(playerName, index) {
@@ -539,7 +581,10 @@
             history.replaceState(null, '', url);
         }
         
-        window.onclick = (e) => { if (e.target == document.getElementById('detailModal')) closeModal(); }
+        window.onclick = (e) => { 
+            if (e.target == document.getElementById('detailModal')) closeModal(); 
+            if (e.target == document.getElementById('skillSubModal')) closeSubModal(); 
+        }
 
         function getPolicyClass(p) {
             const classes = { "ポゼッション": "policy-possession", "カウンター": "policy-counter", "リアクション": "policy-reaction", "ムービング": "policy-moving" };
