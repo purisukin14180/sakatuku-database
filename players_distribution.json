@@ -68,5 +68,225 @@
     "method": "配布SP",
     "rarity": "☆3",
     "extra_skills": []
+  },
+  {
+    "id": "dsp_008",
+    "name": "ラファエル・エリアス（J1 2025 BEST11）",
+    "position": "CF",
+    "playstyle": "ストライカーⅡ",
+    "policy": "カウンター",
+    "method": "限定SP",
+    "rarity": "☆3",
+    "extra_skills": ["狙いすましたシュート"]
+  },
+  {
+    "id": "dsp_009",
+    "name": "レオ・セアラ（J1 2025 BEST11）",
+    "position": "CF",
+    "playstyle": "ラインブレーカーⅡ",
+    "policy": "リアクション",
+    "method": "限定SP",
+    "rarity": "☆3",
+    "extra_skills": ["点で合わせるシュート"]
+  },
+  {
+    "id": "dsp_010",
+    "name": "伊藤達哉（J1 2025 BEST11）",
+    "position": "LW",
+    "playstyle": "ドリブラーⅡ",
+    "policy": "ポゼッション",
+    "method": "限定SP",
+    "rarity": "☆3",
+    "extra_skills": ["敵陣を切り裂くパス"]
+  },
+  {
+    "id": "dsp_011",
+    "name": "小泉佳穂（J1 2025 BEST11）",
+    "position": "AM",
+    "playstyle": "パサーⅡ",
+    "policy": "ムービング",
+    "method": "限定SP",
+    "rarity": "☆3",
+    "extra_skills": ["強引な中央突破"]
+  },
+  {
+    "id": "dsp_012",
+    "name": "相馬勇紀（J1 2025 BEST11）",
+    "position": "AM",
+    "playstyle": "アタッカーⅡ",
+    "policy": "カウンター",
+    "method": "限定SP",
+    "rarity": "☆3",
+    "extra_skills": ["狙いすましたシュート"]
+  },
+  {
+    "id": "dsp_013",
+    "name": "稲垣祥（J1 2025 BEST11）",
+    "position": "DM",
+    "playstyle": "セントラルMFⅡ",
+    "policy": "カウンター",
+    "method": "限定SP",
+    "rarity": "☆3",
+    "extra_skills": ["確信のロングシュート"]
+  },
+  {
+    "id": "dsp_014",
+    "name": "田中聡（J1 2025 BEST11）",
+    "position": "DM",
+    "playstyle": "パサーⅡ",
+    "policy": "ムービング",
+    "method": "限定SP",
+    "rarity": "☆3",
+    "extra_skills": ["意外性のあるミドルパス"]
+  },
+  {
+    "id": "dsp_015",
+    "name": "荒木隼人（J1 2025 BEST11）",
+    "position": "CB",
+    "playstyle": "ストッパーⅡ",
+    "policy": "ムービング",
+    "method": "限定SP",
+    "rarity": "☆3",
+    "extra_skills": ["鋭角的なタックル"]
+  },
+  {
+    "id": "dsp_016",
+    "name": "古賀太陽（J1 2025 BEST11）",
+    "position": "CB",
+    "playstyle": "組立CBⅡ",
+    "policy": "ムービング",
+    "method": "限定SP",
+    "rarity": "☆3",
+    "extra_skills": ["楔のパス"]
+  },
+  {
+    "id": "dsp_017",
+    "name": "植田直通（J1 2025 BEST11）",
+    "position": "CB",
+    "playstyle": "ストッパーⅡ",
+    "policy": "リアクション",
+    "method": "限定SP",
+    "rarity": "☆3",
+    "extra_skills": ["冴え渡るインターセプト"]
+  },
+  {
+    "id": "dsp_018",
+    "name": "早川友基（J1 2025 BEST11）",
+    "position": "GK",
+    "playstyle": "オーソドックスGKⅡ",
+    "policy": "リアクション",
+    "method": "限定SP",
+    "rarity": "☆3",
+    "extra_skills": ["驚異的なセービング"]
+  },
+  {
+    "id": "dsp_019",
+    "name": "パブロ・サバグ（K1 2025 BEST11）",
+    "position": "CF",
+    "playstyle": "ラインブレーカーⅡ",
+    "policy": "リアクション",
+    "method": "限定SP",
+    "rarity": "☆3",
+    "extra_skills": ["狙いすましたシュート"]
+  },
+  {
+    "id": "dsp_020",
+    "name": "ソン・ミンギュ（K1 2025 BEST11）",
+    "position": "CF",
+    "playstyle": "サイドアタッカーⅡ",
+    "policy": "ポゼッション",
+    "method": "限定SP",
+    "rarity": "☆3",
+    "extra_skills": ["華麗なトラップ"]
+  },
+  {
+    "id": "dsp_021",
+    "name": "イ・ドンギョン（K1 2025 BEST11）",
+    "position": "AM",
+    "playstyle": "アタッカーⅡ",
+    "policy": "リアクション",
+    "method": "限定SP",
+    "rarity": "☆3",
+    "extra_skills": ["確信のロングシュート"]
+  },
+  {
+    "id": "dsp_022",
+    "name": "カン・サンユン（K1 2025 BEST11）",
+    "position": "AM",
+    "playstyle": "アタッカーⅡ",
+    "policy": "ポゼッション",
+    "method": "限定SP",
+    "rarity": "☆3",
+    "extra_skills": ["強引な中央突破"]
+  },
+  {
+    "id": "dsp_023",
+    "name": "キム・ジンギュ（K1 2025 BEST11）",
+    "position": "DM",
+    "playstyle": "パサーⅡ",
+    "policy": "ポゼッション",
+    "method": "限定SP",
+    "rarity": "☆3",
+    "extra_skills": ["ファストフィード"]
+  },
+  {
+    "id": "dsp_024",
+    "name": "パク・ジンソプ（K1 2025 BEST11）",
+    "position": "DM",
+    "playstyle": "ハードマーカーⅡ",
+    "policy": "ポゼッション",
+    "method": "限定SP",
+    "rarity": "☆3",
+    "extra_skills": ["反撃のパスカット"]
+  },
+  {
+    "id": "dsp_025",
+    "name": "ヤザン・アルアラブ（K1 2025 BEST11）",
+    "position": "CB",
+    "playstyle": "ストッパーⅡ",
+    "policy": "ムービング",
+    "method": "限定SP",
+    "rarity": "☆3",
+    "extra_skills": ["冴えわたるインターセプト"]
+  },
+  {
+    "id": "dsp_026",
+    "name": "ホン・ジョンホ（K1 2025 BEST11）",
+    "position": "CB",
+    "playstyle": "ストッパーⅡ",
+    "policy": "ポゼッション",
+    "method": "限定SP",
+    "rarity": "☆3",
+    "extra_skills": ["鋭角的なタックル"]
+  },
+  {
+    "id": "dsp_027",
+    "name": "イ・ミョンジェ（K1 2025 BEST11）",
+    "position": "LB",
+    "playstyle": "守備的FBⅡ",
+    "policy": "リアクション",
+    "method": "限定SP",
+    "rarity": "☆3",
+    "extra_skills": ["ダイナミックタックル"]
+  },
+  {
+    "id": "dsp_028",
+    "name": "キム・ムンファン（K1 2025 BEST11）",
+    "position": "RB",
+    "playstyle": "攻撃的FBⅡ",
+    "policy": "リアクション",
+    "method": "限定SP",
+    "rarity": "☆3",
+    "extra_skills": ["テクニカルドリブル"]
+  },
+  {
+    "id": "dsp_029",
+    "name": "ソン・ボムグン（K1 2025 BEST11）",
+    "position": "GK",
+    "playstyle": "オーソドックスGKⅡ",
+    "policy": "ポゼッション",
+    "method": "限定SP",
+    "rarity": "☆3",
+    "extra_skills": ["驚異的なセービング"]
   }
 ]
