@@ -2,196 +2,163 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>フォメコン検索 | プリスキンのサカつくDB</title>
     <style>
         :root {
-            /* ホームと共通のカラー */
             --primary: #007bff;
             --accent: #00bcd4;
             --dark: #222;
+            --light-bg: #f8fafc;
+            --border: #e2e8f0;
             --bg-gradient: linear-gradient(135deg, #4fc3f7, #007bff);
-            
-            /* 検索ツール独自のカラー */
             --possession: #ff9800; --counter: #f44336; --reaction: #2196f3; --moving: #4caf50;
             --bg: #f8fafc;
         }
 
-        * { touch-action: manipulation; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        
-        body { 
-            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif; 
-            margin: 0; 
-            background: var(--bg); 
-            color: #333; 
-            padding-bottom: env(safe-area-inset-bottom); 
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            margin: 0; padding: 0; background-color: var(--light-bg); color: #333; line-height: 1.6;
         }
 
-        /* ===== ナビゲーション（ホームと完全統一） ===== */
+        /* ===== ナビゲーション ===== */
         .topnav {
-            display: flex;
-            justify-content: space-between;
+            display: flex; 
+            justify-content: flex-start;
             align-items: center;
-            background: var(--dark);
-            color: #fff;
-            height: 60px;
-            padding: 0 15px;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            padding-top: env(safe-area-inset-top);
+            background: var(--dark); color: #fff; 
+            height: 60px; 
+            padding: 0 10px; 
+            position: sticky; top: 0; z-index: 1000; 
             box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            padding-top: env(safe-area-inset-top);
         }
+        
+        .logo { display: none; }
 
-        .logo {
-            font-weight: 800;
-            font-size: 0.95rem;
-            background: linear-gradient(90deg, #4fc3f7, #007bff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            flex-shrink: 0;
-            text-decoration: none;
-            margin-right: 15px;
-        }
-
-        .nav-links {
-            display: flex;
-            overflow-x: auto;
-            white-space: nowrap;
-            -webkit-overflow-scrolling: touch;
-            gap: 5px;
+        .nav-links { 
+            display: flex; 
+            overflow-x: auto; 
+            white-space: nowrap; 
+            -webkit-overflow-scrolling: touch; 
+            gap: 2px;
+            width: 100%;
         }
         .nav-links::-webkit-scrollbar { display: none; }
 
-        .nav-links a {
-            color: #fff;
-            text-decoration: none;
-            padding: 8px 10px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            border-radius: 5px;
-            transition: opacity 0.2s;
+        .nav-links a { 
+            color: #fff; 
+            text-decoration: none; 
+            padding: 8px 10px; 
+            font-size: 0.85rem; 
+            font-weight: 600; 
+            border-radius: 5px; 
         }
-        .nav-links a:hover { opacity: 0.7; }
+        .nav-links a.current { background: rgba(255,255,255,0.15); }
 
-        /* ===== 検索エリア（ツールの利便性維持） ===== */
-        .search-area { 
-            background: #fff; 
-            padding: 15px; 
-            border-bottom: 1px solid #ddd; 
-            position: sticky; 
-            top: 60px; /* ナビの高さに合わせる */
-            z-index: 900; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
+        /* ===== レイアウト ===== */
+        .container { display: flex; max-width: 1400px; margin: 0 auto; min-height: calc(100vh - 120px); }
 
-        .search-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
+        /* ===== サイドバー ===== */
+        .sidebar { 
+            width: 320px; background: #fff; padding: 20px; border-right: 1px solid var(--border); 
+            overflow-y: auto; height: calc(100vh - 60px); 
+            position: sticky; top: 60px; box-sizing: border-box; 
         }
+        .sidebar h3 { font-size: 1.1rem; margin-top: 0; color: var(--dark); border-left: 4px solid var(--primary); padding-left: 10px; margin-bottom: 20px; }
         
-        .search-title {
-            font-size: 0.85rem;
-            font-weight: bold;
-            color: var(--primary);
-        }
-
-        .count-badge { 
-            background: #e9ecef; 
-            color: #495057;
-            padding: 2px 10px; 
-            border-radius: 20px; 
-            font-size: 0.75rem; 
-            font-weight: bold;
-        }
+        .search-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .count-badge { background: #f1f5f9; color: #64748b; padding: 2px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; }
 
         .search-input { 
-            width: 100%; 
-            padding: 12px; 
-            border: 2px solid #eee; 
-            border-radius: 10px; 
-            font-size: 1rem; 
-            margin-bottom: 10px; 
-            outline: none; 
-            transition: border-color 0.2s;
+            width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; 
+            margin-bottom: 20px; font-size: 0.9rem; background: #f1f5f9; box-sizing: border-box; outline: none;
         }
-        .search-input:focus { border-color: var(--primary); }
 
-        .filter-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-        
+        .filter-section { margin-bottom: 10px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
+        .filter-title { font-size: 0.85rem; font-weight: bold; background: #f8fafc; padding: 10px 15px; border-bottom: 1px solid var(--border); }
+        .filter-options { padding: 10px; background: #fff; }
+
         select { 
-            width: 100%; 
-            padding: 10px; 
-            border: 1px solid #ddd; 
-            border-radius: 8px; 
-            font-size: 0.85rem; 
-            background: #f9f9f9; 
-            -webkit-appearance: none; 
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 10px center;
-            background-size: 1em;
+            width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 8px; 
+            font-size: 0.85rem; background: #fff; color: #333; outline: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat; background-position: right 10px center; background-size: 1em;
         }
 
-        /* ===== リスト・カードデザイン ===== */
-        .list-container { padding: 12px; display: grid; gap: 12px; max-width: 600px; margin: 0 auto; }
-        
+        /* ===== メインコンテンツ ===== */
+        .main { flex: 1; padding: 20px; background: #fff; }
+        .main h1 { font-size: 1.5rem; margin-top: 0; color: var(--dark); }
+
         .combo-card { 
-            background: #fff; 
-            border-radius: 12px; 
-            padding: 16px; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05); 
-            border-left: 6px solid #ccc; 
+            background: #fff; border-radius: 10px; padding: 16px; 
+            margin-bottom: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); 
+            border: 1px solid var(--border); border-left: 6px solid #ccc; 
             animation: fadeIn 0.3s ease-out; 
         }
-        
         .policy-possession { border-left-color: var(--possession); }
         .policy-counter { border-left-color: var(--counter); }
         .policy-reaction { border-left-color: var(--reaction); }
         .policy-moving { border-left-color: var(--moving); }
 
         .card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
-        .combo-title { font-size: 1.05rem; font-weight: 800; color: #1a1a1a; flex: 1; }
+        .combo-title { font-size: 1.1rem; font-weight: 800; color: var(--dark); flex: 1; }
         
         .p-badge { 
-            font-size: 0.65rem; 
-            font-weight: 900; 
-            color: #fff; 
-            padding: 3px 8px; 
-            border-radius: 4px; 
-            text-transform: uppercase; 
-            margin-left: 8px; 
+            font-size: 0.65rem; font-weight: 900; color: #fff; 
+            padding: 3px 8px; border-radius: 4px; margin-left: 8px; 
         }
 
         .details { font-size: 0.85rem; line-height: 1.6; }
         .row { display: flex; margin-bottom: 2px; }
-        .label { font-weight: bold; width: 75px; color: #888; flex-shrink: 0; }
+        .label { font-weight: bold; width: 75px; color: #64748b; flex-shrink: 0; }
         .val { color: #333; }
 
         .effect-tag { 
-            margin-top: 10px; 
-            padding: 8px 12px; 
-            background: #fff9c4; 
-            border-radius: 8px; 
-            font-size: 0.8rem; 
-            font-weight: bold; 
-            color: #f57f17; 
-            border: 1px solid rgba(245,127,23,0.15); 
+            margin-top: 10px; padding: 8px 12px; background: #fff9c4; 
+            border-radius: 8px; font-size: 0.8rem; font-weight: bold; 
+            color: #856404; border: 1px solid rgba(255,241,118,0.5);
         }
 
-        /* ===== PCレイアウト調整（ホームに合わせる） ===== */
-        @media (min-width: 768px) {
-            .topnav { padding: 0 40px; }
-            .logo { font-size: 1.4em; }
-            .nav-links { gap: 10px; }
-            .nav-links a { font-size: 0.95rem; padding: 8px 15px; }
+        /* ===== フッター（全ページ共通） ===== */
+        footer {
+            text-align: center;
+            padding: 40px 15px;
+            background: var(--dark);
+            color: #999;
+            margin-top: 40px;
         }
+
+        .footer-nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            font-size: 0.8rem;
+            margin-bottom: 15px;
+        }
+
+        .footer-nav a { 
+            color: var(--accent); 
+            text-decoration: none; 
+            font-weight: bold;
+        }
+        
+        .footer-nav a.current-footer {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+        .copyright { font-size: 0.75rem; }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; } }
+
+        @media (max-width: 900px) { 
+            .container { flex-direction: column; } 
+            .sidebar { width: 100%; border-right: none; height: auto; position: relative; top: 0; padding: 15px; }
+            .main { padding: 15px; }
+        }
     </style>
 </head>
 <body>
@@ -202,37 +169,64 @@
         <a href="index.html">ホーム</a>
         <a href="builder.html">スカッド</a>
         <a href="search.html">選手</a>
-        <a href="formation-search.html">フォメコン</a>
+        <a href="formation-search.html" class="current">フォメコン</a>
         <a href="skills.html">スキル</a>
     </nav>
 </header>
 
-<div class="search-area">
-    <div class="search-header">
-        <div class="search-title">フォーメーションコンボ検索</div>
-        <div class="count-badge" id="resCount">0 件</div>
+<div class="container">
+    <div class="sidebar">
+        <div class="search-header">
+            <h3>フォメコン絞り込み</h3>
+            <div class="count-badge" id="resCount">0 件</div>
+        </div>
+        
+        <input type="text" id="q" class="search-input" placeholder="名前、フォメ、スタイル検索...">
+
+        <div class="filter-section">
+            <div class="filter-title">ポリシー</div>
+            <div class="filter-options">
+                <select id="fPolicy">
+                    <option value="">すべてのポリシー</option>
+                    <option value="ポゼッション">ポゼッション</option>
+                    <option value="カウンター">カウンター</option>
+                    <option value="リアクション">リアクション</option>
+                    <option value="ムービング">ムービング</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="filter-section">
+            <div class="filter-title">解放条件</div>
+            <div class="filter-options">
+                <select id="fLevel">
+                    <option value="">すべてのレベル</option>
+                    <option value="初期">初期解放</option>
+                    <option value="10">Lv.10解放</option>
+                    <option value="13">Lv.13解放</option>
+                    <option value="20">Lv.20解放</option>
+                    <option value="イベント">イベント限定</option>
+                </select>
+            </div>
+        </div>
     </div>
-    <input type="text" id="q" class="search-input" placeholder="名前、フォメ、スタイル(Ⅰ Ⅱ Ⅲ)検索...">
-    <div class="filter-row">
-        <select id="fPolicy">
-            <option value="">すべてのポリシー</option>
-            <option value="ポゼッション">ポゼッション</option>
-            <option value="カウンター">カウンター</option>
-            <option value="リアクション">リアクション</option>
-            <option value="ムービング">ムービング</option>
-        </select>
-        <select id="fLevel">
-            <option value="">すべてのレベル</option>
-            <option value="初期">初期解放</option>
-            <option value="10">Lv.10解放</option>
-            <option value="13">Lv.13解放</option>
-            <option value="20">Lv.20解放</option>
-            <option value="イベント">イベント限定</option>
-        </select>
+
+    <div class="main">
+        <h1>フォーメーションコンボ</h1>
+        <div id="list">読み込み中...</div>
     </div>
 </div>
 
-<div class="list-container" id="list"></div>
+<footer>
+    <div class="footer-nav">
+        <a href="index.html">ホーム</a>
+        <a href="builder.html">スカッド</a>
+        <a href="search.html">選手検索</a>
+        <a href="formation-search.html" class="current-footer">フォメコン</a>
+        <a href="skills.html">スキル検索</a>
+    </div>
+    <p class="copyright">&copy; 2026 プリスキンのサカつくDB <br><a href="terms.html" style="color:#777; text-decoration: none;">利用規約</a></p>
+</footer>
 
 <script src="formations.js"></script>
 <script>
@@ -266,11 +260,14 @@
         });
 
         countEl.textContent = `${filtered.length} 件`;
+        
+        if (filtered.length === 0) {
+            listEl.innerHTML = '<div style="text-align:center; padding:20px; color:#64748b;">条件に合うコンボがありません。</div>';
+            return;
+        }
+
         listEl.innerHTML = filtered.map(d => {
-            // 解放条件の表示を調整
-            const levelDisplay = d.level === "イベント" 
-                ? "イベント限定（無料）" 
-                : `Lv.${d.level}（メダル${d.coin}枚）`;
+            const levelDisplay = d.level === "イベント" ? "イベント限定" : `Lv.${d.level}`;
 
             return `
                 <div class="combo-card policy-${pClass[d.policy]}">

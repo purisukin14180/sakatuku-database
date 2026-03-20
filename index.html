@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>プリスキンのサカつくDB - ホーム</title>
 <style>
 :root {
@@ -10,6 +10,7 @@
   --accent: #00bcd4;
   --dark: #222;
   --bg-gradient: linear-gradient(135deg, #4fc3f7, #007bff);
+  --nav-height: 60px;
 }
 
 body {
@@ -21,38 +22,31 @@ body {
   line-height: 1.6;
 }
 
-/* ===== ナビゲーション（ロゴ左・メニュー右寄せ） ===== */
+/* ===== ナビゲーション（全ページ統一：ロゴなし・左寄せ） ===== */
 .topnav {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start; /* 左寄せ */
   align-items: center;
   background: var(--dark);
   color: #fff;
-  height: 60px;
-  padding: 0 15px;
+  height: var(--nav-height);
+  padding: 0 10px;
   position: sticky;
   top: 0;
   z-index: 1000;
   box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  padding-top: env(safe-area-inset-top);
 }
 
-.logo {
-  font-weight: 800;
-  font-size: 0.95rem;
-  background: linear-gradient(90deg, #4fc3f7, #007bff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  flex-shrink: 0;
-  text-decoration: none;
-  margin-right: 15px;
-}
+.logo { display: none; } /* ロゴ非表示 */
 
 .nav-links {
   display: flex;
   overflow-x: auto;
   white-space: nowrap;
   -webkit-overflow-scrolling: touch;
-  gap: 5px;
+  gap: 2px;
+  width: 100%;
 }
 
 .nav-links::-webkit-scrollbar { display: none; }
@@ -61,7 +55,7 @@ body {
   color: #fff;
   text-decoration: none;
   padding: 8px 10px;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   font-weight: 600;
   border-radius: 5px;
   transition: opacity 0.2s;
@@ -69,6 +63,10 @@ body {
 
 .nav-links a:hover {
   opacity: 0.7;
+}
+
+.nav-links a.current {
+  background: rgba(255,255,255,0.15);
 }
 
 /* ===== ヒーローセクション ===== */
@@ -191,11 +189,6 @@ footer {
 
 /* ===== PCレイアウト調整 ===== */
 @media (min-width: 768px) {
-  .topnav { padding: 0 40px; }
-  .logo { font-size: 1.4em; }
-  .nav-links { gap: 10px; }
-  .nav-links a { font-size: 0.95rem; padding: 8px 15px; }
-
   .hero { padding: 90px 20px 110px; }
   .hero h1 { font-size: 2.8em; }
   .hero p { font-size: 1.1em; }
@@ -211,7 +204,7 @@ footer {
 <header class="topnav">
   <a href="index.html" class="logo">サカつくDB</a>
   <nav class="nav-links">
-    <a href="index.html">ホーム</a>
+    <a href="index.html" class="current">ホーム</a>
     <a href="builder.html">スカッド</a>
     <a href="search.html">選手</a>
     <a href="formation-search.html">フォメコン</a>
