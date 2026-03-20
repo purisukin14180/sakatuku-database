@@ -452,9 +452,9 @@
   {
     "id": "wsp_046",
     "name": "ティモシー・ウェア",
-    "position": "RM",
+    "position": "RW",
     "playstyle": "サイドアタッカーⅡ",
-    "policy": "リアクション",
+    "policy": "ムービング",
     "method": "ワールドSP",
     "rarity": "☆2",
     "extra_skills": ["切り裂くドリブル"]
