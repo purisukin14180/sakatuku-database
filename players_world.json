@@ -7,17 +7,17 @@
     "policy": "ポゼッション",
     "method": "ワールドSP",
     "rarity": "☆3",
-    "extra_skills": []
+    "extra_skills": ["司令のロングフィード"]
   },
   {
     "id": "wsp_002",
-    "name": "リベイロ",
+    "name": "アレクサンドロ・リベイロ",
     "position": "CB",
     "playstyle": "ストッパーⅡ",
     "policy": "ポゼッション",
     "method": "ワールドSP",
     "rarity": "☆3",
-    "extra_skills": []
+    "extra_skills": ["反撃のパスカット"]
   },
   {
     "id": "wsp_003",
@@ -27,27 +27,27 @@
     "policy": "ポゼッション",
     "method": "ワールドSP",
     "rarity": "☆3",
-    "extra_skills": []
+    "extra_skills": ["チェーンカッター"]
   },
   {
     "id": "wsp_004",
-    "name": "ティンバー",
+    "name": "ユリエン・ティンバー",
     "position": "LB",
     "playstyle": "守備的FBⅡ",
     "policy": "ポゼッション",
     "method": "ワールドSP",
     "rarity": "☆3",
-    "extra_skills": []
+    "extra_skills": ["熟練のインターセプト"]
   },
   {
     "id": "wsp_005",
-    "name": "ファビアン",
+    "name": "ファビアン・ルイス",
     "position": "DM",
     "playstyle": "パサーⅡ",
     "policy": "ポゼッション",
     "method": "ワールドSP",
     "rarity": "☆3",
-    "extra_skills": []
+    "extra_skills": ["意外性のあるミドルパス"]
   },
   {
     "id": "wsp_006",
@@ -57,17 +57,17 @@
     "policy": "ポゼッション",
     "method": "ワールドSP",
     "rarity": "☆3",
-    "extra_skills": []
+    "extra_skills": ["勝機を生み出すフィード"]
   },
   {
     "id": "wsp_007",
-    "name": "クアドラード",
+    "name": "フアン・クアドラード",
     "position": "RM",
     "playstyle": "ドリブラーⅡ",
     "policy": "ポゼッション",
     "method": "ワールドSP",
     "rarity": "☆3",
-    "extra_skills": []
+    "extra_skills": ["高速クロス"]
   },
   {
     "id": "wsp_008",
@@ -77,7 +77,7 @@
     "policy": "ポゼッション",
     "method": "ワールドSP",
     "rarity": "☆3",
-    "extra_skills": []
+    "extra_skills": ["ファストフィード"]
   },
   {
     "id": "wsp_009",
@@ -87,7 +87,7 @@
     "policy": "ポゼッション",
     "method": "ワールドSP",
     "rarity": "☆3",
-    "extra_skills": []
+    "extra_skills": ["スリップビート"]
   },
   {
     "id": "wsp_010",
@@ -97,7 +97,7 @@
     "policy": "ポゼッション",
     "method": "ワールドSP",
     "rarity": "☆3",
-    "extra_skills": []
+    "extra_skills": ["ジャックナイフ"]
   },
   {
     "id": "wsp_011",
@@ -107,7 +107,7 @@
     "policy": "ポゼッション",
     "method": "ワールドSP",
     "rarity": "☆3",
-    "extra_skills": []
+    "extra_skills": ["ゴールへ導くトラップ"]
   },
   {
     "id": "wsp_012",
@@ -181,43 +181,43 @@
   },
   {
     "id": "wsp_019",
-    "name": "ポープ",
+    "name": "ニック・ポープ",
     "position": "GK",
     "playstyle": "オーソドックスGKⅡ",
     "policy": "カウンター",
     "method": "ワールドSP",
     "rarity": "☆3",
-    "extra_skills": []
+    "extra_skills": ["驚異的なセービング"]
   },
   {
     "id": "wsp_020",
-    "name": "ガッティ",
+    "name": "フェデリコ・ガッティ",
     "position": "CB",
     "playstyle": "ストッパーⅡ",
     "policy": "カウンター",
     "method": "ワールドSP",
     "rarity": "☆3",
-    "extra_skills": []
+    "extra_skills": ["鋭角的なタックル"]
   },
   {
     "id": "wsp_021",
-    "name": "スピナッツォーラ",
+    "name": "レオナルド・スピナッツォーラ",
     "position": "LB",
     "playstyle": "守備的FBⅡ",
     "policy": "カウンター",
     "method": "ワールドSP",
     "rarity": "☆3",
-    "extra_skills": []
+    "extra_skills": ["反撃のパスカット"]
   },
   {
     "id": "wsp_022",
-    "name": "モリーナ",
+    "name": "ナウエル・モリーナ",
     "position": "RB",
     "playstyle": "攻撃的FBⅡ",
     "policy": "カウンター",
     "method": "ワールドSP",
     "rarity": "☆3",
-    "extra_skills": []
+    "extra_skills": ["テクニカルドリブル"]
   },
   {
     "id": "wsp_023",
@@ -227,7 +227,7 @@
     "policy": "カウンター",
     "method": "ワールドSP",
     "rarity": "☆3",
-    "extra_skills": []
+    "extra_skills": ["テクニカルドリブル"]
   },
   {
     "id": "wsp_024",
@@ -237,7 +237,7 @@
     "policy": "カウンター",
     "method": "ワールドSP",
     "rarity": "☆3",
-    "extra_skills": []
+    "extra_skills": ["スリップビート"]
   },
   {
     "id": "wsp_025",
@@ -247,7 +247,7 @@
     "policy": "カウンター",
     "method": "ワールドSP",
     "rarity": "☆3",
-    "extra_skills": []
+    "extra_skills": ["熟練のインターセプト"]
   },
   {
     "id": "wsp_026",
@@ -257,7 +257,7 @@
     "policy": "カウンター",
     "method": "ワールドSP",
     "rarity": "☆3",
-    "extra_skills": []
+    "extra_skills": ["華麗なトラップ"]
   },
   {
     "id": "wsp_027",
@@ -311,13 +311,13 @@
   },
   {
     "id": "wsp_032",
-    "name": "ゾマー",
+    "name": "ヤン・ゾマー",
     "position": "GK",
     "playstyle": "オーソドックスGKⅡ",
     "policy": "リアクション",
     "method": "ワールドSP",
     "rarity": "☆3",
-    "extra_skills": []
+    "extra_skills": ["エレガント・セーブ"]
   },
   {
     "id": "wsp_033",
@@ -327,7 +327,7 @@
     "policy": "リアクション",
     "method": "ワールドSP",
     "rarity": "☆3",
-    "extra_skills": []
+    "extra_skills": ["華麗なる一閃"]
   },
   {
     "id": "wsp_034",
@@ -337,27 +337,27 @@
     "policy": "リアクション",
     "method": "ワールドSP",
     "rarity": "☆3",
-    "extra_skills": []
+    "extra_skills": ["鋭角的なタックル"]
   },
   {
     "id": "wsp_035",
-    "name": "バルベルデ",
+    "name": "フェデリコ・バルベルデ",
     "position": "DM",
     "playstyle": "セントラルMFⅢ",
     "policy": "リアクション",
     "method": "ワールドSP",
     "rarity": "☆3",
-    "extra_skills": []
+    "extra_skills": ["ロングキャノン"]
   },
   {
     "id": "wsp_036",
-    "name": "エル・シャーラウィ",
+    "name": "ステファン・エル・シャーラウィ",
     "position": "LM",
     "playstyle": "サイドアタッカーⅡ",
     "policy": "リアクション",
     "method": "ワールドSP",
     "rarity": "☆3",
-    "extra_skills": []
+    "extra_skills": ["切り裂くドリブル"]
   },
   {
     "id": "wsp_037",
@@ -367,7 +367,7 @@
     "policy": "リアクション",
     "method": "ワールドSP",
     "rarity": "☆3",
-    "extra_skills": []
+    "extra_skills": ["シルキーパス"]
   },
   {
     "id": "wsp_038",
@@ -377,7 +377,7 @@
     "policy": "リアクション",
     "method": "ワールドSP",
     "rarity": "☆3",
-    "extra_skills": []
+    "extra_skills": ["切り裂くドリブル"]
   },
   {
     "id": "wsp_039",
@@ -387,57 +387,57 @@
     "policy": "リアクション",
     "method": "ワールドSP",
     "rarity": "☆3",
-    "extra_skills": []
+    "extra_skills": ["テクニカルドリブル"]
   },
   {
     "id": "wsp_040",
-    "name": "ディアス",
+    "name": "ブラヒム・ディアス",
     "position": "RW",
     "playstyle": "ドリブラーⅡ",
     "policy": "リアクション",
     "method": "ワールドSP",
     "rarity": "☆3",
-    "extra_skills": []
+    "extra_skills": ["ピンポイントクロス"]
   },
   {
     "id": "wsp_041",
-    "name": "クヴァラツヘリア",
+    "name": "クヴィチャ・クヴァラツヘリア",
     "position": "LW",
     "playstyle": "サイドアタッカーⅢ",
     "policy": "リアクション",
     "method": "ワールドSP",
     "rarity": "☆3",
-    "extra_skills": []
+    "extra_skills": ["ロングキャノン"]
   },
   {
     "id": "wsp_042",
     "name": "ミゲル・アルミロン",
     "position": "RW",
     "playstyle": "ドリブラーⅡ",
-    "policy": "リアクション",
+    "policy": "カウンター",
     "method": "ワールドSP",
     "rarity": "☆3",
-    "extra_skills": []
+    "extra_skills": ["テクニカルドリブル"]
   },
   {
     "id": "wsp_043",
-    "name": "ロナウド",
+    "name": "クリスティアーノ・ロナウド",
     "position": "CF",
     "playstyle": "ストライカーⅢ",
     "policy": "リアクション",
     "method": "ワールドSP",
     "rarity": "☆3",
-    "extra_skills": []
+    "extra_skills": ["コントロールショット"]
   },
   {
     "id": "wsp_044",
-    "name": "ウィルソン",
+    "name": "カラム・ウィルソン",
     "position": "CF",
     "playstyle": "ポストプレーヤーⅡ",
     "policy": "リアクション",
     "method": "ワールドSP",
     "rarity": "☆3",
-    "extra_skills": []
+    "extra_skills": ["狙いすましたシュート"]
   },
   {
     "id": "wsp_045",
@@ -447,7 +447,7 @@
     "policy": "リアクション",
     "method": "ワールドSP",
     "rarity": "☆3",
-    "extra_skills": []
+    "extra_skills": ["魂のワンタッチ"]
   },
   {
     "id": "wsp_047",
@@ -511,13 +511,13 @@
   },
   {
     "id": "wsp_053",
-    "name": "ファン・ダイク",
+    "name": "フィルジル・ファン・ダイク",
     "position": "CB",
     "playstyle": "組立CBⅢ",
     "policy": "ムービング",
     "method": "ワールドSP",
     "rarity": "☆3",
-    "extra_skills": []
+    "extra_skills": ["勝機を生み出すフィード"]
   },
   {
     "id": "wsp_054",
@@ -527,27 +527,27 @@
     "policy": "ムービング",
     "method": "ワールドSP",
     "rarity": "☆3",
-    "extra_skills": []
+    "extra_skills": ["テクニカルドリブル"]
   },
   {
     "id": "wsp_055",
-    "name": "デ・ブライネ",
+    "name": "ケヴィン・デ・ブライネ",
     "position": "DM",
     "playstyle": "パサーⅡ",
     "policy": "ムービング",
     "method": "ワールドSP",
     "rarity": "☆3",
-    "extra_skills": []
+    "extra_skills": ["仕上げの起点"]
   },
   {
     "id": "wsp_056",
-    "name": "ロングスタッフ",
+    "name": "ショーン・ロングスタッフ",
     "position": "DM",
     "playstyle": "セントラルMFⅡ",
     "policy": "ムービング",
     "method": "ワールドSP",
     "rarity": "☆3",
-    "extra_skills": []
+    "extra_skills": ["反撃のパスカット"]
   },
   {
     "id": "wsp_057",
@@ -557,17 +557,17 @@
     "policy": "ムービング",
     "method": "ワールドSP",
     "rarity": "☆3",
-    "extra_skills": []
+    "extra_skills": ["安定したパスワーク"]
   },
   {
     "id": "wsp_058",
-    "name": "フォーデン",
+    "name": "フィル・フォーデン",
     "position": "LM",
     "playstyle": "サイドアタッカーⅢ",
     "policy": "ムービング",
     "method": "ワールドSP",
     "rarity": "☆3",
-    "extra_skills": []
+    "extra_skills": ["シャペウトラップ"]
   },
   {
     "id": "wsp_059",
@@ -577,7 +577,7 @@
     "policy": "ムービング",
     "method": "ワールドSP",
     "rarity": "☆3",
-    "extra_skills": []
+    "extra_skills": ["狙いすましたシュート"]
   },
   {
     "id": "wsp_060",

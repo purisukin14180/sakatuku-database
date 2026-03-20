@@ -44,6 +44,13 @@
         .nav-links a { color: #fff; text-decoration: none; padding: 8px 10px; font-size: 0.8rem; font-weight: 600; border-radius: 5px; transition: opacity 0.2s; }
         .nav-links a.current { background: rgba(255,255,255,0.15); }
 
+        /* ===== 付与モード通知バナー ===== */
+        .assign-banner {
+            background: #fff9c4; color: #856404; padding: 10px; text-align: center;
+            font-size: 0.85rem; font-weight: bold; border-bottom: 2px solid #fff176;
+            display: none; /* 通常は非表示 */
+        }
+
         /* ===== ページヘッダー ===== */
         .page-header {
             text-align: center; padding: 40px 20px 60px;
@@ -70,7 +77,6 @@
         }
         .flex-1 { flex: 1; min-width: 140px; }
 
-        /* レア度別カラー */
         .rarity-金 { color: var(--gold); font-weight: 800; }
         .rarity-銀 { color: var(--silver); font-weight: 800; }
         .rarity-銅 { color: var(--bronze); font-weight: 800; }
@@ -91,10 +97,14 @@
         .source-info { font-size: 0.75rem; color: var(--primary); font-weight: 600; }
 
         /* ===== ボタン類 ===== */
+        .btn-group { display: flex; flex-direction: column; gap: 8px; min-width: 100px; }
         .btn-own { 
             padding: 10px 16px; border-radius: 8px; border: none; 
             cursor: pointer; transition: 0.2s; font-size: 0.8rem; font-weight: bold;
-            min-width: 100px;
+        }
+        .btn-assign {
+            padding: 10px 16px; border-radius: 8px; background: var(--primary); color: #fff;
+            border: none; cursor: pointer; font-size: 0.8rem; font-weight: bold; display: none;
         }
         .is-not-owned { background: #f1f5f9; color: #64748b; border: 1px solid var(--border); }
         .is-owned { background: var(--green); color: #fff; }
@@ -106,26 +116,14 @@
         }
 
         /* ===== フッター ===== */
-        footer {
-            text-align: center; padding: 40px 15px; background: var(--dark); color: #999;
-        }
+        footer { text-align: center; padding: 40px 15px; background: var(--dark); color: #999; }
         .footer-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; font-size: 0.8rem; margin-bottom: 15px; }
         .footer-nav a { color: var(--accent); text-decoration: none; }
         .copyright { font-size: 0.75rem; }
 
-        @media (min-width: 768px) {
-            .topnav { padding: 0 40px; }
-            .logo { font-size: 1.4em; }
-            .nav-links { gap: 10px; }
-            .nav-links a { font-size: 0.95rem; padding: 8px 15px; }
-            .page-header { padding: 60px 20px 80px; }
-            .page-header h1 { font-size: 2.5em; }
-        }
-
         @media (max-width: 600px) {
-            .container { padding: 0 10px; }
-            .skill-item { flex-direction: column; align-items: flex-start; padding: 12px; }
-            .btn-own { width: 100%; margin-top: 12px; padding: 12px; }
+            .skill-item { flex-direction: column; align-items: flex-start; }
+            .btn-group { width: 100%; margin-top: 12px; }
         }
     </style>
 </head>
@@ -141,6 +139,11 @@
         <a href="skills.html" class="current">スキル</a>
     </nav>
 </header>
+
+<div id="assignBanner" class="assign-banner">
+    <span id="targetPlayerName"></span> のスキル枠 <span id="targetSlotNum"></span> を選択中
+    <button onclick="cancelAssign()" style="margin-left:10px; font-size:0.7rem; cursor:pointer;">キャンセル</button>
+</div>
 
 <div class="page-header">
     <h1>スキル検索</h1>
@@ -201,14 +204,19 @@
         <a href="search.html">選手検索</a>
         <a href="skills.html">スキル検索</a>
     </div>
-    <p class="copyright">&copy; 2026 プリスキンのサカつくDB <br><a href="terms.html" style="color:#777; text-decoration: none;">利用規約</a></p>
+    <p class="copyright">&copy; 2026 プリスキンのサカつくDB</p>
 </footer>
 
 <script>
     let allSkills = [];
     let mySkills = JSON.parse(localStorage.getItem('mySkills')) || [];
+    
+    // URLから情報を取得
+    const urlParams = new URLSearchParams(window.location.search);
+    const targetPid = urlParams.get('pid');
+    const targetSlot = urlParams.get('slot');
+    const fromBuilder = urlParams.get('from') === 'builder'; // builderからの遷移か判定
 
-    // JSONデータのsmallCatと一字一句一致するように修正しました
     const categoryMap = {
         "シュート": ["ゴール前でのダイレクトシュート", "ゴール前でのシュート", "エリア外からのロングシュート", "ゴール前でのヘディングシュート", "直接ゴールを狙うFK"],
         "ドリブル": ["シュートにつなげるドリブル", "ショートパスを誘発するドリブル", "敵陣を切り裂くドリブル"],
@@ -222,6 +230,12 @@
     };
 
     async function loadSkillData() {
+        if (targetPid && targetSlot !== null) {
+            document.getElementById('assignBanner').style.display = 'block';
+            document.getElementById('targetPlayerName').innerText = targetPid;
+            document.getElementById('targetSlotNum').innerText = parseInt(targetSlot) + 1;
+        }
+
         try {
             const response = await fetch('skills.json');
             allSkills = await response.json();
@@ -276,7 +290,6 @@
                     matchMethod = combinedText.includes(methodQuery);
                 }
             }
-            
             return matchSearch && matchRarity && matchType && matchSmallCat && matchMethod && matchOwned;
         });
 
@@ -286,6 +299,10 @@
             const isOwned = mySkills.includes(s.name);
             const div = document.createElement('div');
             div.className = 'skill-item';
+            const assignBtnHtml = (targetPid && targetSlot !== null) 
+                ? `<button class="btn-assign" style="display:block;" onclick="assignSkill('${s.name}')">このスキルを付与</button>` 
+                : '';
+
             div.innerHTML = `
                 <div class="skill-info">
                     <span class="skill-cat-small">${s.type} ＞ ${s.smallCat}</span>
@@ -298,12 +315,40 @@
                         習得元: ${s.source || '-'} <span style="color:#94a3b8; margin:0 5px;">|</span> 方法: ${s.method || '-'}
                     </div>
                 </div>
-                <button class="btn-own ${isOwned ? 'is-owned' : 'is-not-owned'}" onclick="toggleOwn('${s.name}')">
-                    ${isOwned ? '✓ 所持中' : '未所持'}
-                </button>
+                <div class="btn-group">
+                    ${assignBtnHtml}
+                    <button class="btn-own ${isOwned ? 'is-owned' : 'is-not-owned'}" onclick="toggleOwn('${s.name}')">
+                        ${isOwned ? '✓ 所持中にする' : '未所持にする'}
+                    </button>
+                </div>
             `;
             list.appendChild(div);
         });
+    }
+
+    // ★ 修正: 戻り先を動的に変更
+    function assignSkill(skillName) {
+        if (!targetPid || targetSlot === null) return;
+        
+        let equipped = JSON.parse(localStorage.getItem('equippedSkills')) || {};
+        if (!equipped[targetPid]) {
+            equipped[targetPid] = [null, null, null, null];
+        }
+        
+        equipped[targetPid][targetSlot] = skillName;
+        localStorage.setItem('equippedSkills', JSON.stringify(equipped));
+        
+        const returnPage = fromBuilder ? 'builder.html' : 'search.html';
+        alert(`${targetPid} に 「${skillName}」 をセットしました。`);
+        location.href = `${returnPage}?pid=${encodeURIComponent(targetPid)}`; 
+    }
+
+    // ★ 修正: キャンセル時も正しいページに戻る
+    function cancelAssign() {
+        const returnPage = fromBuilder ? 'builder.html' : 'search.html';
+        if(confirm("スキル付与をキャンセルして戻りますか？")) {
+            location.href = `${returnPage}?pid=${encodeURIComponent(targetPid)}`;
+        }
     }
 
     function toggleOwn(skillName) {

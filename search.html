@@ -100,13 +100,23 @@
 
         /* ===== 詳細モーダル ===== */
         .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; }
-        .modal-content { background: white; width: 100%; max-width: 400px; border-radius: 16px; overflow: hidden; animation: slideUp 0.3s ease-out; }
+        .modal-content { background: white; width: 100%; max-width: 400px; border-radius: 16px; overflow: hidden; animation: slideUp 0.3s ease-out; max-height: 90vh; overflow-y: auto; }
         .modal-header { background: var(--bg-gradient); color: white; padding: 20px; text-align: center; }
         .modal-header h2 { margin: 0; font-size: 1.2rem; }
         .modal-body { padding: 20px; }
         .modal-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f1f5f9; }
         .modal-label { font-weight: bold; color: #64748b; font-size: 0.85rem; }
         .modal-val { font-weight: 600; color: var(--dark); }
+
+        .skill-section { margin-top: 20px; background: #f8fafc; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0; }
+        .skill-section h3 { font-size: 0.9rem; margin: 0 0 10px 0; color: var(--primary); }
+        .slot-list { display: flex; flex-direction: column; gap: 8px; }
+        .slot { display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 10px 15px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.85rem; }
+        .slot.empty { border-style: dashed; background: transparent; }
+        .slot-btn { padding: 4px 10px; border-radius: 6px; border: none; cursor: pointer; font-size: 0.75rem; font-weight: bold; }
+        .btn-add { background: var(--primary); color: white; }
+        .btn-remove { background: #ef4444; color: white; }
+
         .modal-footer { padding: 15px; text-align: center; }
         .close-btn { width: 100%; padding: 12px; background: #f1f5f9; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
 
@@ -249,8 +259,7 @@
                     <label>入手法</label>
                     <select id="newMethod">
                         <option value="ワールドSP">ワールドSP</option><option value="JリーグSP">JリーグSP</option>
-                        <option value="KリーグSP">KリーグSP</option>
-                        <option value="配布・限定SP">配布・限定SP</option>
+                        <option value="KリーグSP">KリーグSP</option><option value="配布・限定SP">配布・限定SP</option>
                         <option value="モード内">モード内</option>
                     </select>
                     <label>ポジション</label>
@@ -267,30 +276,45 @@
                     </select>
                     <label>プレースタイル</label>
                     <select id="newStyle">
-                        <optgroup label="FW">
-                            <option value="ストライカーⅢ">ストライカーⅢ</option><option value="ストライカーⅡ">ストライカーⅡ</option>
-                            <option value="ラインブレーカーⅢ">ラインブレーカーⅢ</option><option value="ラインブレーカーⅡ">ラインブレーカーⅡ</option>
-                            <option value="ポストプレーヤーⅢ">ポストプレーヤーⅢ</option><option value="ポストプレーヤーⅡ">ポストプレーヤーⅡ</option>
+                        <optgroup label="FW系">
+                            <option value="ストライカーⅢ">ストライカーⅢ</option>
+                            <option value="ストライカーⅡ">ストライカーⅡ</option>
+                            <option value="ラインブレーカーⅢ">ラインブレーカーⅢ</option>
+                            <option value="ラインブレーカーⅡ">ラインブレーカーⅡ</option>
+                            <option value="ポストプレーヤーⅢ">ポストプレーヤーⅢ</option>
+                            <option value="ポストプレーヤーⅡ">ポストプレーヤーⅡ</option>
                         </optgroup>
-                        <optgroup label="FW/MF共通">
-                            <option value="ドリブラーⅢ">ドリブラーⅢ</option><option value="ドリブラーⅡ">ドリブラーⅡ</option>
-                            <option value="サイドアタッカーⅢ">サイドアタッカーⅢ</option><option value="サイドアタッカーⅡ">サイドアタッカーⅡ</option>
+                        <optgroup label="共通系">
+                            <option value="ドリブラーⅢ">ドリブラーⅢ</option>
+                            <option value="ドリブラーⅡ">ドリブラーⅡ</option>
+                            <option value="サイドアタッカーⅢ">サイドアタッカーⅢ</option>
+                            <option value="サイドアタッカーⅡ">サイドアタッカーⅡ</option>
                         </optgroup>
-                        <optgroup label="MF">
-                            <option value="アタッカーⅢ">アタッカーⅢ</option><option value="アタッカーⅡ">アタッカーⅡ</option>
-                            <option value="セントラルMFⅢ">セントラルMFⅢ</option><option value="セントラルMFⅡ">セントラルMFⅡ</option>
-                            <option value="パサーⅢ">パサーⅢ</option><option value="パサーⅡ">パサーⅡ</option>
-                            <option value="ハードマーカーⅢ">ハードマーカーⅢ</option><option value="ハードマーカーⅡ">ハードマーカーⅡ</option>
+                        <optgroup label="MF系">
+                            <option value="アタッカーⅢ">アタッカーⅢ</option>
+                            <option value="アタッカーⅡ">アタッカーⅡ</option>
+                            <option value="セントラルMFⅢ">セントラルMFⅢ</option>
+                            <option value="セントラルMFⅡ">セントラルMFⅡ</option>
+                            <option value="パサーⅢ">パサーⅢ</option>
+                            <option value="パサーⅡ">パサーⅡ</option>
+                            <option value="ハードマーカーⅢ">ハードマーカーⅢ</option>
+                            <option value="ハードマーカーⅡ">ハードマーカーⅡ</option>
                         </optgroup>
-                        <optgroup label="DF">
-                            <option value="攻撃的FBⅢ">攻撃的FBⅢ</option><option value="攻撃的FBⅡ">攻撃的FBⅡ</option>
-                            <option value="守備的FBⅢ">守備的FBⅢ</option><option value="守備的FBⅡ">守備的FBⅡ</option>
-                            <option value="組立CBⅢ">組立CBⅢ</option><option value="組立CBⅡ">組立CBⅡ</option>
-                            <option value="ストッパーⅢ">ストッパーⅢ</option><option value="ストッパーⅡ">ストッパーⅡ</option>
+                        <optgroup label="DF系">
+                            <option value="攻撃的FBⅢ">攻撃的FBⅢ</option>
+                            <option value="攻撃的FBⅡ">攻撃的FBⅡ</option>
+                            <option value="守備的FBⅢ">守備的FBⅢ</option>
+                            <option value="守備的FBⅡ">守備的FBⅡ</option>
+                            <option value="組立CBⅢ">組立CBⅢ</option>
+                            <option value="組立CBⅡ">組立CBⅡ</option>
+                            <option value="ストッパーⅢ">ストッパーⅢ</option>
+                            <option value="ストッパーⅡ">ストッパーⅡ</option>
                         </optgroup>
-                        <optgroup label="GK">
-                            <option value="スイーパーGKⅢ">スイーパーGKⅢ</option><option value="スイーパーGKⅡ">スイーパーGKⅡ</option>
-                            <option value="オーソドックスGKⅢ">オーソドックスGKⅢ</option><option value="オーソドックスGKⅡ">オーソドックスGKⅡ</option>
+                        <optgroup label="GK系">
+                            <option value="スイーパーGKⅢ">スイーパーGKⅢ</option>
+                            <option value="スイーパーGKⅡ">スイーパーGKⅡ</option>
+                            <option value="オーソドックスGKⅢ">オーソドックスGKⅢ</option>
+                            <option value="オーソドックスGKⅡ">オーソドックスGKⅡ</option>
                         </optgroup>
                     </select>
                     <button class="submit-btn" onclick="addPlayer()">リストに保存</button>
@@ -328,6 +352,11 @@
                 <div class="modal-row"><span class="modal-label">メインポジ</span><span id="modalPos" class="modal-val"></span></div>
                 <div class="modal-row"><span class="modal-label">ポリシー</span><span id="modalPolicy" class="modal-val"></span></div>
                 <div class="modal-row"><span class="modal-label">プレースタイル</span><span id="modalStyle" class="modal-val"></span></div>
+                
+                <div class="skill-section">
+                    <h3>追加スキル</h3>
+                    <div id="modalSlots" class="slot-list"></div>
+                </div>
             </div>
             <div class="modal-footer"><button class="close-btn" onclick="closeModal()">閉じる</button></div>
         </div>
@@ -340,30 +369,47 @@
         let showMode = 'all'; 
         let filters = { rarity: [], policy: [], position: [], method: [], style: [] };
 
+        // 枠数判定 ＆ 固有スキルの生成ロジック
+        function getInitialSlots(player) {
+            const r = player.rarity;
+            const m = player.method || "";
+            const extra = player.extra_skills || [];
+
+            // 正しい枠数を決定
+            let slotsCount = 1;
+            const isStandardSP = (m === "ワールドSP" || m === "JリーグSP" || m === "KリーグSP" || m === "限定SP");
+            if (isStandardSP && r === "☆3") slotsCount = 4;
+            else if (isStandardSP && r === "☆2") slotsCount = 3;
+            else if ((m === "配布SP" || m === "モード内") && r === "☆3") slotsCount = 3;
+
+            // スロット配列を作成
+            let slots = new Array(slotsCount).fill(null);
+            if (extra.length > 0) slots[0] = extra[0];
+            
+            return slots;
+        }
+
         async function init() {
             loadFilters();
-            
-            const jsonFiles = [
-                'players_world.json',
-                'players_distribution.json',
-                'players_jleague.json',
-                'players_kleague.json',
-                'players_in_mode.json'
-            ];
-
+            const jsonFiles = ['players_world.json', 'players_distribution.json', 'players_jleague.json', 'players_kleague.json', 'players_in_mode.json'];
             try {
-                const results = await Promise.all(
-                    jsonFiles.map(file => 
-                        fetch(file)
-                            .then(res => res.ok ? res.json() : [])
-                            .catch(e => [])
-                    )
-                );
+                const results = await Promise.all(jsonFiles.map(file => fetch(file).then(res => res.ok ? res.json() : []).catch(() => [])));
                 jsonPlayers = results.flat();
-            } catch (e) { console.error(e); }
-
+            } catch (e) { console.error("Data Load Error:", e); }
             updateButtons();
             search();
+            checkAutoOpen();
+        }
+
+        function checkAutoOpen() {
+            const params = new URLSearchParams(location.search);
+            const pid = params.get('pid');
+            if (pid) {
+                const decodedPid = decodeURIComponent(pid);
+                const all = jsonPlayers.concat(createdPlayers);
+                const target = all.find(p => p.name === decodedPid);
+                if (target) openModal(encodeURIComponent(JSON.stringify(target)));
+            }
         }
 
         function toggleSection(id) {
@@ -372,45 +418,27 @@
         }
 
         function toggleFilter(type, value) {
-            if (filters[type].includes(value)) {
-                filters[type] = filters[type].filter(v => v !== value);
-            } else {
-                filters[type].push(value);
-            }
-            updateButtons();
-            saveFilters();
-            search();
+            if (filters[type].includes(value)) filters[type] = filters[type].filter(v => v !== value);
+            else filters[type].push(value);
+            updateButtons(); saveFilters(); search();
         }
 
         function toggleShow(mode) {
-            showMode = mode;
-            updateButtons();
-            saveFilters();
-            search();
+            showMode = mode; updateButtons(); saveFilters(); search();
         }
 
         function search() {
             const nameInput = document.getElementById("nameSearch").value.toLowerCase();
             const all = jsonPlayers.concat(createdPlayers);
-            
             const filtered = all.filter(p => {
                 if (nameInput && !p.name.toLowerCase().includes(nameInput)) return false;
                 if (filters.rarity.length && !filters.rarity.includes(p.rarity)) return false;
                 if (filters.policy.length && !filters.policy.includes(p.policy)) return false;
                 if (filters.position.length && !filters.position.includes(p.position)) return false;
-
-                // --- 入手法（method）の特殊判定 ---
                 if (filters.method.length) {
-                    const isMatch = filters.method.some(filterVal => {
-                        if (filterVal === "配布・限定SP") {
-                            // ボタンが「配布・限定SP」の時、JSON側の値が 配布 or 限定 どちらかを含めばOK
-                            return (p.method === "配布SP" || p.method === "限定SP" || p.method === "配布・限定SP");
-                        }
-                        return p.method === filterVal;
-                    });
+                    const isMatch = filters.method.some(fv => (fv === "配布・限定SP") ? (p.method === "配布SP" || p.method === "限定SP") : p.method === fv);
                     if (!isMatch) return false;
                 }
-
                 if (filters.style.length && !filters.style.includes(p.playstyle)) return false;
                 if (showMode === 'owned' && !ownedPlayers.includes(p.name)) return false;
                 return true;
@@ -424,7 +452,6 @@
                 const pClass = getPolicyClass(p.policy);
                 const isOwned = ownedPlayers.includes(p.name);
                 const playerData = encodeURIComponent(JSON.stringify(p));
-                
                 html += `<tr>
                     <td><a class="name-link" onclick="sendToBuilder('${playerData}')">${p.name}</a></td>
                     <td class="desktop-only">${p.rarity}</td>
@@ -452,10 +479,66 @@
             document.getElementById('modalPos').innerText = p.position;
             document.getElementById('modalPolicy').innerText = p.policy;
             document.getElementById('modalStyle').innerText = p.playstyle || '-';
+            
+            // 強制同期ロジック
+            syncPlayerSkills(p);
+            
+            renderSlots(p);
             document.getElementById('detailModal').style.display = 'flex';
         }
 
-        function closeModal() { document.getElementById('detailModal').style.display = 'none'; }
+        // ここが重要：保存データとJSONデータを比較し、不整合があれば上書きリセットする
+        function syncPlayerSkills(player) {
+            let equipped = JSON.parse(localStorage.getItem('equippedSkills')) || {};
+            const savedSlots = equipped[player.name];
+            const correctSlots = getInitialSlots(player);
+
+            // 保存データがない、または枠数が違う、または固有スキルがあるのに1枠目が違う場合、リセット
+            if (!savedSlots || 
+                savedSlots.length !== correctSlots.length || 
+                (player.extra_skills && player.extra_skills.length > 0 && savedSlots[0] !== player.extra_skills[0] && savedSlots[0] === null)) {
+                
+                equipped[player.name] = correctSlots;
+                localStorage.setItem('equippedSkills', JSON.stringify(equipped));
+                console.log(`Synced ${player.name} to correct slots.`);
+            }
+        }
+
+        function renderSlots(player) {
+            const equipped = JSON.parse(localStorage.getItem('equippedSkills')) || {};
+            const slots = equipped[player.name] || getInitialSlots(player);
+            
+            let html = "";
+            slots.forEach((skillName, index) => {
+                if (skillName) {
+                    html += `<div class="slot"><span>${skillName}</span><button class="slot-btn btn-remove" onclick="removeSkill('${player.name}', ${index}, '${encodeURIComponent(JSON.stringify(player))}')">解除</button></div>`;
+                } else {
+                    html += `<div class="slot empty"><span>未設定</span><button class="slot-btn btn-add" onclick="goToSkillSelect('${player.name}', ${index})">＋</button></div>`;
+                }
+            });
+            document.getElementById('modalSlots').innerHTML = html;
+        }
+
+        function goToSkillSelect(playerName, index) {
+            location.href = `skills.html?pid=${encodeURIComponent(playerName)}&slot=${index}`;
+        }
+
+        function removeSkill(playerName, index, encodedPlayer) {
+            let equipped = JSON.parse(localStorage.getItem('equippedSkills')) || {};
+            if (equipped[playerName]) {
+                equipped[playerName][index] = null;
+                localStorage.setItem('equippedSkills', JSON.stringify(equipped));
+                renderSlots(JSON.parse(decodeURIComponent(encodedPlayer)));
+            }
+        }
+
+        function closeModal() { 
+            document.getElementById('detailModal').style.display = 'none'; 
+            const url = new URL(location.href);
+            url.searchParams.delete('pid');
+            history.replaceState(null, '', url);
+        }
+        
         window.onclick = (e) => { if (e.target == document.getElementById('detailModal')) closeModal(); }
 
         function getPolicyClass(p) {
@@ -474,18 +557,15 @@
             const name = document.getElementById('newName').value;
             if (!name) return alert("選手名を入力してください");
             const newP = {
-                name: name,
-                rarity: document.getElementById('newRarity').value,
-                method: document.getElementById('newMethod').value,
-                position: document.getElementById('newPos').value,
-                policy: document.getElementById('newPolicy').value,
-                playstyle: document.getElementById('newStyle').value,
-                isCustom: true 
+                name: name, rarity: document.getElementById('newRarity').value,
+                method: document.getElementById('newMethod').value, position: document.getElementById('newPos').value,
+                policy: document.getElementById('newPolicy').value, playstyle: document.getElementById('newStyle').value,
+                isCustom: true, extra_skills: []
             };
             createdPlayers.push(newP);
             localStorage.setItem('createdPlayers', JSON.stringify(createdPlayers));
-            document.getElementById('newName').value = "";
-            search();
+            document.getElementById('newName').value = ""; search();
+            alert(name + " を保存しました。");
         }
 
         function deletePlayer(name) {
@@ -506,11 +586,11 @@
         }
 
         function saveFilters() {
-            localStorage.setItem("searchFilters_v10", JSON.stringify({ filters, showMode, name: document.getElementById("nameSearch").value }));
+            localStorage.setItem("searchFilters_v11", JSON.stringify({ filters, showMode, name: document.getElementById("nameSearch").value }));
         }
 
         function loadFilters() {
-            const saved = JSON.parse(localStorage.getItem("searchFilters_v10"));
+            const saved = JSON.parse(localStorage.getItem("searchFilters_v11"));
             if (saved) {
                 filters = saved.filters || filters;
                 showMode = saved.showMode || 'all';
@@ -521,7 +601,7 @@
         function sendToBuilder(encodedData) {
             const player = JSON.parse(decodeURIComponent(encodedData));
             localStorage.setItem('selectedPlayer', JSON.stringify(player));
-            window.location.href = 'builder.html';
+            location.href = 'builder.html';
         }
 
         init();
