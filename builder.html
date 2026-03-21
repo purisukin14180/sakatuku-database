@@ -64,10 +64,10 @@
         }
         .nav-links a.current { background: rgba(255,255,255,0.15); }
 
-        /* ===== レイアウト調整（ヘッダー削除分） ===== */
+        /* ===== レイアウト調整 ===== */
         .container { 
             max-width: 900px; 
-            margin: 15px auto 40px; /* 上部余白を適切に設定 */
+            margin: 15px auto 40px; 
             padding: 0 15px; 
         }
         .card { background: #fff; padding: 20px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 20px; border: 1px solid var(--border); }
@@ -106,10 +106,54 @@
         .target-style.met { color: #4ade80; }
         .target-style.not-met { color: #fbbf24; }
 
-        .f-name-display { position: absolute; bottom: 12px; left: 15px; font-weight: 900; font-size: 0.85rem; text-shadow: 2px 2px 4px #000; color: #fff; }
-        .f-check-display { position: absolute; bottom: 12px; right: 15px; text-align: right; text-shadow: 2px 2px 4px #000; color: #fff; }
+        /* フォーメーション名表示（改行・重なり防止改修） */
+        .f-name-display { 
+            position: absolute; 
+            bottom: 12px; left: 15px; 
+            max-width: 35%; /* GKに重ならないよう幅制限 */
+            font-weight: 900; font-size: 0.8rem; 
+            text-shadow: 2px 2px 4px #000; color: #fff; 
+            line-height: 1.2; word-break: break-all;
+            pointer-events: none; /* タップの邪魔をしない */
+        }
+        .f-check-display { position: absolute; bottom: 12px; right: 15px; text-align: right; text-shadow: 2px 2px 4px #000; color: #fff; pointer-events: none;}
         .status-active { color: #facc15; font-weight: 900; font-size: 0.9rem; }
         .status-inactive { color: #f87171; font-weight: 900; font-size: 0.8rem; }
+
+        /* 管理エリア */
+        .admin-card { max-width: 500px; margin: 20px auto 40px; }
+        .section-title { display: block; font-weight: 800; margin-bottom: 12px; font-size: 0.95rem; border-left: 5px solid var(--primary); padding-left: 10px; color: #1e293b; }
+        textarea { width: 100%; height: 180px; padding: 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 0.9rem; resize: none; }
+        button#saveFormation { background: var(--primary); color: white; }
+        #loadBtn { background: #28a745; color: white; width: 65%; margin-right: 5%; }
+        #deleteBtn { background: #ef4444; color: white; width: 30%; }
+
+        /* ===== フッター（全ページ共通） ===== */
+        footer {
+            text-align: center;
+            padding: 40px 15px;
+            background: var(--dark);
+            color: #999;
+            margin-top: 40px;
+        }
+        .footer-nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            font-size: 0.8rem;
+            margin-bottom: 15px;
+        }
+        .footer-nav a { 
+            color: var(--accent); 
+            text-decoration: none; 
+            font-weight: bold;
+        }
+        .footer-nav a.current-footer {
+            color: #fff;
+            text-decoration: underline;
+        }
+        .copyright { font-size: 0.75rem; }
 
         /* ===== モーダル ===== */
         .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); align-items: center; justify-content: center; padding: 20px; }
@@ -139,18 +183,7 @@
         #skillSubModal .modal-content { max-width: 350px; border: 2px solid var(--primary); z-index: 3000; }
         .skill-detail-box { margin-top: 10px; padding: 10px; background: #f1f5f9; border-radius: 8px; font-size: 0.8rem; color: #475569; border-left: 4px solid var(--primary); }
 
-        .modal-footer { padding: 15px; text-align: center; }
-        .close-btn { width: 100%; padding: 12px; background: #f1f5f9; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
-
         @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-
-        /* 管理エリア */
-        .admin-card { max-width: 500px; margin: 20px auto 80px; }
-        .section-title { display: block; font-weight: 800; margin-bottom: 12px; font-size: 0.95rem; border-left: 5px solid var(--primary); padding-left: 10px; color: #1e293b; }
-        textarea { width: 100%; height: 180px; padding: 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 0.9rem; resize: none; }
-        button#saveFormation { background: var(--primary); color: white; }
-        #loadBtn { background: #28a745; color: white; width: 65%; margin-right: 5%; }
-        #deleteBtn { background: #ef4444; color: white; width: 30%; }
     </style>
 </head>
 <body>
@@ -170,7 +203,7 @@
     <div class="card">
         <select id="formationSelect">
             <option value="la-dea">ラ・デア'22</option>
-            <option value="la-roja">ラ-ロハ'24</option>
+            <option value="la-roja">ラ・ロハ'24</option>
             <option value="les-bleus">レ・ブルー'98</option>
             <option value="diabolo-milano">ディアボロ・ディ・ミラノ'99</option>
             <option value="gorden-zonen">ゴーデンゾーネン'94</option>
@@ -213,6 +246,17 @@
         <textarea id="userMemo" placeholder="・コンボの注意点など..."></textarea>
     </div>
 </div>
+
+<footer>
+    <div class="footer-nav">
+        <a href="index.html">ホーム</a>
+        <a href="builder.html" class="current-footer">スカッド</a>
+        <a href="search.html">選手検索</a>
+        <a href="formation-search.html">フォメコン</a>
+        <a href="skills.html">スキル検索</a>
+    </div>
+    <p class="copyright">&copy; 2026 プリスキンのサカつくDB <br><a href="terms.html" style="color:#777; text-decoration: none;">利用規約</a></p>
+</footer>
 
 <div id="playerActionModal" class="modal">
     <div class="modal-content modal-mini">
