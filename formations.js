@@ -1,13 +1,13 @@
 const FORMATIONS_DATA = [
     // 初期解放(1コイン)
-    { name: "4-4-2B ポゼッション", policy: "ポゼッション", formation: "4-4-2B", level: "初期", coin: 1, keys: "LDM(パサーⅠ以上)", effect: "ジャンプ・走力 30%UP" },
-    { name: "3-5-2A ポゼッション", policy: "ポゼッション", formation: "3-5-2A", level: "初期", coin: 1, keys: "RCF(ラインブレーカーⅠ以上)", effect: "ロングパス・パスカット 30%UP" },
-    { name: "3-6-1A カウンター", policy: "カウンター", formation: "3-6-1A", level: "初期", coin: 1, keys: "RDM(ハードマーカーⅠ以上)", effect: "キープ力・コンタクト 30%UP" },
-    { name: "4-3-3A カウンター", policy: "カウンター", formation: "4-3-3A", level: "初期", coin: 1, keys: "RB(攻撃的FBⅠ以上)", effect: "パスカット・コンタクト 30%UP" },
-    { name: "4-3-3B リアクション", policy: "リアクション", formation: "4-3-3B", level: "初期", coin: 1, keys: "GK(オーソドックスGKⅠ以上)", effect: "キック精度・コンタクト 30%UP" },
-    { name: "4-5-1B リアクション", policy: "リアクション", formation: "4-5-1B", level: "初期", coin: 1, keys: "CF(ストライカーⅠ以上)", effect: "パスカット・敏捷性 30%UP" },
-    { name: "4-4-2B ムービング", policy: "ムービング", formation: "4-4-2B", level: "初期", coin: 1, keys: "LSB(守備的FBⅠ以上)", effect: "ロングパス・キック精度 30%UP" },
-    { name: "4-4-2C ムービング", policy: "ムービング", formation: "4-4-2C", level: "初期", coin: 1, keys: "LAM(アタッカーⅠ以上)", effect: "ロングパス・キープ力 30%UP" },
+    { name: "4-4-2B ポゼッション", policy: "ポゼッション", formation: "4-4-2 B", level: "初期", coin: 1, keys: "LDM(パサーⅠ以上)", effect: "ジャンプ・走力 30%UP" },
+    { name: "3-5-2A ポゼッション", policy: "ポゼッション", formation: "3-5-2 A", level: "初期", coin: 1, keys: "RCF(ラインブレーカーⅠ以上)", effect: "ロングパス・パスカット 30%UP" },
+    { name: "3-6-1A カウンター", policy: "カウンター", formation: "3-6-1 A", level: "初期", coin: 1, keys: "RDM(ハードマーカーⅠ以上)", effect: "キープ力・コンタクト 30%UP" },
+    { name: "4-3-3A カウンター", policy: "カウンター", formation: "4-3-3 A", level: "初期", coin: 1, keys: "RB(攻撃的FBⅠ以上)", effect: "パスカット・コンタクト 30%UP" },
+    { name: "4-3-3B リアクション", policy: "リアクション", formation: "4-3-3 B", level: "初期", coin: 1, keys: "GK(オーソドックスGKⅠ以上)", effect: "キック精度・コンタクト 30%UP" },
+    { name: "4-5-1B リアクション", policy: "リアクション", formation: "4-5-1 B", level: "初期", coin: 1, keys: "CF(ストライカーⅠ以上)", effect: "パスカット・敏捷性 30%UP" },
+    { name: "4-4-2B ムービング", policy: "ムービング", formation: "4-4-2 B", level: "初期", coin: 1, keys: "LSB(守備的FBⅠ以上)", effect: "ロングパス・キック精度 30%UP" },
+    { name: "4-4-2C ムービング", policy: "ムービング", formation: "4-4-2 C", level: "初期", coin: 1, keys: "LAM(アタッカーⅠ以上)", effect: "ロングパス・キープ力 30%UP" },
     
     // 初期解放(2コイン)
     { name: "シュヴァルツ・ゲルベン'97", policy: "ポゼッション", formation: "3-5-2 B", level: "初期", coin: 2, keys: "RCF(ポストプレイヤーⅠ以上)", effect: "冷静さ・マーク 50%UP" },
@@ -27,7 +27,7 @@ const FORMATIONS_DATA = [
 
     // Lv.13解放
     { name: "ウルチカ'03", policy: "ポゼッション", formation: "4-5-1 A", level: "13", coin: 10, keys: "LB(守備的FBⅡ以上)、RAM(アタッカーⅡ以上)、CF(ポストプレイヤーⅡ以上)", effect: "決定力・ロングパス・キープ力 80%UP" },
-    { name: "ヒノマルスタイル'68", policy: "カウンター", formation: "3-4-3 C", level: "13", coin: 10, keys: "LCB(ストッパーⅡ以上)、LW(ドリブラーⅡ以上)、CF(ストライカーⅡ以上)", effect: "決定力・ショートパス・キ精度 80%UP" },
+    { name: "ヒノマルスタイル'68", policy: "カウンター", formation: "3-4-3 C", level: "13", coin: 10, keys: "LCB(ストッパーⅡ以上)、LW(ドリブラーⅡ以上)、CF(ストライカーⅡ以上)", effect: "決定力・ショートパス・キック精度 80%UP" },
     { name: "クロチャーティ'99", policy: "リアクション", formation: "5-3-2 B", level: "13", coin: 10, keys: "LDM(セントラルMFⅡ以上)、AM(アタッカーⅡ以上)、RCF(ストライカーⅡ以上)", effect: "決定力・パスカット・ジャンプ 80%UP" },
     { name: "レ・ルージュ・エ・ブラン'04", policy: "ムービング", formation: "4-3-3 B", level: "13", coin: 10, keys: "GK(オーソドックスGKⅡ以上)、LDM(パサーⅡ以上)、LW(サイドアタッカーⅡ以上)", effect: "決定力・キープ力・パスカット 80%UP" },
 
@@ -45,5 +45,11 @@ const FORMATIONS_DATA = [
     { name: "イ・フリウラーニ'98", policy: "リアクション", formation: "3-4-3 B", level: "イベント", coin: 0, keys: "GK(オーソドックスGKⅡ以上)、LCB(組立CBⅡ以上)、LM(サイドアタッカーⅡ以上)", effect: "パスカット・キープ力・敏捷性 80%UP" },
     { name: "シュヴァルツ・ゲルベン'16", policy: "カウンター", formation: "4-5-1 A", level: "イベント", coin: 0, keys: "GK(オーソドックスGKⅡ以上)、LCB(ストッパーⅡ以上)、RB(攻撃的FBⅡ以上)", effect: "コンタクト・走力・キック精度 80%UP" },
     { name: "ダニッシュ・ダイナマイト'18", policy: "ムービング", formation: "4-5-1 B", level: "イベント", coin: 0, keys: "LCB(ストッパーⅡ以上)、AM(パサーⅡ以上)、CF(ストライカーⅡ以上)", effect: "コンタクト・走力・キープ力 80%UP" },
-    { name: "エル・レオン'70", policy: "ポゼッション", formation: "3-4-3 C", level: "イベント", coin: 0, keys: "CCB(ストッパーⅡ以上)、LAM(アタッカーⅡ以上)、LW(ドリブラーⅡ以上)", effect: "ロングパス・コンタクト・キープ力 80%UP" }
+    { name: "エル・レオン'70", policy: "ポゼッション", formation: "3-4-3 C", level: "イベント", coin: 0, keys: "CCB(ストッパーⅡ以上)、LAM(アタッカーⅡ以上)、LW(ドリブラーⅡ以上)", effect: "ロングパス・コンタクト・キープ力 80%UP" },
+    
+    // イベント限定（追加分）
+    { name: "アズーリ'14", policy: "リアクション", formation: "3-5-2 B", level: "イベント", coin: 0, keys: "GK(オーソドックスGKⅡ以上)、LDM(セントラルMFⅡ以上)、CAM(アタッカーⅡ以上)", effect: "冷静さ・コンタクト・ジャンプ 80%UP" },
+    { name: "ヒノマルスタイル'93", policy: "カウンター", formation: "4-3-3 B", level: "イベント", coin: 0, keys: "LB(守備的FBⅡ以上)、LDM(セントラルMFⅡ以上)、RW(ドリブラーⅢ以上)", effect: "ロングパス・突破力・走力 80%UP" },
+    { name: "ブルー・ガル'22", policy: "ムービング", formation: "3-6-1 B", level: "イベント", coin: 0, keys: "LCB(ストッパーⅡ以上)、RCB(ストッパーⅡ以上)、CDM(セントラルMFⅡ以上)", effect: "コンタクト・パスカット・キック精度 80%UP" },
+    { name: "ラ・ロハ'02", policy: "ポゼッション", formation: "4-4-2 B", level: "イベント", coin: 0, keys: "GK(オーソドックスGKⅡ以上)、LCB(ストッパーⅡ以上)、LCF(ラインブレーカーⅡ以上)", effect: "コンタクト・ジャンプ・パスカット 80%UP" }
 ];
