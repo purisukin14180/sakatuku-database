@@ -155,11 +155,22 @@
       gap: 15px;
     }
 
+    /* ツール一覧のリンクスタイル */
     .feature-item {
+      display: block;
+      text-decoration: none;
       padding: 15px;
       border-radius: 10px;
       background: #fdfdfd;
       border: 1px solid #eee;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+    }
+
+    .feature-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+      background: #f0f7ff;
+      border-color: var(--primary);
     }
 
     .feature-item h3 {
@@ -240,22 +251,22 @@
   <section class="features">
     <h2>提供ツール一覧</h2>
     <div class="feature-grid">
-      <div class="feature-item">
+      <a href="formation-search.html" class="feature-item">
         <h3>フォメコン検索</h3>
         <p>ポリシーや解放レベルから必要なフォーメーションを検索。キーポジションや発動条件を瞬時に確認できます。</p>
-      </div>
-      <div class="feature-item">
+      </a>
+      <a href="builder.html" class="feature-item">
         <h3>スカッドビルダー</h3>
         <p>フォーメーションに選手を配置。コンボ条件の確認や画像保存が可能です。</p>
-      </div>
-      <div class="feature-item">
+      </a>
+      <a href="search.html" class="feature-item">
         <h3>選手検索データベース</h3>
         <p>ポジション・プレイスタイルなどで絞り込み。データに載っていない選手の登録も可能です。</p>
-      </div>
-      <div class="feature-item">
+      </a>
+      <a href="skills.html" class="feature-item">
         <h3>スキル検索</h3>
         <p>必要なスキルがどの方法で取得できるか、検索できます。</p>
-      </div>
+      </a>
     </div>
   </section>
 </div>
