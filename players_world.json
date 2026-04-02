@@ -648,5 +648,45 @@
     "method": "ワールドSP",
     "rarity": "☆2",
     "extra_skills": ["テクニカルドリブル"]
+  },
+  {
+    "id": "wsp_066",
+    "name": "ニコロ・バレッラ",
+    "position": "DM",
+    "playstyle": "セントラルMFⅢ",
+    "policy": "カウンター",
+    "method": "ワールドSP",
+    "rarity": "☆3",
+    "extra_skills": ["華麗なる一閃"]
+  },
+  {
+    "id": "wsp_067",
+    "name": "アレクサンダー・セルロート",
+    "position": "CF",
+    "playstyle": "ポストプレイヤーⅡ",
+    "policy": "カウンター",
+    "method": "ワールドSP",
+    "rarity": "☆3",
+    "extra_skills": ["点で合わせるシュート"]
+  },
+  {
+    "id": "wsp_068",
+    "name": "ティボ・クルトワ",
+    "position": "GK",
+    "playstyle": "オーソドックスGKⅡ",
+    "policy": "カウンター",
+    "method": "ワールドSP",
+    "rarity": "☆3",
+    "extra_skills": ["エレガント・セーブ"]
+  },
+  {
+    "id": "wsp_069",
+    "name": "ベン・ホワイト",
+    "position": "RB",
+    "playstyle": "守備的FBⅡ",
+    "policy": "カウンター",
+    "method": "ワールドSP",
+    "rarity": "☆3",
+    "extra_skills": ["反撃のパスカット"]
   }
 ]
