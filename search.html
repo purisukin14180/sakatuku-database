@@ -6,7 +6,6 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-KFYD72JSBG');
     </script>
 
@@ -15,95 +14,89 @@
     <title>プリスキンのサカつくDB - 選手検索</title>
     <style>
         :root {
-            --primary: #007bff;
-            --accent: #00bcd4;
-            --dark: #222;
-            --light-bg: #f8fafc;
-            --border: #e2e8f0;
-            --bg-gradient: linear-gradient(135deg, #4fc3f7, #007bff);
+            --sakatsuku-navy: #050a14;
+            --sakatsuku-mint: #00ffcc;
+            --sakatsuku-cyan: #4fc3f7;
+            --sakatsuku-dark-green: #0a1f1a;
+            --primary: var(--sakatsuku-mint);
+            --dark: var(--sakatsuku-navy);
+            --page-bg: radial-gradient(circle at 50% -20%, #1a3a35 0%, #050a14 70%);
+            --card-bg: rgba(255, 255, 255, 0.07);
             --nav-height: 60px;
+            --border: rgba(0, 255, 204, 0.2);
         }
 
-        body {
-            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
-            margin: 0; padding: 0; background-color: var(--light-bg); color: #333; line-height: 1.6;
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        html, body {
+            margin: 0; padding: 0; min-height: 100vh;
+            background-color: var(--sakatsuku-navy);
+            background-image: var(--page-bg);
+            background-attachment: fixed;
+            font-family: 'Inter', 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+            color: #fff; line-height: 1.6;
         }
 
-        /* ===== ナビゲーション（全ページ統一） ===== */
+        /* ===== ナビゲーション ===== */
         .topnav {
-            display: flex; 
-            justify-content: flex-start;
-            align-items: center;
-            background: var(--dark); color: #fff; 
-            height: var(--nav-height); 
-            padding: 0 10px; 
-            position: sticky; top: 0; z-index: 1000; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-            padding-top: env(safe-area-inset-top);
+            display: flex; justify-content: flex-start; align-items: center;
+            background: rgba(5, 10, 20, 0.85); backdrop-filter: blur(15px);
+            height: var(--nav-height); padding: 0 15px; position: sticky; top: 0; z-index: 1000;
+            border-bottom: 2px solid var(--sakatsuku-mint); padding-top: env(safe-area-inset-top);
         }
-
-        .logo { display: none; }
-
-        .nav-links {
-            display: flex; 
-            overflow-x: auto; 
-            white-space: nowrap;
-            -webkit-overflow-scrolling: touch; 
-            gap: 2px;
-            width: 100%;
-        }
+        .nav-links { display: flex; overflow-x: auto; white-space: nowrap; gap: 6px; width: 100%; }
         .nav-links::-webkit-scrollbar { display: none; }
-
         .nav-links a {
-            color: #fff; text-decoration: none; 
-            padding: 8px 10px; 
-            font-size: 0.85rem;
-            font-weight: 600; 
-            border-radius: 5px; 
-            transition: opacity 0.2s;
+            color: rgba(255, 255, 255, 0.7); text-decoration: none; padding: 8px 14px; 
+            font-size: 0.85rem; font-weight: 800; border-radius: 8px; transition: 0.3s;
         }
-        .nav-links a:hover { opacity: 0.7; }
-        .nav-links a.current { background: rgba(255,255,255,0.15); }
+        .nav-links a:hover { color: var(--sakatsuku-mint); }
+        .nav-links a.current { background: var(--sakatsuku-mint); color: #000; box-shadow: 0 0 15px rgba(0, 255, 204, 0.4); }
 
         /* ===== レイアウト ===== */
         .container { display: flex; max-width: 1400px; margin: 0 auto; min-height: calc(100vh - 120px); }
 
         /* ===== サイドバー ===== */
         .sidebar { 
-            width: 320px; background: #fff; padding: 20px; border-right: 1px solid var(--border); 
-            overflow-y: auto; height: calc(100vh - 60px); position: sticky; top: 60px; box-sizing: border-box; 
+            width: 320px; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px);
+            padding: 20px; border-right: 1px solid var(--border); 
+            overflow-y: auto; height: calc(100vh - 60px); position: sticky; top: 60px; 
         }
-        .sidebar h3 { font-size: 1.1rem; margin-top: 0; color: var(--dark); border-left: 4px solid var(--primary); padding-left: 10px; margin-bottom: 20px; }
+        .sidebar h3 { font-size: 1.1rem; margin-top: 0; color: var(--sakatsuku-mint); border-left: 4px solid var(--sakatsuku-mint); padding-left: 10px; margin-bottom: 20px; }
 
-        #nameSearch { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 20px; font-size: 0.9rem; background: #f1f5f9; box-sizing: border-box; }
+        #nameSearch { 
+            width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; 
+            margin-bottom: 20px; font-size: 0.9rem; background: rgba(255,255,255,0.1); color: #fff; outline: none;
+        }
 
-        .filter-section { margin-bottom: 10px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
-        .filter-title { font-size: 0.85rem; font-weight: bold; cursor: pointer; background: #f8fafc; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; }
-        .filter-options { display: none; padding: 10px; background: #fff; max-height: 400px; overflow-y: auto; }
+        .filter-section { margin-bottom: 10px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); background: rgba(255,255,255,0.03); }
+        .filter-title { font-size: 0.85rem; font-weight: bold; cursor: pointer; background: rgba(255,255,255,0.05); padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; color: var(--sakatsuku-cyan); }
+        .filter-options { display: none; padding: 10px; max-height: 450px; overflow-y: auto; }
 
-        .style-group-label { display: block; font-size: 0.7rem; color: #007bff; font-weight: bold; margin: 12px 0 6px 4px; border-bottom: 1px solid #e2e8f0; padding-bottom: 2px; }
+        .style-group-label { display: block; font-size: 0.7rem; color: var(--sakatsuku-mint); font-weight: bold; margin: 12px 0 6px 4px; border-bottom: 1px solid var(--border); padding-bottom: 2px; }
 
-        .filter-btn { padding: 6px 10px; margin: 2px; border: 1px solid var(--border); background: #fff; cursor: pointer; font-size: 0.75rem; border-radius: 6px; transition: 0.2s; }
-        .filter-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+        .filter-btn { padding: 6px 10px; margin: 2px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: #fff; cursor: pointer; font-size: 0.75rem; border-radius: 6px; transition: 0.2s; }
+        .filter-btn.active { background: var(--sakatsuku-mint); color: #000; border-color: var(--sakatsuku-mint); font-weight: bold; }
 
         /* 選手追加フォーム */
-        .create-form-section { background: #f0f9ff; border: 1px solid #bae6fd; margin-bottom: 40px; border-radius: 8px; overflow: hidden; }
-        .create-form-title { font-size: 0.85rem; font-weight: bold; cursor: pointer; background: #e0f2fe; padding: 10px 15px; color: var(--primary); display: flex; justify-content: space-between; align-items: center; }
-        .create-form-content { display: none; padding: 15px; background: #f0f9ff; }
-        .create-form-content label { display: block; font-size: 0.7rem; color: #64748b; margin-top: 5px; }
-        .create-form-content input, .create-form-content select { width: 100%; padding: 8px; margin-bottom: 8px; border-radius: 6px; border: 1px solid #cbd5e1; box-sizing: border-box; font-size: 0.8rem; }
-        .submit-btn { width: 100%; padding: 12px; background: var(--dark); color: white; border: none; cursor: pointer; font-weight: bold; border-radius: 8px; font-size: 0.85rem; margin-top: 10px;}
+        .create-form-section { background: rgba(0, 255, 204, 0.05); border: 1px solid var(--sakatsuku-mint); margin-bottom: 40px; border-radius: 12px; overflow: hidden; }
+        .create-form-title { font-size: 0.85rem; font-weight: bold; cursor: pointer; background: rgba(0, 255, 204, 0.1); padding: 10px 15px; color: var(--sakatsuku-mint); display: flex; justify-content: space-between; align-items: center; }
+        .create-form-content { display: none; padding: 15px; }
+        .create-form-content label { display: block; font-size: 0.7rem; color: var(--sakatsuku-cyan); margin-top: 5px; }
+        .create-form-content input, .create-form-content select { width: 100%; padding: 8px; margin-bottom: 8px; border-radius: 6px; border: 1px solid var(--border); background: rgba(0,0,0,0.3); color: #fff; font-size: 0.8rem; }
+        .submit-btn { width: 100%; padding: 12px; background: var(--sakatsuku-mint); color: #000; border: none; cursor: pointer; font-weight: 900; border-radius: 8px; font-size: 0.85rem; margin-top: 10px; }
 
         /* ===== メインコンテンツ ===== */
-        .main { flex: 1; padding: 20px; background: #fff; }
-        .main h1 { font-size: 1.5rem; margin-top: 0; color: var(--dark); }
+        .main { flex: 1; padding: 20px; }
+        .main h1 { font-size: 1.8rem; margin-top: 0; color: #fff; text-shadow: 0 0 15px rgba(0,255,204,0.3); font-weight: 900; }
         
-        .table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-        table { border-collapse: collapse; width: 100%; min-width: 100%; }
-        th { background: #f1f5f9; padding: 12px 8px; border-bottom: 2px solid var(--border); text-align: left; font-size: 0.7rem; color: #475569; position: sticky; top: 0; z-index: 10; }
-        td { padding: 12px 8px; border-bottom: 1px solid var(--border); font-size: 0.8rem; }
-
-        .desktop-only { display: table-cell; }
+        .table-wrapper { 
+            background: var(--card-bg); backdrop-filter: blur(10px); border-radius: 20px; 
+            border: 1px solid var(--border); overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        table { border-collapse: collapse; width: 100%; }
+        th { background: rgba(255,255,255,0.05); padding: 15px 10px; border-bottom: 2px solid var(--border); text-align: left; font-size: 0.75rem; color: var(--sakatsuku-cyan); font-weight: 900; }
+        td { padding: 12px 10px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.85rem; color: #eee; }
 
         .policy-badge { padding: 4px 8px; border-radius: 4px; color: white; font-size: 0.65rem; font-weight: bold; white-space: nowrap; }
         .policy-possession { background: #f59e0b; }
@@ -111,69 +104,38 @@
         .policy-reaction { background: #3b82f6; }
         .policy-moving { background: #10b981; }
 
-        .action-btn { padding: 6px 10px; cursor: pointer; border: 1px solid var(--border); border-radius: 6px; font-size: 0.7rem; background: #fff; }
+        .action-btn { padding: 6px 12px; cursor: pointer; border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; font-size: 0.7rem; background: rgba(255,255,255,0.05); color: #fff; font-weight: 700; transition: 0.2s; }
         .action-btn.owned { background: #fef3c7; border-color: #fbbf24; color: #92400e; }
-        .action-btn.detail-btn { background: var(--primary); color: white; border: none; }
-        .delete-btn { background: #fee2e2; color: #b91c1c; border: none; margin-top: 4px; display: block; }
+        .action-btn.detail-btn { background: var(--sakatsuku-mint); color: #000; border: none; }
+        .delete-btn { background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid #ef4444; margin-top: 4px; }
         
-        .name-link { color: var(--primary); font-weight: bold; cursor: pointer; text-decoration: none; }
+        .name-link { color: var(--sakatsuku-mint); font-weight: 900; cursor: pointer; text-decoration: none; }
 
-        /* ===== モーダル共通 ===== */
-        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; }
-        .modal-content { background: white; width: 100%; max-width: 400px; border-radius: 16px; overflow: hidden; animation: slideUp 0.3s ease-out; max-height: 90vh; overflow-y: auto; }
-        .modal-header { background: var(--bg-gradient); color: white; padding: 20px; text-align: center; }
-        .modal-header h2 { margin: 0; font-size: 1.2rem; }
-        .modal-body { padding: 20px; }
-        .modal-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f1f5f9; }
-        .modal-label { font-weight: bold; color: #64748b; font-size: 0.85rem; }
-        .modal-val { font-weight: 600; color: var(--dark); }
+        /* ===== モーダル ===== */
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); align-items: center; justify-content: center; padding: 20px; }
+        .modal-content { background: var(--sakatsuku-navy); border: 2px solid var(--sakatsuku-mint); width: 100%; max-width: 400px; border-radius: 24px; overflow: hidden; animation: slideUp 0.3s ease-out; }
+        .modal-header { background: #1a3a35; color: var(--sakatsuku-mint); padding: 20px; text-align: center; }
+        .modal-header h2 { margin: 0; font-size: 1.3rem; font-weight: 900; }
+        .modal-body { padding: 20px; max-height: 80vh; overflow-y: auto; }
+        .modal-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .modal-label { font-weight: bold; color: var(--sakatsuku-cyan); font-size: 0.85rem; }
+        .modal-val { font-weight: 600; color: #fff; }
 
-        .skill-section { margin-top: 20px; background: #f8fafc; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0; }
-        .skill-section h3 { font-size: 0.9rem; margin: 0 0 10px 0; color: var(--primary); }
-        .slot-list { display: flex; flex-direction: column; gap: 8px; }
-        .slot { display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 10px 15px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.85rem; }
-        .slot-name { font-weight: bold; cursor: pointer; color: var(--primary); text-decoration: underline; }
-        .slot.empty { border-style: dashed; background: transparent; cursor: default; }
-        .slot-btn { padding: 4px 10px; border-radius: 6px; border: none; cursor: pointer; font-size: 0.75rem; font-weight: bold; }
-        .btn-add { background: var(--primary); color: white; }
-        .btn-remove { background: #ef4444; color: white; }
+        .skill-section { margin-top: 20px; background: rgba(255,255,255,0.03); padding: 15px; border-radius: 16px; border: 1px solid var(--border); }
+        .skill-section h3 { font-size: 0.9rem; margin: 0 0 10px 0; color: var(--sakatsuku-mint); font-weight: 900; }
+        .slot { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.3); padding: 10px 15px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 8px; }
+        .slot-name { font-weight: bold; cursor: pointer; color: var(--sakatsuku-mint); text-decoration: underline; }
+        .btn-remove { background: #ef4444; color: white; border: none; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; cursor: pointer; }
+        .btn-add { background: var(--sakatsuku-mint); color: #000; border: none; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; cursor: pointer; font-weight: 900; }
 
-        /* スキル詳細モーダル用 */
-        #skillSubModal .modal-content { max-width: 350px; border: 2px solid var(--primary); }
-        .skill-detail-box { margin-top: 10px; padding: 10px; background: #f1f5f9; border-radius: 8px; font-size: 0.8rem; color: #475569; border-left: 4px solid var(--primary); }
+        .skill-detail-box { margin-top: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px; font-size: 0.8rem; color: #ccc; border-left: 4px solid var(--sakatsuku-mint); }
+        .close-btn { width: 100%; padding: 12px; background: rgba(255,255,255,0.1); color: #fff; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; }
 
-        .modal-footer { padding: 15px; text-align: center; }
-        .close-btn { width: 100%; padding: 12px; background: #f1f5f9; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
-
-        /* ===== フッター（全ページ共通） ===== */
-        footer {
-            text-align: center;
-            padding: 40px 15px;
-            background: var(--dark);
-            color: #999;
-            margin-top: 40px;
-        }
-        .footer-nav {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 12px;
-            font-size: 0.8rem;
-            margin-bottom: 15px;
-        }
-        .footer-nav a { 
-            color: var(--accent); 
-            text-decoration: none; 
-            font-weight: bold;
-        }
-        .footer-nav a.current-footer {
-            color: #fff;
-            text-decoration: underline;
-        }
-        .copyright { font-size: 0.75rem; }
+        footer { text-align: center; padding: 60px 20px; background: rgba(5, 10, 20, 0.95); color: #777; border-top: 1px solid var(--border); margin-top: 40px; }
+        .footer-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 18px; font-size: 0.85rem; margin-bottom: 25px; }
+        .footer-nav a { color: var(--sakatsuku-cyan); text-decoration: none; font-weight: 700; }
 
         @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-
         @media (max-width: 900px) { 
             .container { flex-direction: column; } 
             .sidebar { width: 100%; border-right: none; height: auto; position: relative; top: 0; }
@@ -184,7 +146,6 @@
 <body>
 
     <header class="topnav">
-        <a href="index.html" class="logo">サカつくDB</a>
         <nav class="nav-links">
             <a href="index.html">ホーム</a>
             <a href="builder.html">スカッド</a>
@@ -217,6 +178,17 @@
             </div>
 
             <div class="filter-section">
+                <div class="filter-title" onclick="toggleSection('methodSection')">入手法 <span>▼</span></div>
+                <div id="methodSection" class="filter-options">
+                    <button class="filter-btn" data-type="method" data-value="ワールドSP" onclick="toggleFilter('method','ワールドSP')">ワールドSP</button>
+                    <button class="filter-btn" data-type="method" data-value="JリーグSP" onclick="toggleFilter('method','JリーグSP')">JリーグSP</button>
+                    <button class="filter-btn" data-type="method" data-value="KリーグSP" onclick="toggleFilter('method','KリーグSP')">KリーグSP</button>
+                    <button class="filter-btn" data-type="method" data-value="配布・限定SP" onclick="toggleFilter('method','配布・限定SP')">配布・限定SP</button>
+                    <button class="filter-btn" data-type="method" data-value="モード内" onclick="toggleFilter('method','モード内')">モード内</button>
+                </div>
+            </div>
+
+            <div class="filter-section">
                 <div class="filter-title" onclick="toggleSection('policySection')">ポリシー <span>▼</span></div>
                 <div id="policySection" class="filter-options">
                     <button class="filter-btn" data-type="policy" data-value="ポゼッション" onclick="toggleFilter('policy','ポゼッション')">ポゼッション</button>
@@ -227,13 +199,19 @@
             </div>
 
             <div class="filter-section">
-                <div class="filter-title" onclick="toggleSection('methodSection')">入手法 <span>▼</span></div>
-                <div id="methodSection" class="filter-options">
-                    <button class="filter-btn" data-type="method" data-value="ワールドSP" onclick="toggleFilter('method','ワールドSP')">ワールドSP</button>
-                    <button class="filter-btn" data-type="method" data-value="JリーグSP" onclick="toggleFilter('method','JリーグSP')">JリーグSP</button>
-                    <button class="filter-btn" data-type="method" data-value="KリーグSP" onclick="toggleFilter('method','KリーグSP')">KリーグSP</button>
-                    <button class="filter-btn" data-type="method" data-value="配布・限定SP" onclick="toggleFilter('method','配布・限定SP')">配布・限定SP</button>
-                    <button class="filter-btn" data-type="method" data-value="モード内" onclick="toggleFilter('method','モード内')">モード内</button>
+                <div class="filter-title" onclick="toggleSection('positionSection')">ポジション <span>▼</span></div>
+                <div id="positionSection" class="filter-options">
+                    <button class="filter-btn" data-type="position" data-value="GK" onclick="toggleFilter('position','GK')">GK</button>
+                    <button class="filter-btn" data-type="position" data-value="CB" onclick="toggleFilter('position','CB')">CB</button>
+                    <button class="filter-btn" data-type="position" data-value="LB" onclick="toggleFilter('position','LB')">LB</button>
+                    <button class="filter-btn" data-type="position" data-value="RB" onclick="toggleFilter('position','RB')">RB</button>
+                    <button class="filter-btn" data-type="position" data-value="DM" onclick="toggleFilter('position','DM')">DM</button>
+                    <button class="filter-btn" data-type="position" data-value="LM" onclick="toggleFilter('position','LM')">LM</button>
+                    <button class="filter-btn" data-type="position" data-value="RM" onclick="toggleFilter('position','RM')">RM</button>
+                    <button class="filter-btn" data-type="position" data-value="AM" onclick="toggleFilter('position','AM')">AM</button>
+                    <button class="filter-btn" data-type="position" data-value="LW" onclick="toggleFilter('position','LW')">LW</button>
+                    <button class="filter-btn" data-type="position" data-value="RW" onclick="toggleFilter('position','RW')">RW</button>
+                    <button class="filter-btn" data-type="position" data-value="CF" onclick="toggleFilter('position','CF')">CF</button>
                 </div>
             </div>
 
@@ -282,37 +260,17 @@
                 </div>
             </div>
 
-            <div class="filter-section">
-                <div class="filter-title" onclick="toggleSection('positionSection')">ポジション <span>▼</span></div>
-                <div id="positionSection" class="filter-options">
-                    <button class="filter-btn" data-type="position" data-value="GK" onclick="toggleFilter('position','GK')">GK</button>
-                    <button class="filter-btn" data-type="position" data-value="CB" onclick="toggleFilter('position','CB')">CB</button>
-                    <button class="filter-btn" data-type="position" data-value="LB" onclick="toggleFilter('position','LB')">LB</button>
-                    <button class="filter-btn" data-type="position" data-value="RB" onclick="toggleFilter('position','RB')">RB</button>
-                    <button class="filter-btn" data-type="position" data-value="DM" onclick="toggleFilter('position','DM')">DM</button>
-                    <button class="filter-btn" data-type="position" data-value="LM" onclick="toggleFilter('position','LM')">LM</button>
-                    <button class="filter-btn" data-type="position" data-value="RM" onclick="toggleFilter('position','RM')">RM</button>
-                    <button class="filter-btn" data-type="position" data-value="AM" onclick="toggleFilter('position','AM')">AM</button>
-                    <button class="filter-btn" data-type="position" data-value="LW" onclick="toggleFilter('position','LW')">LW</button>
-                    <button class="filter-btn" data-type="position" data-value="RW" onclick="toggleFilter('position','RW')">RW</button>
-                    <button class="filter-btn" data-type="position" data-value="CF" onclick="toggleFilter('position','CF')">CF</button>
-                </div>
-            </div>
-
             <div class="create-form-section">
                 <div class="create-form-title" onclick="toggleSection('createFormContent')">＋ 選手を手動で追加 <span>▼</span></div>
                 <div id="createFormContent" class="create-form-content">
                     <label>選手名</label>
                     <input type="text" id="newName" placeholder="例：エムバペ">
                     <label>レアリティ</label>
-                    <select id="newRarity">
-                        <option value="☆3">☆3</option><option value="☆2">☆2</option><option value="☆1">☆1</option>
-                    </select>
+                    <select id="newRarity"><option value="☆3">☆3</option><option value="☆2">☆2</option><option value="☆1">☆1</option></select>
                     <label>入手法</label>
                     <select id="newMethod">
                         <option value="ワールドSP">ワールドSP</option><option value="JリーグSP">JリーグSP</option>
-                        <option value="KリーグSP">KリーグSP</option><option value="配布・限定SP">配布・限定SP</option>
-                        <option value="モード内">モード内</option>
+                        <option value="KリーグSP">KリーグSP</option><option value="配布SP">配布SP</option><option value="モード内">モード内</option>
                     </select>
                     <label>ポジション</label>
                     <select id="newPos">
@@ -328,54 +286,17 @@
                     </select>
                     <label>プレースタイル</label>
                     <select id="newStyle">
-                        <optgroup label="FW系">
-                            <option value="ストライカーⅢ">ストライカーⅢ</option>
-                            <option value="ストライカーⅡ">ストライカーⅡ</option>
-                            <option value="ラインブレーカーⅢ">ラインブレーカーⅢ</option>
-                            <option value="ラインブレーカーⅡ">ラインブレーカーⅡ</option>
-                            <option value="ポストプレーヤーⅢ">ポストプレーヤーⅢ</option>
-                            <option value="ポストプレーヤーⅡ">ポストプレーヤーⅡ</option>
-                        </optgroup>
-                        <optgroup label="共通系">
-                            <option value="ドリブラーⅢ">ドリブラーⅢ</option>
-                            <option value="ドリブラーⅡ">ドリブラーⅡ</option>
-                            <option value="サイドアタッカーⅢ">サイドアタッカーⅢ</option>
-                            <option value="サイドアタッカーⅡ">サイドアタッカーⅡ</option>
-                        </optgroup>
-                        <optgroup label="MF系">
-                            <option value="アタッカーⅢ">アタッカーⅢ</option>
-                            <option value="アタッカーⅡ">アタッカーⅡ</option>
-                            <option value="セントラルMFⅢ">セントラルMFⅢ</option>
-                            <option value="セントラルMFⅡ">セントラルMFⅡ</option>
-                            <option value="パサーⅢ">パサーⅢ</option>
-                            <option value="パサーⅡ">パサーⅡ</option>
-                            <option value="ハードマーカーⅢ">ハードマーカーⅢ</option>
-                            <option value="ハードマーカーⅡ">ハードマーカーⅡ</option>
-                        </optgroup>
-                        <optgroup label="DF系">
-                            <option value="攻撃的FBⅢ">攻撃的FBⅢ</option>
-                            <option value="攻撃的FBⅡ">攻撃的FBⅡ</option>
-                            <option value="守備的FBⅢ">守備的FBⅢ</option>
-                            <option value="守備的FBⅡ">守備的FBⅡ</option>
-                            <option value="組立CBⅢ">組立CBⅢ</option>
-                            <option value="組立CBⅡ">組立CBⅡ</option>
-                            <option value="ストッパーⅢ">ストッパーⅢ</option>
-                            <option value="ストッパーⅡ">ストッパーⅡ</option>
-                        </optgroup>
-                        <optgroup label="GK系">
-                            <option value="スイーパーGKⅢ">スイーパーGKⅢ</option>
-                            <option value="スイーパーGKⅡ">スイーパーGKⅡ</option>
-                            <option value="オーソドックスGKⅢ">オーソドックスGKⅢ</option>
-                            <option value="オーソドックスGKⅡ">オーソドックスGKⅡ</option>
-                        </optgroup>
-                    </select>
+                        <option value="ストライカーⅢ">ストライカーⅢ</option>
+                        <option value="ドリブラーⅢ">ドリブラーⅢ</option>
+                        <option value="組立CBⅢ">組立CBⅢ</option>
+                        </select>
                     <button class="submit-btn" onclick="addPlayer()">リストに保存</button>
                 </div>
             </div>
         </div>
 
         <div class="main">
-            <h1>選手検索データベース</h1>
+            <h1>選手データベース</h1>
             <div class="table-wrapper">
                 <table id="playerTable">
                     <thead>
@@ -386,7 +307,7 @@
                             <th>ポジ</th>
                             <th>ポリシー</th>
                             <th class="desktop-only">スタイル</th>
-                            <th>詳細/操作</th>
+                            <th>操作</th>
                         </tr>
                     </thead>
                     <tbody id="results"></tbody>
@@ -394,17 +315,6 @@
             </div>
         </div>
     </div>
-
-    <footer>
-        <div class="footer-nav">
-            <a href="index.html">ホーム</a>
-            <a href="builder.html">スカッド</a>
-            <a href="search.html" class="current-footer">選手検索</a>
-            <a href="formation-search.html">フォメコン</a>
-            <a href="skills.html">スキル検索</a>
-        </div>
-        <p class="copyright">&copy; 2026 プリスキンのサカつくDB <br><a href="terms.html" style="color:#777; text-decoration: none;">利用規約</a></p>
-    </footer>
 
     <div id="detailModal" class="modal">
         <div class="modal-content">
@@ -415,99 +325,62 @@
                 <div class="modal-row"><span class="modal-label">メインポジ</span><span id="modalPos" class="modal-val"></span></div>
                 <div class="modal-row"><span class="modal-label">ポリシー</span><span id="modalPolicy" class="modal-val"></span></div>
                 <div class="modal-row"><span class="modal-label">プレースタイル</span><span id="modalStyle" class="modal-val"></span></div>
-                
                 <div class="skill-section">
                     <h3>追加スキル</h3>
                     <div id="modalSlots" class="slot-list"></div>
                 </div>
             </div>
-            <div class="modal-footer"><button class="close-btn" onclick="closeModal()">閉じる</button></div>
+            <div class="modal-footer" style="padding:15px;"><button class="close-btn" onclick="closeModal()">閉じる</button></div>
         </div>
     </div>
 
-    <div id="skillSubModal" class="modal" style="background: rgba(0,0,0,0.4); z-index: 3000;">
+    <div id="skillSubModal" class="modal" style="z-index: 3000;">
         <div class="modal-content">
-            <div class="modal-header" style="background: var(--dark); padding: 15px;"><h2 id="subModalSkillName" style="font-size: 1rem;">スキル名</h2></div>
+            <div class="modal-header" style="background:#050a14;"><h2 id="subModalSkillName">スキル詳細</h2></div>
             <div class="modal-body">
-                <div class="modal-row"><span class="modal-label">レアリティ</span><span id="subModalRarity" class="modal-val"></span></div>
                 <div class="modal-row"><span class="modal-label">習得元</span><span id="subModalSource" class="modal-val"></span></div>
-                <div class="modal-row"><span class="modal-label">方法</span><span id="subModalMethod" class="modal-val"></span></div>
                 <div id="subModalDetail" class="skill-detail-box"></div>
+                <button class="close-btn" style="margin-top:20px;" onclick="closeSubModal()">閉じる</button>
             </div>
-            <div class="modal-footer"><button class="close-btn" onclick="closeSubModal()">閉じる</button></div>
         </div>
     </div>
 
     <script>
         let jsonPlayers = [];
-        let allSkills = []; // スキル情報保持用
+        let allSkills = [];
         let createdPlayers = JSON.parse(localStorage.getItem('createdPlayers') || '[]');
         let ownedPlayers = JSON.parse(localStorage.getItem('ownedPlayers') || '[]');
         let showMode = 'all'; 
         let filters = { rarity: [], policy: [], position: [], method: [], style: [] };
 
-        // 枠数判定 ＆ 固有スキルの生成ロジック
-        function getInitialSlots(player) {
-            const r = player.rarity;
-            const m = player.method || "";
-            const extra = player.extra_skills || [];
-
-            let slotsCount = 1;
-            const isStandardSP = (m === "ワールドSP" || m === "JリーグSP" || m === "KリーグSP" || m === "限定SP");
-            if (isStandardSP && r === "☆3") slotsCount = 4;
-            else if (isStandardSP && r === "☆2") slotsCount = 3;
-            else if ((m === "配布SP" || m === "モード内") && r === "☆3") slotsCount = 3;
-
-            let slots = new Array(slotsCount).fill(null);
-            if (extra.length > 0) slots[0] = extra[0];
-            
-            return slots;
-        }
-
         async function init() {
             loadFilters();
-            
-            // スキルデータの読み込み
             try {
                 const skillRes = await fetch('skills.json');
                 if (skillRes.ok) allSkills = await skillRes.json();
-            } catch (e) { console.error("Skill Data Load Error:", e); }
+            } catch (e) {}
 
             const jsonFiles = ['players_world.json', 'players_distribution.json', 'players_jleague.json', 'players_kleague.json', 'players_in_mode.json'];
             try {
                 const results = await Promise.all(jsonFiles.map(file => fetch(file).then(res => res.ok ? res.json() : []).catch(() => [])));
                 jsonPlayers = results.flat();
-            } catch (e) { console.error("Data Load Error:", e); }
+            } catch (e) {}
             
             updateButtons();
             search();
-            checkAutoOpen();
         }
 
-        function checkAutoOpen() {
-            const params = new URLSearchParams(location.search);
-            const pid = params.get('pid');
-            if (pid) {
-                const decodedPid = decodeURIComponent(pid);
-                const all = jsonPlayers.concat(createdPlayers);
-                const target = all.find(p => p.name === decodedPid);
-                if (target) openModal(encodeURIComponent(JSON.stringify(target)));
-            }
-        }
-
-        function toggleSection(id) {
-            const el = document.getElementById(id);
-            el.style.display = (el.style.display === "block") ? "none" : "block";
-        }
-
-        function toggleFilter(type, value) {
-            if (filters[type].includes(value)) filters[type] = filters[type].filter(v => v !== value);
-            else filters[type].push(value);
-            updateButtons(); saveFilters(); search();
-        }
-
-        function toggleShow(mode) {
-            showMode = mode; updateButtons(); saveFilters(); search();
+        function getInitialSlots(player) {
+            const r = player.rarity;
+            const m = player.method || "";
+            let slotsCount = 1;
+            const isStandardSP = (m === "ワールドSP" || m === "JリーグSP" || m === "KリーグSP" || m === "限定SP");
+            if (isStandardSP && r === "☆3") slotsCount = 4;
+            else if (isStandardSP && r === "☆2") slotsCount = 3;
+            else if ((m === "配布SP" || m === "モード内") && r === "☆3") slotsCount = 3;
+            let slots = new Array(slotsCount).fill(null);
+            if (player.extra_skills && player.extra_skills.length > 0) slots[0] = player.extra_skills[0];
+            return slots;
         }
 
         function search() {
@@ -518,11 +391,11 @@
                 if (filters.rarity.length && !filters.rarity.includes(p.rarity)) return false;
                 if (filters.policy.length && !filters.policy.includes(p.policy)) return false;
                 if (filters.position.length && !filters.position.includes(p.position)) return false;
+                if (filters.style.length && !filters.style.includes(p.playstyle)) return false;
                 if (filters.method.length) {
                     const isMatch = filters.method.some(fv => (fv === "配布・限定SP") ? (p.method === "配布SP" || p.method === "限定SP") : p.method === fv);
                     if (!isMatch) return false;
                 }
-                if (filters.style.length && !filters.style.includes(p.playstyle)) return false;
                 if (showMode === 'owned' && !ownedPlayers.includes(p.name)) return false;
                 return true;
             });
@@ -532,16 +405,16 @@
         function render(list) {
             let html = "";
             list.forEach(p => {
-                const pClass = getPolicyClass(p.policy);
+                const pClass = { "ポゼッション": "policy-possession", "カウンター": "policy-counter", "リアクション": "policy-reaction", "ムービング": "policy-moving" }[p.policy] || "";
                 const isOwned = ownedPlayers.includes(p.name);
                 const playerData = encodeURIComponent(JSON.stringify(p));
                 html += `<tr>
                     <td><a class="name-link" onclick="sendToBuilder('${playerData}')">${p.name}</a></td>
                     <td class="desktop-only">${p.rarity}</td>
-                    <td class="desktop-only" style="font-size:0.75rem; color:#64748b;">${p.method || '-'}</td>
+                    <td class="desktop-only" style="color:var(--sakatsuku-cyan); font-size:0.7rem;">${p.method || '-'}</td>
                     <td><b>${p.position}</b></td>
                     <td><span class="policy-badge ${pClass}">${p.policy}</span></td>
-                    <td class="desktop-only" style="font-size:0.8rem;">${p.playstyle || '-'}</td>
+                    <td class="desktop-only">${p.playstyle || '-'}</td>
                     <td>
                         <div style="display:flex; flex-direction:column; gap:4px;">
                             <button class="action-btn detail-btn" onclick="openModal('${playerData}')">詳細</button>
@@ -562,39 +435,19 @@
             document.getElementById('modalPos').innerText = p.position;
             document.getElementById('modalPolicy').innerText = p.policy;
             document.getElementById('modalStyle').innerText = p.playstyle || '-';
-            
-            syncPlayerSkills(p);
             renderSlots(p);
             document.getElementById('detailModal').style.display = 'flex';
-        }
-
-        function syncPlayerSkills(player) {
-            let equipped = JSON.parse(localStorage.getItem('equippedSkills')) || {};
-            const savedSlots = equipped[player.name];
-            const correctSlots = getInitialSlots(player);
-
-            if (!savedSlots || 
-                savedSlots.length !== correctSlots.length || 
-                (player.extra_skills && player.extra_skills.length > 0 && savedSlots[0] !== player.extra_skills[0] && savedSlots[0] === null)) {
-                
-                equipped[player.name] = correctSlots;
-                localStorage.setItem('equippedSkills', JSON.stringify(equipped));
-            }
         }
 
         function renderSlots(player) {
             const equipped = JSON.parse(localStorage.getItem('equippedSkills')) || {};
             const slots = equipped[player.name] || getInitialSlots(player);
-            
             let html = "";
             slots.forEach((skillName, index) => {
                 if (skillName) {
-                    html += `<div class="slot">
-                                <span class="slot-name" onclick="openSkillSubModal('${skillName}')">${skillName}</span>
-                                <button class="slot-btn btn-remove" onclick="removeSkill('${player.name}', ${index}, '${encodeURIComponent(JSON.stringify(player))}')">解除</button>
-                             </div>`;
+                    html += `<div class="slot"><span class="slot-name" onclick="openSkillSubModal('${skillName}')">${skillName}</span><button class="btn-remove" onclick="removeSkill('${player.name}', ${index}, '${encodeURIComponent(JSON.stringify(player))}')">解除</button></div>`;
                 } else {
-                    html += `<div class="slot empty"><span>未設定</span><button class="slot-btn btn-add" onclick="goToSkillSelect('${player.name}', ${index})">＋</button></div>`;
+                    html += `<div class="slot"><span>未設定</span><button class="btn-add" onclick="goToSkillSelect('${player.name}', ${index})">＋</button></div>`;
                 }
             });
             document.getElementById('modalSlots').innerHTML = html;
@@ -602,24 +455,10 @@
 
         function openSkillSubModal(skillName) {
             const skill = allSkills.find(s => s.name === skillName);
-            if (!skill) {
-                alert("スキル詳細情報が見つかりません。");
-                return;
-            }
-            document.getElementById('subModalSkillName').innerText = skill.name;
-            document.getElementById('subModalRarity').innerText = skill.rarity || '-';
-            document.getElementById('subModalSource').innerText = skill.source || '-';
-            document.getElementById('subModalMethod').innerText = skill.method || '-';
-            document.getElementById('subModalDetail').innerText = skill.detail || '効果情報なし';
+            document.getElementById('subModalSkillName').innerText = skillName;
+            document.getElementById('subModalSource').innerText = skill ? skill.source : '-';
+            document.getElementById('subModalDetail').innerText = skill ? skill.detail : '情報なし';
             document.getElementById('skillSubModal').style.display = 'flex';
-        }
-
-        function closeSubModal() {
-            document.getElementById('skillSubModal').style.display = 'none';
-        }
-
-        function goToSkillSelect(playerName, index) {
-            location.href = `skills.html?pid=${encodeURIComponent(playerName)}&slot=${index}`;
         }
 
         function removeSkill(playerName, index, encodedPlayer) {
@@ -629,23 +468,6 @@
                 localStorage.setItem('equippedSkills', JSON.stringify(equipped));
                 renderSlots(JSON.parse(decodeURIComponent(encodedPlayer)));
             }
-        }
-
-        function closeModal() { 
-            document.getElementById('detailModal').style.display = 'none'; 
-            const url = new URL(location.href);
-            url.searchParams.delete('pid');
-            history.replaceState(null, '', url);
-        }
-        
-        window.onclick = (e) => { 
-            if (e.target == document.getElementById('detailModal')) closeModal(); 
-            if (e.target == document.getElementById('skillSubModal')) closeSubModal(); 
-        }
-
-        function getPolicyClass(p) {
-            const classes = { "ポゼッション": "policy-possession", "カウンター": "policy-counter", "リアクション": "policy-reaction", "ムービング": "policy-moving" };
-            return classes[p] || "";
         }
 
         function toggleOwned(name) {
@@ -677,22 +499,36 @@
             search();
         }
 
+        function toggleSection(id) {
+            const el = document.getElementById(id);
+            el.style.display = (el.style.display === "block") ? "none" : "block";
+        }
+
+        function toggleFilter(type, value) {
+            if (filters[type].includes(value)) filters[type] = filters[type].filter(v => v !== value);
+            else filters[type].push(value);
+            updateButtons(); saveFilters(); search();
+        }
+
+        function toggleShow(mode) { showMode = mode; updateButtons(); saveFilters(); search(); }
+        function closeModal() { document.getElementById('detailModal').style.display = 'none'; }
+        function closeSubModal() { document.getElementById('skillSubModal').style.display = 'none'; }
+        function goToSkillSelect(playerName, index) { location.href = `skills.html?pid=${encodeURIComponent(playerName)}&slot=${index}`; }
+
         function updateButtons() {
             document.querySelectorAll(".filter-btn[data-type]").forEach(btn => {
-                const type = btn.getAttribute("data-type");
-                const val = btn.getAttribute("data-value");
-                btn.classList.toggle("active", (filters[type] || []).includes(val));
+                btn.classList.toggle("active", (filters[btn.dataset.type] || []).includes(btn.dataset.value));
             });
             document.getElementById('showAll').classList.toggle('active', showMode === 'all');
             document.getElementById('showOwned').classList.toggle('active', showMode === 'owned');
         }
 
         function saveFilters() {
-            localStorage.setItem("searchFilters_v11", JSON.stringify({ filters, showMode, name: document.getElementById("nameSearch").value }));
+            localStorage.setItem("searchFilters_v12", JSON.stringify({ filters, showMode, name: document.getElementById("nameSearch").value }));
         }
 
         function loadFilters() {
-            const saved = JSON.parse(localStorage.getItem("searchFilters_v11"));
+            const saved = JSON.parse(localStorage.getItem("searchFilters_v12"));
             if (saved) {
                 filters = saved.filters || filters;
                 showMode = saved.showMode || 'all';
@@ -701,8 +537,7 @@
         }
 
         function sendToBuilder(encodedData) {
-            const player = JSON.parse(decodeURIComponent(encodedData));
-            localStorage.setItem('selectedPlayer', JSON.stringify(player));
+            localStorage.setItem('selectedPlayer', decodeURIComponent(encodedData));
             location.href = 'builder.html';
         }
 

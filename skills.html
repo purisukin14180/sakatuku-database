@@ -6,7 +6,6 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-KFYD72JSBG');
     </script>
 
@@ -15,148 +14,143 @@
     <title>プリスキンのサカつくDB - スキル検索</title>
     <style>
         :root {
-            --primary: #007bff;
-            --accent: #00bcd4;
-            --dark: #222;
-            --light-bg: #f8fafc;
-            --border: #e2e8f0;
-            --bg-gradient: linear-gradient(135deg, #4fc3f7, #007bff);
-            --gold: #d4af37;
-            --silver: #a9a9a9;
-            --bronze: #cd7f32;
-            --green: #28a745;
+            /* サカつく公式カラー抽出 */
+            --sakatsuku-navy: #050a14;
+            --sakatsuku-mint: #00ffcc;
+            --sakatsuku-cyan: #4fc3f7;
+            --sakatsuku-dark-green: #0a1f1a;
+            
+            --primary: var(--sakatsuku-mint);
+            --dark: var(--sakatsuku-navy);
+            --page-bg: radial-gradient(circle at 50% -20%, #1a3a35 0%, #050a14 70%);
+            --card-bg: rgba(255, 255, 255, 0.07);
             --nav-height: 60px;
+            --border: rgba(0, 255, 204, 0.2);
+
+            --gold: #ffd700;
+            --silver: #c0c0c0;
+            --bronze: #cd7f32;
+            --green: #2ecc71;
         }
 
-        body {
-            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
-            margin: 0; padding: 0; background-color: var(--light-bg); color: #333; line-height: 1.6;
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        html, body {
+            margin: 0; padding: 0; min-height: 100vh;
+            background-color: var(--sakatsuku-navy);
+            background-image: var(--page-bg);
+            background-attachment: fixed;
+            font-family: 'Inter', 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+            color: #fff; line-height: 1.6;
         }
 
-        /* ===== ナビゲーション（全ページ統一） ===== */
+        /* ===== ナビゲーション ===== */
         .topnav {
-            display: flex; 
-            justify-content: flex-start;
-            align-items: center;
-            background: var(--dark); color: #fff; 
-            height: var(--nav-height); 
-            padding: 0 10px; 
-            position: sticky; top: 0; z-index: 1000; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-            padding-top: env(safe-area-inset-top);
+            display: flex; justify-content: flex-start; align-items: center;
+            background: rgba(5, 10, 20, 0.85); backdrop-filter: blur(15px);
+            height: var(--nav-height); padding: 0 15px; position: sticky; top: 0; z-index: 1000;
+            border-bottom: 2px solid var(--sakatsuku-mint); padding-top: env(safe-area-inset-top);
         }
-        
-        .logo { display: none; }
-
-        .nav-links { 
-            display: flex; 
-            overflow-x: auto; 
-            white-space: nowrap; 
-            -webkit-overflow-scrolling: touch; 
-            gap: 2px;
-            width: 100%;
-        }
+        .nav-links { display: flex; overflow-x: auto; white-space: nowrap; gap: 6px; width: 100%; }
         .nav-links::-webkit-scrollbar { display: none; }
-
-        .nav-links a { 
-            color: #fff; 
-            text-decoration: none; 
-            padding: 8px 10px; 
-            font-size: 0.85rem; 
-            font-weight: 600; 
-            border-radius: 5px; 
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.7); text-decoration: none; padding: 8px 14px; 
+            font-size: 0.85rem; font-weight: 800; border-radius: 8px; transition: 0.3s;
         }
-        .nav-links a.current { background: rgba(255,255,255,0.15); }
+        .nav-links a:hover { color: var(--sakatsuku-mint); }
+        .nav-links a.current { background: var(--sakatsuku-mint); color: #000; box-shadow: 0 0 15px rgba(0, 255, 204, 0.4); }
 
-        .assign-banner { background: #fff9c4; color: #856404; padding: 10px; text-align: center; font-size: 0.85rem; font-weight: bold; border-bottom: 2px solid #fff176; position: sticky; top: var(--nav-height); z-index: 999; }
+        .assign-banner { 
+            background: rgba(0, 255, 204, 0.2); 
+            color: var(--sakatsuku-mint); 
+            padding: 12px; text-align: center; font-size: 0.9rem; font-weight: 900; 
+            border-bottom: 2px solid var(--sakatsuku-mint); 
+            backdrop-filter: blur(10px);
+            position: sticky; top: var(--nav-height); z-index: 999; 
+        }
 
         /* ===== レイアウト ===== */
         .container { display: flex; max-width: 1400px; margin: 0 auto; min-height: calc(100vh - 120px); }
 
         /* ===== サイドバー ===== */
         .sidebar { 
-            width: 320px; background: #fff; padding: 20px; border-right: 1px solid var(--border); 
-            overflow-y: auto; height: calc(100vh - 60px); position: sticky; top: 60px; box-sizing: border-box; 
+            width: 320px; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px);
+            padding: 20px; border-right: 1px solid var(--border); 
+            overflow-y: auto; height: calc(100vh - 60px); position: sticky; top: 60px; 
         }
-        .sidebar h3 { font-size: 1.1rem; margin-top: 0; color: var(--dark); border-left: 4px solid var(--primary); padding-left: 10px; margin-bottom: 20px; }
-        #nameSearch { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 20px; font-size: 0.9rem; background: #f1f5f9; box-sizing: border-box; }
-        .filter-section { margin-bottom: 10px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
-        .filter-title { font-size: 0.85rem; font-weight: bold; cursor: pointer; background: #f8fafc; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; }
-        .filter-options { display: none; padding: 10px; background: #fff; max-height: 450px; overflow-y: auto; }
-        .filter-btn { padding: 6px 10px; margin: 2px; border: 1px solid var(--border); background: #fff; cursor: pointer; font-size: 0.75rem; border-radius: 6px; transition: 0.2s; }
-        .filter-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
-        .cat-group-label { display: block; font-size: 0.7rem; color: #007bff; font-weight: bold; margin: 12px 0 6px 4px; border-bottom: 1px solid #e2e8f0; padding-bottom: 2px; }
+        .sidebar h3 { font-size: 1.1rem; margin-top: 0; color: var(--sakatsuku-mint); border-left: 4px solid var(--sakatsuku-mint); padding-left: 10px; margin-bottom: 20px; }
+
+        #nameSearch { 
+            width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; 
+            margin-bottom: 20px; font-size: 0.9rem; background: rgba(255,255,255,0.1); color: #fff; outline: none;
+        }
+        #nameSearch::placeholder { color: rgba(255,255,255,0.4); }
+
+        .filter-section { margin-bottom: 10px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); background: rgba(255,255,255,0.03); }
+        .filter-title { font-size: 0.85rem; font-weight: bold; cursor: pointer; background: rgba(255,255,255,0.05); padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; color: var(--sakatsuku-cyan); }
+        .filter-options { display: none; padding: 10px; max-height: 450px; overflow-y: auto; }
+
+        .filter-btn { padding: 6px 10px; margin: 2px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: #fff; cursor: pointer; font-size: 0.75rem; border-radius: 6px; transition: 0.2s; }
+        .filter-btn.active { background: var(--sakatsuku-mint); color: #000; border-color: var(--sakatsuku-mint); font-weight: bold; }
+        .cat-group-label { display: block; font-size: 0.7rem; color: var(--sakatsuku-mint); font-weight: bold; margin: 12px 0 6px 4px; border-bottom: 1px solid var(--border); padding-bottom: 2px; }
 
         /* ===== メインコンテンツ ===== */
-        .main { flex: 1; padding: 20px; background: #fff; }
-        .main h1 { font-size: 1.5rem; margin-top: 0; color: var(--dark); }
+        .main { flex: 1; padding: 20px; }
+        .main h1 { font-size: 1.8rem; margin-top: 0; color: #fff; text-shadow: 0 0 15px rgba(0,255,204,0.3); font-weight: 900; }
 
         .skill-item { 
-            background: #fff; border-left: 6px solid var(--primary); padding: 16px; 
-            margin-bottom: 12px; border-radius: 10px; display: flex; 
+            background: var(--card-bg); 
+            backdrop-filter: blur(10px);
+            border-left: 6px solid var(--sakatsuku-mint); padding: 16px; 
+            margin-bottom: 12px; border-radius: 12px; display: flex; 
             justify-content: space-between; align-items: center; 
-            box-shadow: 0 4px 6px rgba(0,0,0,0.02); border: 1px solid var(--border);
+            border: 1px solid var(--border);
+            transition: 0.3s;
         }
+        .skill-item:hover { background: rgba(255,255,255,0.1); transform: translateX(5px); }
+        
         .skill-info { flex: 1; padding-right: 15px; }
-        .skill-cat-small { font-size: 0.7rem; color: #64748b; font-weight: bold; }
-        .skill-name { font-weight: 800; font-size: 1.1rem; margin: 4px 0; color: var(--dark); cursor: pointer; }
-        .skill-name:hover { text-decoration: underline; color: var(--primary); }
-        .source-info-simple { font-size: 0.75rem; color: #64748b; margin-top: 2px; }
+        .skill-cat-small { font-size: 0.75rem; color: var(--sakatsuku-cyan); font-weight: bold; }
+        .skill-name { font-weight: 900; font-size: 1.15rem; margin: 4px 0; color: #fff; cursor: pointer; }
+        .skill-name:hover { color: var(--sakatsuku-mint); }
+        .source-info-simple { font-size: 0.8rem; color: #ccc; margin-top: 4px; }
         .method-badge { 
-            display: inline-block; padding: 1px 6px; border-radius: 4px; 
-            background: #e2e8f0; color: #475569; font-size: 0.65rem; 
-            font-weight: bold; margin-right: 5px; vertical-align: middle;
+            display: inline-block; padding: 2px 8px; border-radius: 4px; 
+            background: rgba(0, 255, 204, 0.1); color: var(--sakatsuku-mint); font-size: 0.7rem; 
+            font-weight: 800; margin-right: 8px; border: 1px solid var(--border);
         }
 
-        .rarity-金 { color: var(--gold); } .rarity-銀 { color: var(--silver); } .rarity-銅 { color: var(--bronze); } .rarity-緑 { color: var(--green); }
+        .rarity-金 { color: var(--gold); text-shadow: 0 0 10px rgba(255, 215, 0, 0.4); } 
+        .rarity-銀 { color: var(--silver); } 
+        .rarity-銅 { color: var(--bronze); } 
+        .rarity-緑 { color: var(--green); }
 
-        .btn-group { display: flex; flex-direction: column; gap: 6px; min-width: 100px; }
-        .action-btn { padding: 8px 10px; cursor: pointer; border: 1px solid var(--border); border-radius: 6px; font-size: 0.7rem; font-weight: bold; background: #fff; }
+        .btn-group { display: flex; flex-direction: column; gap: 6px; min-width: 120px; }
+        .action-btn { padding: 8px 12px; cursor: pointer; border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; font-size: 0.75rem; font-weight: 900; background: rgba(255,255,255,0.05); color: #fff; transition: 0.2s; }
+        .action-btn:hover { border-color: var(--sakatsuku-mint); }
         .action-btn.is-owned { background: #fef3c7; border-color: #fbbf24; color: #92400e; }
-        .action-btn.detail-btn { background: var(--primary); color: white; border: none; }
-        .action-btn.assign-btn { background: var(--green); color: white; border: none; }
+        .action-btn.detail-btn { background: var(--sakatsuku-mint); color: #000; border: none; }
+        .action-btn.assign-btn { background: var(--sakatsuku-cyan); color: #000; border: none; }
 
-        .owned-badge { background: #fbbf24; color: #78350f; font-size: 0.65rem; padding: 2px 6px; border-radius: 4px; font-weight: 800; margin-left: 6px; }
+        .owned-badge { background: #fbbf24; color: #000; font-size: 0.65rem; padding: 2px 6px; border-radius: 4px; font-weight: 900; margin-left: 8px; }
 
-        /* ===== 詳細モーダル ===== */
-        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; }
-        .modal-content { background: white; width: 100%; max-width: 450px; border-radius: 16px; overflow: hidden; animation: slideUp 0.3s ease-out; }
-        .modal-header { background: var(--bg-gradient); color: white; padding: 20px; text-align: center; }
-        .modal-header h2 { margin: 0; font-size: 1.2rem; }
+        /* ===== モーダル ===== */
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); align-items: center; justify-content: center; padding: 20px; }
+        .modal-content { background: var(--sakatsuku-navy); border: 2px solid var(--sakatsuku-mint); width: 100%; max-width: 450px; border-radius: 24px; overflow: hidden; animation: slideUp 0.3s ease-out; }
+        .modal-header { background: #1a3a35; color: var(--sakatsuku-mint); padding: 20px; text-align: center; }
+        .modal-header h2 { margin: 0; font-size: 1.3rem; font-weight: 900; }
         .modal-body { padding: 20px; }
-        .modal-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f1f5f9; }
-        .modal-label { font-weight: bold; color: #64748b; font-size: 0.85rem; }
-        .modal-val { font-weight: 600; color: var(--dark); text-align: right; flex: 1; padding-left: 10px; }
-        .modal-detail-box { margin-top: 15px; background: #f8fafc; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 0.9rem; line-height: 1.5; color: #334155; }
-        .modal-footer { padding: 15px; text-align: center; }
-        .close-btn { width: 100%; padding: 12px; background: #f1f5f9; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        .modal-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .modal-label { font-weight: bold; color: var(--sakatsuku-cyan); font-size: 0.85rem; }
+        .modal-val { font-weight: 600; color: #fff; text-align: right; }
+        .modal-detail-box { margin-top: 15px; background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; border: 1px solid var(--border); font-size: 0.9rem; line-height: 1.6; color: #eee; }
+        .close-btn { width: 100%; padding: 12px; background: rgba(255,255,255,0.1); color: #fff; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; }
 
-        /* ===== フッター（全ページ共通） ===== */
-        footer {
-            text-align: center;
-            padding: 40px 15px;
-            background: var(--dark);
-            color: #999;
-            margin-top: 40px;
-        }
-        .footer-nav {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 12px;
-            font-size: 0.8rem;
-            margin-bottom: 15px;
-        }
-        .footer-nav a { 
-            color: var(--accent); 
-            text-decoration: none; 
-            font-weight: bold;
-        }
-        .footer-nav a.current-footer {
-            color: #fff;
-            text-decoration: underline;
-        }
-        .copyright { font-size: 0.75rem; }
+        /* ===== フッター ===== */
+        footer { text-align: center; padding: 60px 20px; background: rgba(5, 10, 20, 0.95); color: #777; border-top: 1px solid var(--border); margin-top: 40px; }
+        .footer-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 18px; font-size: 0.85rem; margin-bottom: 25px; }
+        .footer-nav a { color: var(--sakatsuku-cyan); text-decoration: none; font-weight: 700; }
+        .footer-nav a.current-footer { color: #fff; text-decoration: underline; }
 
         @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
@@ -172,7 +166,6 @@
 <body>
 
 <header class="topnav">
-    <a href="index.html" class="logo">サカつくDB</a>
     <nav class="nav-links">
         <a href="index.html">ホーム</a>
         <a href="builder.html">スカッド</a>
@@ -184,7 +177,7 @@
 
 <div id="assignBanner" class="assign-banner" style="display:none;">
     <span id="targetPlayerName"></span> のスキル枠 <span id="targetSlotNum"></span> を選択中
-    <button class="action-btn" onclick="cancelAssign()" style="margin-left:10px;">キャンセル</button>
+    <button class="action-btn" onclick="cancelAssign()" style="margin-left:15px; border-color: var(--sakatsuku-mint);">キャンセル</button>
 </div>
 
 <div class="container">
@@ -243,7 +236,7 @@
             </div>
         </div>
 
-        <button class="action-btn" style="width:100%; margin-top:10px; padding:12px;" onclick="resetFilters()">条件リセット</button>
+        <button class="action-btn" style="width:100%; margin-top:10px; padding:12px; border-color: var(--sakatsuku-mint); color: var(--sakatsuku-mint);" onclick="resetFilters()">条件リセット</button>
     </div>
 
     <div class="main">
@@ -262,7 +255,7 @@
             <div class="modal-row"><span class="modal-label">習得元</span><span id="modalSource" class="modal-val"></span></div>
             <div id="modalDetail" class="modal-detail-box"></div>
         </div>
-        <div class="modal-footer"><button class="close-btn" onclick="closeModal()">閉じる</button></div>
+        <div class="modal-footer" style="padding:15px;"><button class="close-btn" onclick="closeModal()">閉じる</button></div>
     </div>
 </div>
 
@@ -274,7 +267,7 @@
         <a href="formation-search.html">フォメコン</a>
         <a href="skills.html" class="current-footer">スキル検索</a>
     </div>
-    <p class="copyright">&copy; 2026 プリスキンのサカつくDB <br><a href="terms.html" style="color:#777; text-decoration: none;">利用規約</a></p>
+    <p class="copyright">&copy; 2026 プリスキンのサカつくDB</p>
 </footer>
 
 <script>
@@ -425,7 +418,7 @@
                     <button class="action-btn detail-btn" onclick="openModal('${skillData}')">詳細</button>
                     ${assignBtnHtml}
                     <button class="action-btn ${isOwned ? 'is-owned' : ''}" onclick="toggleOwn('${s.name}')">
-                        ${isOwned ? '✓ 手持' : '手持'}
+                        ${isOwned ? '✓ 所持済' : '手持登録'}
                     </button>
                 </div>
             `;

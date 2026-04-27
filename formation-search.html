@@ -6,182 +6,148 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-KFYD72JSBG');
     </script>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>フォメコン検索 | プリスキンのサカつくDB</title>
+    <title>フォメコン検索 | プリスキンのサカつく2026 DB</title>
     <style>
         :root {
-            --primary: #007bff;
-            --accent: #00bcd4;
-            --dark: #222;
-            --light-bg: #f8fafc;
-            --border: #e2e8f0;
-            --bg-gradient: linear-gradient(135deg, #4fc3f7, #007bff);
+            /* サカつく公式カラー */
+            --sakatsuku-navy: #050a14;
+            --sakatsuku-mint: #00ffcc;
+            --sakatsuku-cyan: #4fc3f7;
+            --page-bg: radial-gradient(circle at 50% -10%, #1a3a35 0%, #050a14 70%);
+            
+            --primary: var(--sakatsuku-mint);
+            --dark: var(--sakatsuku-navy);
+            --card-bg: rgba(255, 255, 255, 0.06);
+            --border: rgba(0, 255, 204, 0.2);
+            --text-main: #ffffff;
+            --text-sub: #a0aec0;
+            
+            /* 戦術ポリシーカラー（公式風の鮮やかさ） */
             --possession: #ff9800; --counter: #f44336; --reaction: #2196f3; --moving: #4caf50;
-            --bg: #f8fafc;
-            /* レア度カラー */
             --gold: #d4af37; --silver: #a9a9a9; --bronze: #cd7f32;
+            --nav-height: 60px;
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        html, body {
+            margin: 0; padding: 0; min-height: 100vh;
+            background-color: var(--sakatsuku-navy);
+            background-image: var(--page-bg);
+            background-attachment: fixed;
         }
 
         body {
-            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
-            margin: 0; padding: 0; background-color: var(--light-bg); color: #333; line-height: 1.6;
+            font-family: 'Inter', 'Hiragino Kaku Gothic ProN', sans-serif;
+            color: var(--text-main); line-height: 1.6; user-select: none;
         }
 
         /* ===== ナビゲーション ===== */
         .topnav {
-            display: flex; 
-            justify-content: flex-start;
-            align-items: center;
-            background: var(--dark); color: #fff; 
-            height: 60px; 
-            padding: 0 10px; 
-            position: sticky; top: 0; z-index: 1000; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-            padding-top: env(safe-area-inset-top);
+            display: flex; justify-content: flex-start; align-items: center;
+            background: rgba(5, 10, 20, 0.9); backdrop-filter: blur(15px);
+            height: var(--nav-height); padding: 0 15px; position: sticky; top: 0; z-index: 1000;
+            border-bottom: 2px solid var(--sakatsuku-mint); padding-top: env(safe-area-inset-top);
         }
-        
-        .logo { display: none; }
-
-        .nav-links { 
-            display: flex; 
-            overflow-x: auto; 
-            white-space: nowrap; 
-            -webkit-overflow-scrolling: touch; 
-            gap: 2px;
-            width: 100%;
-        }
+        .nav-links { display: flex; overflow-x: auto; white-space: nowrap; gap: 4px; width: 100%; }
         .nav-links::-webkit-scrollbar { display: none; }
-
-        .nav-links a { 
-            color: #fff; 
-            text-decoration: none; 
-            padding: 8px 10px; 
-            font-size: 0.85rem; 
-            font-weight: 600; 
-            border-radius: 5px; 
+        .nav-links a {
+            color: rgba(255,255,255,0.7); text-decoration: none; padding: 8px 14px;
+            font-size: 0.85rem; font-weight: 800; border-radius: 10px; transition: 0.3s;
         }
-        .nav-links a.current { background: rgba(255,255,255,0.15); }
+        .nav-links a.current { color: #000; background: var(--sakatsuku-mint); box-shadow: 0 0 15px rgba(0, 255, 204, 0.5); }
 
         /* ===== レイアウト ===== */
         .container { display: flex; max-width: 1400px; margin: 0 auto; min-height: calc(100vh - 120px); }
 
-        /* ===== サイドバー ===== */
-        .sidebar { 
-            width: 320px; background: #fff; padding: 20px; border-right: 1px solid var(--border); 
-            overflow-y: auto; height: calc(100vh - 60px); 
-            position: sticky; top: 60px; box-sizing: border-box; 
+        /* ===== サイドバー（公式UIパネル風） ===== */
+        .sidebar {
+            width: 340px; background: rgba(5, 10, 20, 0.4); padding: 25px;
+            border-right: 1px solid var(--border); backdrop-filter: blur(10px);
+            height: calc(100vh - var(--nav-height)); position: sticky; top: var(--nav-height); overflow-y: auto;
         }
-        .sidebar h3 { font-size: 1.1rem; margin-top: 0; color: var(--dark); border-left: 4px solid var(--primary); padding-left: 10px; margin-bottom: 20px; }
+        .sidebar h3 { font-size: 1.1rem; margin-top: 0; color: var(--sakatsuku-mint); border-left: 5px solid var(--sakatsuku-mint); padding-left: 12px; margin-bottom: 20px; font-weight: 900; }
         
-        .search-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-        .count-badge { background: #f1f5f9; color: #64748b; padding: 2px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; }
+        .search-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .count-badge { background: var(--sakatsuku-mint); color: #000; padding: 3px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 900; }
 
-        .search-input { 
-            width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; 
-            margin-bottom: 20px; font-size: 0.9rem; background: #f1f5f9; box-sizing: border-box; outline: none;
+        .search-input {
+            width: 100%; padding: 14px; border: 1px solid var(--border); border-radius: 12px;
+            margin-bottom: 25px; font-size: 0.95rem; background: rgba(0,0,0,0.5); color: #fff; outline: none; transition: 0.3s;
         }
+        .search-input:focus { border-color: var(--sakatsuku-mint); box-shadow: 0 0 10px rgba(0, 255, 204, 0.2); }
 
-        .filter-section { margin-bottom: 10px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
-        .filter-title { font-size: 0.85rem; font-weight: bold; background: #f8fafc; padding: 10px 15px; border-bottom: 1px solid var(--border); }
-        .filter-options { padding: 10px; background: #fff; }
+        .filter-section { margin-bottom: 15px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); background: rgba(0,0,0,0.3); }
+        .filter-title { font-size: 0.85rem; font-weight: 900; color: var(--sakatsuku-cyan); padding: 12px 15px; border-bottom: 1px solid var(--border); }
+        .filter-options { padding: 12px; }
 
-        select { 
-            width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 8px; 
-            font-size: 0.85rem; background: #fff; color: #333; outline: none;
+        select {
+            width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px;
+            font-size: 0.9rem; background: rgba(0,0,0,0.5); color: #fff; outline: none; cursor: pointer;
             -webkit-appearance: none;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-            background-repeat: no-repeat; background-position: right 10px center; background-size: 1em;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300ffcc' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat; background-position: right 12px center; background-size: 1.1em;
         }
 
         /* ===== メインコンテンツ ===== */
-        .main { flex: 1; padding: 20px; background: #fff; }
-        .main h1 { font-size: 1.5rem; margin-top: 0; color: var(--dark); }
+        .main { flex: 1; padding: 30px; }
+        .main h1 { font-size: 1.8rem; margin-top: 0; color: #fff; font-weight: 900; margin-bottom: 25px; text-shadow: 0 0 15px rgba(0, 255, 204, 0.2); }
 
-        .combo-card { 
-            background: #fff; border-radius: 10px; padding: 16px; 
-            margin-bottom: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); 
-            border: 1px solid var(--border); border-left: 6px solid #ccc; 
-            position: relative;
-            animation: fadeIn 0.3s ease-out; 
+        /* コンボカード（サカつく2026デザイン） */
+        .combo-card {
+            background: var(--card-bg); border-radius: 16px; padding: 20px;
+            margin-bottom: 15px; border: 1px solid var(--border); border-left-width: 8px;
+            backdrop-filter: blur(8px); position: relative; animation: fadeIn 0.4s ease-out;
         }
         .policy-possession { border-left-color: var(--possession); }
         .policy-counter { border-left-color: var(--counter); }
         .policy-reaction { border-left-color: var(--reaction); }
         .policy-moving { border-left-color: var(--moving); }
 
-        .card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; gap: 5px; flex-wrap: wrap; }
-        .combo-title { font-size: 1.1rem; font-weight: 800; color: var(--dark); flex: 1; min-width: 200px; }
+        .card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; gap: 10px; }
+        .combo-title { font-size: 1.25rem; font-weight: 900; color: #fff; flex: 1; }
         
-        .badge-container { display: flex; gap: 4px; }
-        .p-badge { 
-            font-size: 0.65rem; font-weight: 900; color: #fff; 
-            padding: 3px 8px; border-radius: 4px;
-        }
-        .r-badge {
-            font-size: 0.65rem; font-weight: 900; color: #fff;
-            padding: 3px 8px; border-radius: 4px;
-        }
+        .badge-container { display: flex; gap: 6px; }
+        .p-badge, .r-badge { font-size: 0.7rem; font-weight: 900; color: #000; padding: 4px 10px; border-radius: 6px; background: #fff; }
+        .r-badge { box-shadow: 0 0 10px rgba(255,255,255,0.1); }
 
-        .details { font-size: 0.85rem; line-height: 1.6; }
-        .row { display: flex; margin-bottom: 2px; }
-        .label { font-weight: bold; width: 75px; color: #64748b; flex-shrink: 0; }
-        .val { color: #333; }
+        .details { font-size: 0.9rem; line-height: 1.7; color: var(--text-sub); }
+        .row { display: flex; margin-bottom: 4px; }
+        .label { font-weight: 900; width: 85px; color: var(--sakatsuku-cyan); flex-shrink: 0; }
+        .val { color: #fff; font-weight: 600; }
 
-        .effect-tag { 
-            margin-top: 10px; padding: 8px 12px; background: #fff9c4; 
-            border-radius: 8px; font-size: 0.8rem; font-weight: bold; 
-            color: #856404; border: 1px solid rgba(255,241,118,0.5);
+        .effect-tag {
+            margin-top: 15px; padding: 12px 15px; background: rgba(212, 175, 55, 0.1);
+            border-radius: 10px; font-size: 0.85rem; font-weight: 800;
+            color: #ffd700; border: 1px solid rgba(212, 175, 55, 0.3);
         }
 
         /* ===== フッター ===== */
         footer {
-            text-align: center;
-            padding: 40px 15px;
-            background: var(--dark);
-            color: #999;
-            margin-top: 40px;
+            text-align: center; padding: 80px 20px; background: rgba(0,0,0,0.5);
+            color: #888; border-top: 1px solid var(--border);
         }
+        .footer-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; font-size: 0.9rem; margin-bottom: 25px; }
+        .footer-nav a { color: var(--sakatsuku-cyan); text-decoration: none; font-weight: 700; }
+        .footer-nav a.current-footer { color: var(--sakatsuku-mint); text-decoration: underline; }
 
-        .footer-nav {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 12px;
-            font-size: 0.8rem;
-            margin-bottom: 15px;
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; } }
 
-        .footer-nav a { 
-            color: var(--accent); 
-            text-decoration: none; 
-            font-weight: bold;
-        }
-        
-        .footer-nav a.current-footer {
-            color: #fff;
-            text-decoration: underline;
-        }
-
-        .copyright { font-size: 0.75rem; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; } }
-
-        @media (max-width: 900px) { 
-            .container { flex-direction: column; } 
-            .sidebar { width: 100%; border-right: none; height: auto; position: relative; top: 0; padding: 15px; }
-            .main { padding: 15px; }
+        @media (max-width: 900px) {
+            .container { flex-direction: column; }
+            .sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border); height: auto; position: relative; top: 0; padding: 20px; }
+            .main { padding: 20px; }
         }
     </style>
 </head>
 <body>
 
 <header class="topnav">
-    <a href="index.html" class="logo">サカつくDB</a>
     <nav class="nav-links">
         <a href="index.html">ホーム</a>
         <a href="builder.html">スカッド</a>
@@ -194,11 +160,11 @@
 <div class="container">
     <div class="sidebar">
         <div class="search-header">
-            <h3>フォメコン絞り込み</h3>
+            <h3>絞り込み</h3>
             <div class="count-badge" id="resCount">0 件</div>
         </div>
         
-        <input type="text" id="q" class="search-input" placeholder="名前、フォメ、スタイル、レア度...">
+        <input type="text" id="q" class="search-input" placeholder="名前、フォメ、レア度...">
 
         <div class="filter-section">
             <div class="filter-title">レア度</div>
@@ -226,10 +192,10 @@
         </div>
 
         <div class="filter-section">
-            <div class="filter-title">解放条件</div>
+            <div class="filter-title">解放レベル</div>
             <div class="filter-options">
                 <select id="fLevel">
-                    <option value="">すべてのレベル</option>
+                    <option value="">すべての条件</option>
                     <option value="初期">初期解放</option>
                     <option value="10">Lv.10解放</option>
                     <option value="13">Lv.13解放</option>
@@ -242,7 +208,7 @@
     </div>
 
     <div class="main">
-        <h1>フォーメーションコンボ</h1>
+        <h1>フォーメーションコンボ検索</h1>
         <div id="list">読み込み中...</div>
     </div>
 </div>
@@ -255,14 +221,14 @@
         <a href="formation-search.html" class="current-footer">フォメコン</a>
         <a href="skills.html">スキル検索</a>
     </div>
-    <p class="copyright">&copy; 2026 プリスキンのサカつくDB <br><a href="terms.html" style="color:#777; text-decoration: none;">利用規約</a></p>
+    <p class="copyright">&copy; 2026 プリスキンのサカつく2026 DB</p>
 </footer>
 
 <script src="formations.js"></script>
 <script>
     const listEl = document.getElementById('list');
     const qEl = document.getElementById('q');
-    const rEl = document.getElementById('fRarity'); // レア度フィルタ
+    const rEl = document.getElementById('fRarity');
     const pEl = document.getElementById('fPolicy');
     const lEl = document.getElementById('fLevel');
     const countEl = document.getElementById('resCount');
@@ -297,18 +263,20 @@
         countEl.textContent = `${filtered.length} 件`;
         
         if (filtered.length === 0) {
-            listEl.innerHTML = '<div style="text-align:center; padding:20px; color:#64748b;">条件に合うコンボがありません。</div>';
+            listEl.innerHTML = '<div style="text-align:center; padding:50px; color:var(--text-sub); font-weight:700;">条件に合うコンボが見つかりません。</div>';
             return;
         }
 
         listEl.innerHTML = filtered.map(d => {
             let levelDisplay = d.level;
             if (d.level !== "イベント" && d.level !== "初期" && d.level !== "ミッション") {
-                levelDisplay = `Lv.${d.level}`;
+                levelDisplay = `Lv.${d.level} 解放`;
             } else if (d.level === "イベント") {
                 levelDisplay = "イベント限定";
             } else if (d.level === "ミッション") {
                 levelDisplay = "ミッション報酬";
+            } else if (d.level === "初期") {
+                levelDisplay = "初期解放";
             }
 
             return `
@@ -316,8 +284,8 @@
                     <div class="card-top">
                         <div class="combo-title">${d.name}</div>
                         <div class="badge-container">
-                            <div class="r-badge" style="background:${rColors[d.rarity] || '#666'}">${d.rarity || '不明'}</div>
-                            <div class="p-badge" style="background:${colors[d.policy]}">${d.policy}</div>
+                            <div class="r-badge" style="background:${rColors[d.rarity] || '#fff'}; color:#000;">${d.rarity || '不明'}</div>
+                            <div class="p-badge" style="background:${colors[d.policy]}; color:#fff;">${d.policy}</div>
                         </div>
                     </div>
                     <div class="details">

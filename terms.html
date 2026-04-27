@@ -6,7 +6,6 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'G-KFYD72JSBG');
   </script>
 
@@ -15,124 +14,132 @@
   <title>プリスキンのサカつくDB - 利用規約</title>
   <style>
     :root {
-      --primary: #007bff;
-      --accent: #00bcd4;
-      --dark: #222;
-      --bg-gradient: linear-gradient(135deg, #4fc3f7, #007bff);
+      /* サカつく公式カラー抽出 */
+      --sakatsuku-navy: #050a14;
+      --sakatsuku-mint: #00ffcc;
+      --sakatsuku-cyan: #4fc3f7;
+      --sakatsuku-dark-green: #0a1f1a;
+      
+      --primary: var(--sakatsuku-mint);
+      --dark: var(--sakatsuku-navy);
+      --page-bg: radial-gradient(circle at 50% -20%, #1a3a35 0%, #050a14 70%);
+      --card-bg: rgba(255, 255, 255, 0.07);
       --nav-height: 60px;
+      --border: rgba(0, 255, 204, 0.2);
     }
 
-    body {
-      font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+    html, body {
       margin: 0;
       padding: 0;
-      background-color: #f8fafc;
-      /* ホームと共通の質感：ドット背景 */
-      background-image: radial-gradient(#d1d9e0 1px, transparent 1px);
-      background-size: 20px 20px;
-      color: #333;
-      line-height: 1.6;
+      min-height: 100vh;
+      background-color: var(--sakatsuku-navy);
+      background-image: var(--page-bg);
+      background-attachment: fixed;
+      font-family: 'Inter', 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+      color: #fff;
+      line-height: 1.8;
     }
 
-    /* ===== ナビゲーション（全ページ完全統一：ロゴなし・左寄せ） ===== */
+    /* ===== ナビゲーション ===== */
     .topnav {
       display: flex;
-      justify-content: flex-start; /* 左寄せ */
+      justify-content: flex-start;
       align-items: center;
-      background: var(--dark);
-      color: #fff;
+      background: rgba(5, 10, 20, 0.85);
+      backdrop-filter: blur(15px);
       height: var(--nav-height);
-      padding: 0 10px;
+      padding: 0 15px;
       position: sticky;
       top: 0;
       z-index: 1000;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      border-bottom: 2px solid var(--sakatsuku-mint);
       padding-top: env(safe-area-inset-top);
     }
-
-    .logo { display: none; } /* ロゴ非表示 */
 
     .nav-links {
       display: flex;
       overflow-x: auto;
       white-space: nowrap;
-      -webkit-overflow-scrolling: touch;
-      gap: 2px;
+      gap: 6px;
       width: 100%;
     }
 
     .nav-links::-webkit-scrollbar { display: none; }
 
     .nav-links a {
-      color: #fff;
+      color: rgba(255, 255, 255, 0.7);
       text-decoration: none;
-      padding: 8px 10px;
+      padding: 8px 14px;
       font-size: 0.85rem;
-      font-weight: 600;
-      border-radius: 5px;
-      transition: opacity 0.2s;
+      font-weight: 800;
+      border-radius: 8px;
+      transition: 0.3s;
     }
 
-    .nav-links a:hover {
-      opacity: 0.7;
-    }
+    .nav-links a:hover { color: var(--sakatsuku-mint); }
 
     /* ===== ページヘッダー ===== */
     .page-header {
       text-align: center;
-      padding: 50px 20px 70px;
-      background: var(--bg-gradient);
-      color: #fff;
-      clip-path: ellipse(160% 100% at 50% 0%);
+      padding: 60px 20px 80px;
+      background: radial-gradient(circle at 50% 0%, rgba(0, 255, 204, 0.1) 0%, transparent 80%);
     }
 
     .page-header h1 {
-      font-size: 1.8em;
+      font-size: 2.2em;
       margin: 0;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      font-weight: 900;
+      letter-spacing: 0.05em;
+      text-shadow: 0 0 20px rgba(0, 255, 204, 0.4);
     }
 
     /* ===== メインコンテンツエリア ===== */
     .container {
       max-width: 850px;
-      margin: -30px auto 60px;
-      padding: 0 15px;
+      margin: -40px auto 60px;
+      padding: 0 20px;
     }
 
     main {
-      background: #fff;
+      background: var(--card-bg);
+      backdrop-filter: blur(15px);
       padding: 40px;
-      border-radius: 15px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
     }
 
     h2 {
       display: flex;
       align-items: center;
       margin-top: 40px;
-      font-size: 1.25rem;
-      color: var(--dark);
-      border-bottom: 2px solid #f0f2f5;
-      padding-bottom: 8px;
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: var(--sakatsuku-mint);
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
     }
 
     h2::before {
       content: "";
       display: inline-block;
-      width: 6px;
+      width: 4px;
       height: 24px;
-      background: var(--primary);
-      margin-right: 12px;
-      border-radius: 3px;
+      background: var(--sakatsuku-mint);
+      margin-right: 15px;
+      box-shadow: 0 0 10px var(--sakatsuku-mint);
     }
 
     p {
-      margin: 15px 0;
-      color: #555;
-      font-size: 0.95rem;
+      margin: 20px 0;
+      color: #eee;
+      font-size: 1rem;
     }
 
-    /* ===== リスト・強調ボックス（規約用） ===== */
+    /* ===== リスト・強調ボックス ===== */
     ul {
       padding-left: 0;
       list-style: none;
@@ -140,65 +147,66 @@
 
     li {
       position: relative;
-      padding-left: 28px;
-      margin-bottom: 12px;
-      color: #555;
+      padding-left: 30px;
+      margin-bottom: 15px;
+      color: #ccc;
       font-size: 0.95rem;
     }
 
     li::before {
-      content: "⚽";
+      content: "▶";
       position: absolute;
-      left: 0;
+      left: 5px;
+      color: var(--sakatsuku-mint);
       font-size: 0.8rem;
       top: 2px;
     }
 
     .info-box {
-      background: #f0f7ff;
-      border-left: 4px solid var(--primary);
-      padding: 20px;
-      margin: 25px 0;
-      border-radius: 0 10px 10px 0;
-      font-size: 0.9rem;
-      color: #444;
+      background: rgba(0, 255, 204, 0.05);
+      border-left: 4px solid var(--sakatsuku-mint);
+      padding: 25px;
+      margin: 30px 0;
+      border-radius: 0 16px 16px 0;
+      font-size: 0.95rem;
+      color: #fff;
     }
 
-    /* ===== フッター（全ページ完全統一） ===== */
+    .info-box strong {
+      color: var(--sakatsuku-mint);
+    }
+
+    /* ===== フッター ===== */
     footer {
       text-align: center;
-      padding: 40px 15px;
-      background: var(--dark);
-      color: #999;
+      padding: 60px 20px;
+      background: rgba(5, 10, 20, 0.95);
+      color: #777;
+      border-top: 1px solid var(--border);
     }
 
     .footer-nav {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 12px;
-      font-size: 0.8rem;
-      margin-bottom: 15px;
+      gap: 18px;
+      font-size: 0.85rem;
+      margin-bottom: 25px;
     }
 
-    .footer-nav a { color: var(--accent); text-decoration: none; }
-    .copyright { font-size: 0.75rem; }
-
-    /* PCレイアウト調整 */
-    @media (min-width: 768px) {
-      .page-header { padding: 80px 20px 100px; }
-      .page-header h1 { font-size: 2.5em; }
-    }
+    .footer-nav a { color: var(--sakatsuku-cyan); text-decoration: none; font-weight: 700; }
+    .copyright { font-size: 0.8rem; }
 
     @media (max-width: 600px) {
       main { padding: 25px; }
+      .page-header h1 { font-size: 1.8em; }
+      h2 { font-size: 1.2rem; }
     }
   </style>
 </head>
 <body>
 
 <header class="topnav">
-  <a href="index.html" class="logo">サカつくDB</a>
   <nav class="nav-links">
     <a href="index.html">ホーム</a>
     <a href="builder.html">スカッド</a>
@@ -256,7 +264,7 @@
     <a href="search.html">選手検索</a>
     <a href="skills.html">スキル検索</a>
   </div>
-  <p class="copyright">&copy; 2026 プリスキンのサカつくDB <br><a href="terms.html" style="color:#777; text-decoration: none;">利用規約</a></p>
+  <p class="copyright">&copy; 2026 プリスキンのサカつくDB <br><a href="terms.html" style="color:#777; text-decoration: none; font-size: 0.7rem;">利用規約</a></p>
 </footer>
 
 </body>

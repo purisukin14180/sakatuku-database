@@ -14,110 +14,175 @@
     <title>サカつく スカッドビルダー | プリスキンのサカつくDB</title>
     <style>
         :root {
-            --primary: #007bff;
-            --accent: #00bcd4;
-            --dark: #222;
-            --light-bg: #f8fafc;
-            --border: #e2e8f0;
-            --bg-gradient: linear-gradient(135deg, #4fc3f7, #007bff);
-            --field-line: rgba(255,255,255,0.8);
+            --sakatsuku-navy: #050a14;
+            --sakatsuku-deep-green: #0a1f1a;
+            --sakatsuku-mint: #00ffcc; 
+            --sakatsuku-blue: #007bff;
+            
+            --primary: var(--sakatsuku-mint);
+            --dark: var(--sakatsuku-navy);
+            --body-bg: linear-gradient(160deg, #050a14 0%, #0a1f1a 50%, #050a14 100%);
+            --card-bg: rgba(255, 255, 255, 0.08);
+            --border: rgba(0, 255, 204, 0.2);
+            --text-main: #ffffff;
+            --text-sub: #a0aec0;
+            --field-green-1: #143d2c;
+            --field-green-2: #0a1f14;
+            --field-line: rgba(255,255,255,0.4);
             --gold: #d4af37;
-            --effect-bg: #fff9c4;
-            --effect-text: #f57f17;
             --nav-height: 60px;
+
+            /* ポリシーカラー */
+            --color-possession: #ff9800;
+            --color-counter: #f44336;
+            --color-reaction: #2196f3;
+            --color-moving: #4caf50;
         }
 
         * { touch-action: manipulation; -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
+        
+        html, body {
+            margin: 0; padding: 0; min-height: 100vh;
+            background: var(--body-bg); background-attachment: fixed;
+        }
+
         body { 
-            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
-            margin: 0; background-color: var(--light-bg);
-            background-image: radial-gradient(#d1d9e0 1px, transparent 1px);
-            background-size: 20px 20px; color: #333; line-height: 1.6;
-            padding-bottom: env(safe-area-inset-bottom); user-select: none;
+            font-family: 'Inter', 'Hiragino Kaku Gothic ProN', sans-serif;
+            color: var(--text-main); line-height: 1.6;
+            padding-bottom: env(safe-area-inset-bottom);
         }
 
         .topnav {
             display: flex; justify-content: flex-start; align-items: center;
-            background: var(--dark); color: #fff; height: var(--nav-height); 
-            padding: 0 10px; position: sticky; top: 0; z-index: 1000; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2); padding-top: env(safe-area-inset-top);
+            background: rgba(5, 10, 20, 0.9); backdrop-filter: blur(15px);
+            height: var(--nav-height); padding: 0 15px; position: sticky; top: 0; z-index: 1000;
+            border-bottom: 1px solid var(--border);
         }
-        .logo { display: none; }
-        .nav-links { display: flex; overflow-x: auto; white-space: nowrap; gap: 2px; width: 100%; }
+        .nav-links { display: flex; overflow-x: auto; white-space: nowrap; gap: 8px; width: 100%; }
         .nav-links::-webkit-scrollbar { display: none; }
-        .nav-links a { color: #fff; text-decoration: none; padding: 8px 10px; font-size: 0.85rem; font-weight: 600; border-radius: 5px; }
-        .nav-links a.current { background: rgba(255,255,255,0.15); }
+        .nav-links a { 
+            color: rgba(255,255,255,0.6); text-decoration: none; padding: 8px 14px; 
+            font-size: 0.85rem; font-weight: 800; border-radius: 10px; transition: 0.3s;
+        }
+        .nav-links a.current { color: #000; background: var(--sakatsuku-mint); box-shadow: 0 0 15px rgba(0, 255, 204, 0.4); }
 
-        .container { max-width: 900px; margin: 15px auto 40px; padding: 0 15px; }
-        .card { background: #fff; padding: 20px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 20px; border: 1px solid var(--border); }
+        .container { max-width: 850px; margin: 30px auto; padding: 0 20px; }
+        
+        .card { 
+            background: var(--card-bg); backdrop-filter: blur(10px);
+            padding: 28px; border-radius: 24px; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4); 
+            margin-bottom: 30px; border: 1px solid var(--border); 
+        }
 
-        #formationSelect { width: 100%; padding: 12px; border-radius: 8px; border: 2px solid #eee; font-size: 0.95rem; font-weight: bold; background-color: #f1f5f9; cursor: pointer; border-left-width: 10px; -webkit-appearance: none; }
-        #formationDesc { margin-top: 15px; padding: 15px; background: #fff; border-radius: 10px; font-size: 0.8rem; border-left: 6px solid var(--primary); box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
-        .desc-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-        .desc-combo-name { font-size: 1rem; font-weight: 800; color: #1e293b; }
-        .desc-policy { padding: 4px 10px; border-radius: 6px; color: #fff; font-size: 0.7rem; font-weight: bold; }
-        .desc-f-type { color: #64748b; font-weight: bold; margin-bottom: 6px; display: block; font-size: 0.75rem; }
-        .desc-effect { background: var(--effect-bg); color: var(--effect-text); padding: 8px 12px; border-radius: 6px; font-weight: bold; margin-top: 10px; }
+        #formationSelect { 
+            width: 100%; padding: 16px; border-radius: 14px; border: 1px solid var(--border); 
+            font-size: 1.1rem; font-weight: 900; background-color: rgba(0,0,0,0.7); color: #fff; cursor: pointer; 
+            border-left: 12px solid var(--sakatsuku-mint); appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat; background-position: right 15px center; background-size: 1.2em;
+            transition: all 0.3s;
+        }
 
-        #field-container { position: relative; width: 100%; max-width: 500px; margin: 20px auto; aspect-ratio: 50 / 60; background: #1b5e20; border-radius: 15px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.25); border: 4px solid #2e7d32; }
-        .field { position: relative; width: 100%; height: 100%; display: none; background: linear-gradient(to bottom, #2e7d32 0%, #1b5e20 100%); }
+        /* セレクトボックス内の各項目の色 */
+        optgroup { background: #1a202c; color: #fff; font-style: normal; font-weight: 900; }
+        option { background: #050a14; padding: 10px; font-weight: 700; }
+        
+        /* リスト表示時の文字色 */
+        .opt-possession { color: var(--color-possession) !important; }
+        .opt-counter { color: var(--color-counter) !important; }
+        .opt-reaction { color: var(--color-reaction) !important; }
+        .opt-moving { color: var(--color-moving) !important; }
+
+        #formationDesc { 
+            margin-top: 20px; padding: 20px; background: rgba(0,0,0,0.3); border-radius: 16px; 
+            font-size: 0.85rem; border: 1px solid var(--border); border-left: 8px solid var(--sakatsuku-mint); 
+        }
+        .desc-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .desc-combo-name { font-size: 1.2rem; font-weight: 900; color: var(--sakatsuku-mint); text-shadow: 0 0 10px rgba(0, 255, 204, 0.3); }
+        .desc-policy { padding: 5px 14px; border-radius: 20px; color: #000; font-size: 0.75rem; font-weight: 900; background: #fff; }
+        .desc-f-type { color: #fff; font-weight: 700; opacity: 0.8; font-size: 0.85rem; display: block; margin-bottom: 8px; }
+        .desc-effect { background: rgba(212, 175, 55, 0.1); color: #ffd700; padding: 14px; border-radius: 12px; font-weight: 800; margin-top: 14px; border: 1px solid rgba(212, 175, 55, 0.3); }
+
+        .field-wrapper {
+            background: #000; padding: 40px 15px; border-radius: 32px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.6); margin-bottom: 30px;
+            border: 1px solid var(--border);
+        }
+
+        #field-container { 
+            position: relative; width: 100%; max-width: 480px; margin: 0 auto; 
+            aspect-ratio: 50 / 62; background: var(--field-green-2); 
+            border-radius: 8px; overflow: hidden; border: 2px solid rgba(0,255,204,0.3); 
+            box-shadow: 0 0 30px rgba(0, 255, 204, 0.15);
+        }
+        .field { 
+            position: relative; width: 100%; height: 100%; display: none; 
+            background: repeating-linear-gradient(to bottom, #0a1f14 0%, #0a1f14 10%, #05100a 10%, #05100a 20%);
+        }
         .field::before { content: ""; position: absolute; top: 50%; left: 0; width: 100%; height: 2px; background: var(--field-line); }
-        .field::after { content: ""; position: absolute; top: 50%; left: 50%; width: 25%; aspect-ratio: 1; border: 2px solid var(--field-line); border-radius: 50%; transform: translate(-50%,-50%); }
-        .penalty-top, .penalty-bottom { position: absolute; left: 50%; transform: translateX(-50%); width: 60%; height: 16%; border: 2px solid var(--field-line); pointer-events: none; }
-        .penalty-top { top: 0; border-top: none; }
-        .penalty-bottom { bottom: 0; border-bottom: none; }
+        .field::after { content: ""; position: absolute; top: 50%; left: 50%; width: 28%; aspect-ratio: 1; border: 2px solid var(--field-line); border-radius: 50%; transform: translate(-50%,-50%); }
 
-        .position { position: absolute; width: 22%; height: 15%; background: rgba(0,0,0,0.8); border-radius: 6px; color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.2); z-index: 10; transform: translateX(-50%); cursor: pointer; padding: 2px; }
-        .position.is-key { border: 2.5px solid var(--gold); box-shadow: 0 0 15px rgba(212, 175, 55, 0.4); }
-        .position.is-key::before { content: "KEY"; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--gold); color: #000; font-size: 0.55rem; font-weight: 900; padding: 1px 6px; border-radius: 3px; }
+        .position { 
+            position: absolute; width: 22.5%; height: 14.5%; 
+            background: rgba(5, 10, 20, 0.95); border-radius: 6px; color: #fff; 
+            display: flex; flex-direction: column; align-items: center; justify-content: center; 
+            border: 1px solid rgba(0,255,204,0.2); z-index: 10; transform: translateX(-50%); cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5); transition: 0.2s;
+        }
+        .position:hover { border-color: var(--sakatsuku-mint); box-shadow: 0 0 15px rgba(0, 255, 204, 0.3); }
+        .position.is-key { border: 2px solid var(--gold); }
+        .position.is-key::before { 
+            content: "KEY"; position: absolute; top: -14px; background: var(--gold); color: #000; 
+            font-size: 0.65rem; font-weight: 900; padding: 2px 8px; border-radius: 4px; 
+        }
 
-        .player-name { font-size: clamp(0.55rem, 2vw, 0.7rem); font-weight: bold; width: 100%; text-align: center; line-height: 1.1; overflow: hidden; word-break: break-all; margin-bottom: 1px; }
-        .player-style { font-size: 0.5rem; color: #4fc3f7; }
-        .target-style { font-size: 0.45rem; font-weight: 800; text-align: center; }
-        .target-style.met { color: #4ade80; }
+        .player-name { font-size: clamp(0.6rem, 2.2vw, 0.75rem); font-weight: 900; text-align: center; width: 100%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+        .player-style { font-size: 0.55rem; color: var(--sakatsuku-mint); font-weight: 700; opacity: 0.8; }
+        .target-style { font-size: 0.5rem; font-weight: 900; }
+        .target-style.met { color: #4ade80; text-shadow: 0 0 5px #4ade80; }
         .target-style.not-met { color: #fbbf24; }
 
-        .f-name-display { position: absolute; bottom: 12px; left: 15px; max-width: 35%; font-weight: 900; font-size: 0.8rem; text-shadow: 2px 2px 4px #000; color: #fff; pointer-events: none; }
-        .f-check-display { position: absolute; bottom: 12px; right: 15px; text-align: right; text-shadow: 2px 2px 4px #000; color: #fff; pointer-events: none;}
-        .status-active { color: #facc15; font-weight: 900; font-size: 0.9rem; }
-        .status-inactive { color: #f87171; font-weight: 900; font-size: 0.8rem; }
+        .f-name-display { position: absolute; bottom: 18px; left: 20px; font-weight: 900; font-size: 0.95rem; text-shadow: 2px 2px 4px #000; color: #fff; }
+        .f-check-display { position: absolute; bottom: 18px; right: 20px; text-align: right; text-shadow: 2px 2px 4px #000; color: #fff; }
 
         .admin-card { max-width: 500px; margin: 20px auto 40px; }
-        .section-title { display: block; font-weight: 800; margin-bottom: 12px; font-size: 0.95rem; border-left: 5px solid var(--primary); padding-left: 10px; }
-        textarea { width: 100%; height: 120px; padding: 10px; border: 1px solid var(--border); border-radius: 8px; resize: none; font-size: 0.9rem; }
-        button { cursor: pointer; border: none; font-weight: bold; border-radius: 8px; }
-        #saveFormation { background: var(--primary); color: white; }
-        #loadBtn { background: #28a745; color: white; width: 65%; margin-right: 5%; padding: 12px; }
-        #deleteBtn { background: #ef4444; color: white; width: 30%; padding: 12px; }
+        .section-title { display: block; font-weight: 900; margin-bottom: 20px; border-left: 6px solid var(--sakatsuku-mint); padding-left: 14px; color: var(--sakatsuku-mint); }
+        
+        input[type="text"], textarea { 
+            width: 100%; padding: 15px; border: 1px solid var(--border); border-radius: 12px; 
+            background: rgba(0,0,0,0.4); color: #fff; font-size: 0.95rem;
+        }
+        
+        button { cursor: pointer; border: none; font-weight: 900; border-radius: 12px; transition: 0.2s; }
+        #saveFormation { background: var(--sakatsuku-mint); color: #000; padding: 15px 25px; box-shadow: 0 4px 15px rgba(0,255,204,0.3); }
+        #loadBtn { background: #10b981; color: white; width: 66%; padding: 15px; margin-right: 3%; }
+        #deleteBtn { background: #f43f5e; color: white; width: 31%; padding: 15px; }
 
-        footer { text-align: center; padding: 40px 15px; background: var(--dark); color: #999; margin-top: 40px; }
-        .footer-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; font-size: 0.8rem; margin-bottom: 15px; }
-        .footer-nav a { color: var(--accent); text-decoration: none; font-weight: bold; }
-        .footer-nav a.current-footer { color: #fff; text-decoration: underline; }
-        .copyright { font-size: 0.75rem; }
+        footer { text-align: center; padding: 60px 20px; background: rgba(0,0,0,0.5); color: var(--text-sub); margin-top: 80px; border-top: 1px solid var(--border); }
+        .footer-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; font-size: 0.9rem; margin-bottom: 25px; }
+        .footer-nav a { color: var(--sakatsuku-mint); text-decoration: none; font-weight: bold; }
 
-        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); align-items: center; justify-content: center; padding: 20px; }
-        .modal-content { background: white; width: 100%; max-width: 400px; border-radius: 16px; overflow-y: auto; max-height: 90vh; }
-        .modal-mini { max-width: 300px; padding: 20px; text-align: center; }
-        .modal-btn { display: block; width: 100%; padding: 15px; margin: 10px 0; font-size: 0.9rem; }
-        .btn-detail { background: var(--primary); color: white; }
-        .btn-delete { background: #fee2e2; color: #b91c1c; }
-        .btn-cancel { background: #f1f5f9; color: #64748b; }
-        .modal-header { background: var(--bg-gradient); color: white; padding: 20px; text-align: center; }
-        .modal-body { padding: 20px; }
-        .modal-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f1f5f9; }
-        .modal-label { font-weight: bold; color: #64748b; font-size: 0.8rem; }
-        .modal-val { font-weight: 600; }
-        .skill-section { margin-top: 15px; background: #f8fafc; padding: 10px; border-radius: 8px; }
-        .slot { display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 8px; border-radius: 6px; margin-bottom: 5px; border: 1px solid #cbd5e1; font-size: 0.8rem; }
-        .slot-name { font-weight: bold; color: var(--primary); text-decoration: underline; }
-        .close-btn { width: 100%; padding: 15px; background: #eee; border: none; font-weight: bold; }
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(5, 10, 20, 0.9); backdrop-filter: blur(10px); align-items: center; justify-content: center; }
+        .modal-content { background: #1a202c; border: 1px solid var(--border); width: 90%; max-width: 420px; border-radius: 28px; overflow: hidden; animation: slideUp 0.3s; }
+        .modal-mini { padding: 40px 24px; text-align: center; }
+        .modal-btn { display: block; width: 90%; padding: 18px; margin: 12px auto; border-radius: 16px; font-size: 1rem; font-weight: 900; }
+        .btn-detail { background: var(--sakatsuku-mint); color: #000; }
+        .btn-delete { background: rgba(225, 29, 72, 0.1); color: #e11d48; border: 1px solid #e11d48; }
+        .btn-cancel { background: #2d3748; color: #fff; }
+        
+        .modal-header { background: var(--dark); color: var(--sakatsuku-mint); padding: 28px; text-align: center; border-bottom: 1px solid var(--border); }
+        .modal-body { padding: 28px; color: #fff; }
+        .modal-row { display: flex; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .modal-label { color: var(--text-sub); font-size: 0.85rem; }
+        .modal-val { font-weight: 900; }
+        .close-btn { width: 100%; padding: 22px; background: #2d3748; color: #fff; font-weight: 900; border: none; }
+        @keyframes slideUp { from { transform: translateY(40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
     </style>
 </head>
 <body>
 
 <header class="topnav">
-    <a href="index.html" class="logo">サカつくDB</a>
     <nav class="nav-links">
         <a href="index.html">ホーム</a>
         <a href="builder.html" class="current">スカッド</a>
@@ -130,84 +195,84 @@
 <div class="container">
     <div class="card">
         <select id="formationSelect">
-            <optgroup label="金コンボ (Lv.20)">
-                <option value="la-dea">ラ・デア'22</option>
-                <option value="la-roja">ラ・ロハ'24</option>
-                <option value="les-bleus">レ・ブルー'98</option>
-                <option value="diabolo-milano">ディアボロ・ディ・ミラノ'99</option>
-                <option value="gorden-zonen">ゴーデンゾーネン'94</option>
-                <option value="selecaodas-kinas">セレソン・ダス・キナス'16</option>
-                <option value="soberano">ソベラーノ'94</option>
-                <option value="albiceleste">アルビセレステ'01</option>
+            <optgroup label="ポゼッション">
+                <option value="la-dea" class="opt-possession">ラ・デア'22</option>
+                <option value="la-roja" class="opt-possession">ラ・ロハ'24</option>
+                <option value="los-cafeteros" class="opt-possession">ロス・カフェテロス'94</option>
             </optgroup>
-            <optgroup label="金コンボ (ミッション)">
-                <option value="encarnados">エンカルナードス'23</option>
-                <option value="river">リーベル'18</option>
-                <option value="canarinho">カナリア軍団'06</option>
-                <option value="los-cafeteros">ロス・カフェテロス'94</option>
+            <optgroup label="カウンター">
+                <option value="les-bleus" class="opt-counter">レ・ブルー'98</option>
+                <option value="diabolo-milano" class="opt-counter">ディアボロ・ディ・ミラノ'99</option>
+                <option value="river" class="opt-counter">リーベル'18</option>
+            </optgroup>
+            <optgroup label="リアクション">
+                <option value="gorden-zonen" class="opt-reaction">ゴーデンゾーネン'94</option>
+                <option value="selecaodas-kinas" class="opt-reaction">セレソン・ダス・キナス'16</option>
+                <option value="encarnados" class="opt-reaction">エンカルナードス'23</option>
+            </optgroup>
+            <optgroup label="ムービング">
+                <option value="soberano" class="opt-moving">ソベラーノ'94</option>
+                <option value="albiceleste" class="opt-moving">アルビセレステ'01</option>
+                <option value="canarinho" class="opt-moving">カナリア軍団'06</option>
             </optgroup>
         </select>
         <div id="formationDesc"></div>
     </div>
 
-    <div id="field-container">
-        <div class="field" id="field-la-dea"><div class="penalty-top"></div><div class="penalty-bottom"></div><div class="position" style="top:84%; left:50%;" data-pos="GK">GK</div><div class="position" style="top:65%; left:20%;" data-pos="LCB">LCB</div><div class="position" style="top:65%; left:50%;" data-pos="CCB">CCB</div><div class="position" style="top:65%; left:80%;" data-pos="RCB">RCB</div><div class="position" style="top:45%; left:35%;" data-pos="LDM">LDM</div><div class="position" style="top:45%; left:65%;" data-pos="RDM">RDM</div><div class="position" style="top:32%; left:12%;" data-pos="LM">LM</div><div class="position" style="top:25%; left:50%;" data-pos="CAM">CAM</div><div class="position" style="top:32%; left:88%;" data-pos="RM">RM</div><div class="position" style="top:6%; left:35%;" data-pos="LCF">LCF</div><div class="position" style="top:6%; left:65%;" data-pos="RCF">RCF</div></div>
-        
-        <div class="field" id="field-la-roja"><div class="penalty-top"></div><div class="penalty-bottom"></div><div class="position" style="top:84%; left:50%;" data-pos="GK">GK</div><div class="position" style="top:68%; left:12%;" data-pos="LB">LB</div><div class="position" style="top:68%; left:37%;" data-pos="LCB">LCB</div><div class="position" style="top:68%; left:63%;" data-pos="RCB">RCB</div><div class="position" style="top:68%; left:88%;" data-pos="RB">RB</div><div class="position" style="top:45%; left:30%;" data-pos="LDM">LDM</div><div class="position" style="top:45%; left:70%;" data-pos="RDM">RDM</div><div class="position" style="top:25%; left:50%;" data-pos="AM">AM</div><div class="position" style="top:7%; left:12%;" data-pos="LW">LW</div><div class="position" style="top:5%; left:50%;" data-pos="CF">CF</div><div class="position" style="top:7%; left:88%;" data-pos="RW">RW</div></div>
-        <div class="field" id="field-encarnados"></div>
-        <div class="field" id="field-river"></div>
+    <div class="field-wrapper">
+        <div id="field-container">
+            <div class="field" id="field-la-dea"><div class="penalty-top"></div><div class="penalty-bottom"></div><div class="position" style="top:84%; left:50%;" data-pos="GK">GK</div><div class="position" style="top:65%; left:20%;" data-pos="LCB">LCB</div><div class="position" style="top:65%; left:50%;" data-pos="CCB">CCB</div><div class="position" style="top:65%; left:80%;" data-pos="RCB">RCB</div><div class="position" style="top:45%; left:35%;" data-pos="LDM">LDM</div><div class="position" style="top:45%; left:65%;" data-pos="RDM">RDM</div><div class="position" style="top:32%; left:12%;" data-pos="LM">LM</div><div class="position" style="top:25%; left:50%;" data-pos="CAM">CAM</div><div class="position" style="top:32%; left:88%;" data-pos="RM">RM</div><div class="position" style="top:6%; left:35%;" data-pos="LCF">LCF</div><div class="position" style="top:6%; left:65%;" data-pos="RCF">RCF</div></div>
+            <div class="field" id="field-la-roja"><div class="penalty-top"></div><div class="penalty-bottom"></div><div class="position" style="top:84%; left:50%;" data-pos="GK">GK</div><div class="position" style="top:68%; left:12%;" data-pos="LB">LB</div><div class="position" style="top:68%; left:37%;" data-pos="LCB">LCB</div><div class="position" style="top:68%; left:63%;" data-pos="RCB">RCB</div><div class="position" style="top:68%; left:88%;" data-pos="RB">RB</div><div class="position" style="top:45%; left:30%;" data-pos="LDM">LDM</div><div class="position" style="top:45%; left:70%;" data-pos="RDM">RDM</div><div class="position" style="top:25%; left:50%;" data-pos="AM">AM</div><div class="position" style="top:7%; left:12%;" data-pos="LW">LW</div><div class="position" style="top:5%; left:50%;" data-pos="CF">CF</div><div class="position" style="top:7%; left:88%;" data-pos="RW">RW</div></div>
+            <div class="field" id="field-encarnados"></div>
+            <div class="field" id="field-river"></div>
+            <div class="field" id="field-les-bleus"><div class="penalty-top"></div><div class="penalty-bottom"></div><div class="position" style="top:84%; left:50%;" data-pos="GK">GK</div><div class="position" style="top:68%; left:12%;" data-pos="LB">LB</div><div class="position" style="top:68%; left:37%;" data-pos="LCB">LCB</div><div class="position" style="top:68%; left:63%;" data-pos="RCB">RCB</div><div class="position" style="top:68%; left:88%;" data-pos="RB">RB</div><div class="position" style="top:48%; left:22%;" data-pos="LDM">LDM</div><div class="position" style="top:52%; left:50%;" data-pos="CDM">CDM</div><div class="position" style="top:48%; left:78%;" data-pos="RDM">RDM</div><div class="position" style="top:28%; left:50%;" data-pos="AM">AM</div><div class="position" style="top:6%; left:35%;" data-pos="LCF">LCF</div><div class="position" style="top:6%; left:65%;" data-pos="RCF">RCF</div></div>
+            <div class="field" id="field-los-cafeteros"></div>
+            <div class="field" id="field-canarinho"><div class="penalty-top"></div><div class="penalty-bottom"></div><div class="position" style="top:84%; left:50%;" data-pos="GK">GK</div><div class="position" style="top:68%; left:12%;" data-pos="LB">LB</div><div class="position" style="top:68%; left:37%;" data-pos="LCB">LCB</div><div class="position" style="top:68%; left:63%;" data-pos="RCB">RCB</div><div class="position" style="top:68%; left:88%;" data-pos="RB">RB</div><div class="position" style="top:48%; left:35%;" data-pos="LDM">LDM</div><div class="position" style="top:48%; left:65%;" data-pos="RDM">RDM</div><div class="position" style="top:28%; left:20%;" data-pos="LAM">LAM</div><div class="position" style="top:28%; left:80%;" data-pos="RAM">RAM</div><div class="position" style="top:6%; left:35%;" data-pos="LCF">LCF</div><div class="position" style="top:6%; left:65%;" data-pos="RCF">RCF</div></div>
+            <div class="field" id="field-diabolo-milano"><div class="penalty-top"></div><div class="penalty-bottom"></div><div class="position" style="top:84%; left:50%;" data-pos="GK">GK</div><div class="position" style="top:68%; left:22%;" data-pos="LCB">LCB</div><div class="position" style="top:68%; left:50%;" data-pos="CCB">CCB</div><div class="position" style="top:68%; left:78%;" data-pos="RCB">RCB</div><div class="position" style="top:45%; left:35%;" data-pos="LDM">LDM</div><div class="position" style="top:45%; left:65%;" data-pos="RDM">RDM</div><div class="position" style="top:32%; left:12%;" data-pos="LM">LM</div><div class="position" style="top:32%; left:88%;" data-pos="RM">RM</div><div class="position" style="top:7%; left:12%;" data-pos="LW">LW</div><div class="position" style="top:5%; left:50%;" data-pos="CF">CF</div><div class="position" style="top:7%; left:88%;" data-pos="RW">RW</div></div>
+            <div class="field" id="field-gorden-zonen"><div class="penalty-top"></div><div class="penalty-bottom"></div><div class="position" style="top:84%; left:50%;" data-pos="GK">GK</div><div class="position" style="top:68%; left:22%;" data-pos="LCB">LCB</div><div class="position" style="top:68%; left:50%;" data-pos="CCB">CCB</div><div class="position" style="top:68%; left:78%;" data-pos="RCB">RCB</div><div class="position" style="top:45%; left:35%;" data-pos="LDM">LDM</div><div class="position" style="top:45%; left:65%;" data-pos="RDM">RDM</div><div class="position" style="top:25%; left:35%;" data-pos="LAM">LAM</div><div class="position" style="top:25%; left:65%;" data-pos="RAM">RAM</div><div class="position" style="top:7%; left:12%;" data-pos="LW">LW</div><div class="position" style="top:5%; left:50%;" data-pos="CF">CF</div><div class="position" style="top:7%; left:88%;" data-pos="RW">RW</div></div>
+            <div class="field" id="field-selecaodas-kinas"><div class="penalty-top"></div><div class="penalty-bottom"></div><div class="position" style="top:84%; left:50%;" data-pos="GK">GK</div><div class="position" style="top:68%; left:12%;" data-pos="LB">LB</div><div class="position" style="top:68%; left:37%;" data-pos="LCB">LCB</div><div class="position" style="top:68%; left:63%;" data-pos="RCB">RCB</div><div class="position" style="top:68%; left:88%;" data-pos="RB">RB</div><div class="position" style="top:48%; left:50%;" data-pos="DM">DM</div><div class="position" style="top:32%; left:12%;" data-pos="LM">LM</div><div class="position" style="top:28%; left:50%;" data-pos="AM">AM</div><div class="position" style="top:32%; left:88%;" data-pos="RM">RM</div><div class="position" style="top:6%; left:35%;" data-pos="LCF">LCF</div><div class="position" style="top:6%; left:65%;" data-pos="RCF">RCF</div></div>
+            <div class="field" id="field-soberano"><div class="penalty-top"></div><div class="penalty-bottom"></div><div class="position" style="top:84%; left:50%;" data-pos="GK">GK</div><div class="position" style="top:68%; left:12%;" data-pos="LB">LB</div><div class="position" style="top:68%; left:37%;" data-pos="LCB">LCB</div><div class="position" style="top:68%; left:63%;" data-pos="RCB">RCB</div><div class="position" style="top:68%; left:88%;" data-pos="RB">RB</div><div class="position" style="top:48%; left:50%;" data-pos="DM">DM</div><div class="position" style="top:30%; left:22%;" data-pos="LAM">LAM</div><div class="position" style="top:32%; left:50%;" data-pos="CAM">CAM</div><div class="position" style="top:30%; left:78%;" data-pos="RAM">RAM</div><div class="position" style="top:6%; left:35%;" data-pos="LCF">LCF</div><div class="position" style="top:6%; left:65%;" data-pos="RCF">RCF</div></div>
+            <div class="field" id="field-albiceleste"><div class="penalty-top"></div><div class="penalty-bottom"></div><div class="position" style="top:84%; left:50%;" data-pos="GK">GK</div><div class="position" style="top:68%; left:22%;" data-pos="LCB">LCB</div><div class="position" style="top:68%; left:50%;" data-pos="CCB">CCB</div><div class="position" style="top:68%; left:78%;" data-pos="RCB">RCB</div><div class="position" style="top:48%; left:50%;" data-pos="DM">DM</div><div class="position" style="top:32%; left:12%;" data-pos="LM">LM</div><div class="position" style="top:28%; left:50%;" data-pos="AM">AM</div><div class="position" style="top:32%; left:88%;" data-pos="RM">RM</div><div class="position" style="top:7%; left:12%;" data-pos="LW">LW</div><div class="position" style="top:5%; left:50%;" data-pos="CF">CF</div><div class="position" style="top:7%; left:88%;" data-pos="RW">RW</div></div>
 
-        <div class="field" id="field-les-bleus"><div class="penalty-top"></div><div class="penalty-bottom"></div><div class="position" style="top:84%; left:50%;" data-pos="GK">GK</div><div class="position" style="top:68%; left:12%;" data-pos="LB">LB</div><div class="position" style="top:68%; left:37%;" data-pos="LCB">LCB</div><div class="position" style="top:68%; left:63%;" data-pos="RCB">RCB</div><div class="position" style="top:68%; left:88%;" data-pos="RB">RB</div><div class="position" style="top:48%; left:22%;" data-pos="LDM">LDM</div><div class="position" style="top:52%; left:50%;" data-pos="CDM">CDM</div><div class="position" style="top:48%; left:78%;" data-pos="RDM">RDM</div><div class="position" style="top:28%; left:50%;" data-pos="AM">AM</div><div class="position" style="top:6%; left:35%;" data-pos="LCF">LCF</div><div class="position" style="top:6%; left:65%;" data-pos="RCF">RCF</div></div>
-        <div class="field" id="field-los-cafeteros"></div>
-
-        <div class="field" id="field-canarinho"><div class="penalty-top"></div><div class="penalty-bottom"></div><div class="position" style="top:84%; left:50%;" data-pos="GK">GK</div><div class="position" style="top:68%; left:12%;" data-pos="LB">LB</div><div class="position" style="top:68%; left:37%;" data-pos="LCB">LCB</div><div class="position" style="top:68%; left:63%;" data-pos="RCB">RCB</div><div class="position" style="top:68%; left:88%;" data-pos="RB">RB</div><div class="position" style="top:48%; left:35%;" data-pos="LDM">LDM</div><div class="position" style="top:48%; left:65%;" data-pos="RDM">RDM</div><div class="position" style="top:28%; left:20%;" data-pos="LAM">LAM</div><div class="position" style="top:28%; left:80%;" data-pos="RAM">RAM</div><div class="position" style="top:6%; left:35%;" data-pos="LCF">LCF</div><div class="position" style="top:6%; left:65%;" data-pos="RCF">RCF</div></div>
-
-        <div class="field" id="field-diabolo-milano"><div class="penalty-top"></div><div class="penalty-bottom"></div><div class="position" style="top:84%; left:50%;" data-pos="GK">GK</div><div class="position" style="top:68%; left:22%;" data-pos="LCB">LCB</div><div class="position" style="top:68%; left:50%;" data-pos="CCB">CCB</div><div class="position" style="top:68%; left:78%;" data-pos="RCB">RCB</div><div class="position" style="top:45%; left:35%;" data-pos="LDM">LDM</div><div class="position" style="top:45%; left:65%;" data-pos="RDM">RDM</div><div class="position" style="top:32%; left:12%;" data-pos="LM">LM</div><div class="position" style="top:32%; left:88%;" data-pos="RM">RM</div><div class="position" style="top:7%; left:12%;" data-pos="LW">LW</div><div class="position" style="top:5%; left:50%;" data-pos="CF">CF</div><div class="position" style="top:7%; left:88%;" data-pos="RW">RW</div></div>
-        <div class="field" id="field-gorden-zonen"><div class="penalty-top"></div><div class="penalty-bottom"></div><div class="position" style="top:84%; left:50%;" data-pos="GK">GK</div><div class="position" style="top:68%; left:22%;" data-pos="LCB">LCB</div><div class="position" style="top:68%; left:50%;" data-pos="CCB">CCB</div><div class="position" style="top:68%; left:78%;" data-pos="RCB">RCB</div><div class="position" style="top:45%; left:35%;" data-pos="LDM">LDM</div><div class="position" style="top:45%; left:65%;" data-pos="RDM">RDM</div><div class="position" style="top:25%; left:35%;" data-pos="LAM">LAM</div><div class="position" style="top:25%; left:65%;" data-pos="RAM">RAM</div><div class="position" style="top:7%; left:12%;" data-pos="LW">LW</div><div class="position" style="top:5%; left:50%;" data-pos="CF">CF</div><div class="position" style="top:7%; left:88%;" data-pos="RW">RW</div></div>
-        <div class="field" id="field-selecaodas-kinas"><div class="penalty-top"></div><div class="penalty-bottom"></div><div class="position" style="top:84%; left:50%;" data-pos="GK">GK</div><div class="position" style="top:68%; left:12%;" data-pos="LB">LB</div><div class="position" style="top:68%; left:37%;" data-pos="LCB">LCB</div><div class="position" style="top:68%; left:63%;" data-pos="RCB">RCB</div><div class="position" style="top:68%; left:88%;" data-pos="RB">RB</div><div class="position" style="top:48%; left:50%;" data-pos="DM">DM</div><div class="position" style="top:32%; left:12%;" data-pos="LM">LM</div><div class="position" style="top:28%; left:50%;" data-pos="AM">AM</div><div class="position" style="top:32%; left:88%;" data-pos="RM">RM</div><div class="position" style="top:6%; left:35%;" data-pos="LCF">LCF</div><div class="position" style="top:6%; left:65%;" data-pos="RCF">RCF</div></div>
-        <div class="field" id="field-soberano"><div class="penalty-top"></div><div class="penalty-bottom"></div><div class="position" style="top:84%; left:50%;" data-pos="GK">GK</div><div class="position" style="top:68%; left:12%;" data-pos="LB">LB</div><div class="position" style="top:68%; left:37%;" data-pos="LCB">LCB</div><div class="position" style="top:68%; left:63%;" data-pos="RCB">RCB</div><div class="position" style="top:68%; left:88%;" data-pos="RB">RB</div><div class="position" style="top:48%; left:50%;" data-pos="DM">DM</div><div class="position" style="top:30%; left:22%;" data-pos="LAM">LAM</div><div class="position" style="top:32%; left:50%;" data-pos="CAM">CAM</div><div class="position" style="top:30%; left:78%;" data-pos="RAM">RAM</div><div class="position" style="top:6%; left:35%;" data-pos="LCF">LCF</div><div class="position" style="top:6%; left:65%;" data-pos="RCF">RCF</div></div>
-        <div class="field" id="field-albiceleste"><div class="penalty-top"></div><div class="penalty-bottom"></div><div class="position" style="top:84%; left:50%;" data-pos="GK">GK</div><div class="position" style="top:68%; left:22%;" data-pos="LCB">LCB</div><div class="position" style="top:68%; left:50%;" data-pos="CCB">CCB</div><div class="position" style="top:68%; left:78%;" data-pos="RCB">RCB</div><div class="position" style="top:48%; left:50%;" data-pos="DM">DM</div><div class="position" style="top:32%; left:12%;" data-pos="LM">LM</div><div class="position" style="top:28%; left:50%;" data-pos="AM">AM</div><div class="position" style="top:32%; left:88%;" data-pos="RM">RM</div><div class="position" style="top:7%; left:12%;" data-pos="LW">LW</div><div class="position" style="top:5%; left:50%;" data-pos="CF">CF</div><div class="position" style="top:7%; left:88%;" data-pos="RW">RW</div></div>
-
-        <div id="disp-f-name" class="f-name-display"></div>
-        <div id="disp-f-check" class="f-check-display"></div>
+            <div id="disp-f-name" class="f-name-display"></div>
+            <div id="disp-f-check" class="f-check-display"></div>
+        </div>
     </div>
 
     <div class="card admin-card">
         <span class="section-title">スカッド保存・管理</span>
-        <div style="display: flex; gap: 10px; margin-bottom: 10px;">
-            <input type="text" id="saveName" placeholder="保存名を入力" style="flex: 1; padding: 10px; border-radius: 8px; border: 1px solid var(--border);">
-            <button id="saveFormation" style="padding: 10px 15px;">保存</button>
+        <div style="display: flex; gap: 10px; margin-bottom: 12px;">
+            <input type="text" id="saveName" placeholder="保存名を入力">
+            <button id="saveFormation">保存</button>
         </div>
-        <select id="loadFormation" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 10px;"></select>
+        <select id="loadFormation" style="width: 100%; padding: 12px; border-radius: 12px; background: rgba(0,0,0,0.4); color:#fff; border: 1px solid var(--border); margin-bottom: 12px;"></select>
         <div style="display: flex;">
             <button id="loadBtn">読込</button>
             <button id="deleteBtn">消去</button>
         </div>
         <br><br>
         <span class="section-title">戦術メモ</span>
-        <textarea id="userMemo"></textarea>
+        <textarea id="userMemo" placeholder="例：交代選手、戦術の狙い..."></textarea>
     </div>
 </div>
 
 <footer>
     <div class="footer-nav">
         <a href="index.html">ホーム</a>
-        <a href="builder.html" class="current-footer">スカッド</a>
+        <a href="builder.html">スカッド</a>
         <a href="search.html">選手検索</a>
         <a href="formation-search.html">フォメコン</a>
-        <a href="skills.html">スキル検索</a>
     </div>
     <p class="copyright">&copy; 2026 プリスキンのサカつくDB</p>
 </footer>
 
-<div id="playerActionModal" class="modal"><div class="modal-content modal-mini"><h3 id="targetPlayerTitle">選手名</h3><button class="modal-btn btn-detail" id="btnGoToDetail">詳細確認</button><button class="modal-btn btn-delete" id="btnRemovePlayer">外す</button><button class="modal-btn btn-cancel" onclick="closeActionModal()">閉じる</button></div></div>
+<div id="playerActionModal" class="modal"><div class="modal-content modal-mini"><h3 id="targetPlayerTitle">選手名</h3><button class="modal-btn btn-detail" id="btnGoToDetail">詳細確認・スキル編集</button><button class="modal-btn btn-delete" id="btnRemovePlayer">スカッドから外す</button><button class="modal-btn btn-cancel" onclick="closeActionModal()">キャンセル</button></div></div>
 <div id="detailModal" class="modal"><div class="modal-content"><div class="modal-header"><h2 id="modalPlayerName"></h2></div><div class="modal-body"><div id="modalStats"></div><div class="skill-section"><h3>追加スキル</h3><div id="modalSlots"></div></div></div><button class="close-btn" onclick="closeDetailModal()">閉じる</button></div></div>
 
 <script>
     let formationState = JSON.parse(localStorage.getItem('formationState')) || {};
     let formationMemos = JSON.parse(localStorage.getItem('formationMemos')) || {};
     let savedFormations = JSON.parse(localStorage.getItem('savedFormations')) || {};
-    let allSkills = [];
     let currentActivePos = null;
 
     const formationSelect = document.getElementById('formationSelect');
@@ -216,11 +281,6 @@
     const fNameDisp = document.getElementById('disp-f-name');
     const fCheckDisp = document.getElementById('disp-f-check');
     const memoArea = document.getElementById('userMemo');
-
-    // フィールドコピー処理
-    document.getElementById('field-encarnados').innerHTML = document.getElementById('field-la-roja').innerHTML;
-    document.getElementById('field-river').innerHTML = document.getElementById('field-la-roja').innerHTML;
-    document.getElementById('field-los-cafeteros').innerHTML = document.getElementById('field-les-bleus').innerHTML;
 
     const POLICY_DATA = {
         'ポゼッション': { color: '#ff9800' },
@@ -232,18 +292,16 @@
     const formationData = {
         'la-dea': { label: "ラ・デア'22", policy: "ポゼッション", fType: "3-5-2 B", keyText: "CB(ストッパーⅡ↑)、RM(ドリブラーⅡ↑)、LCF(ラインブレーカーⅢ↑)", effect: "冷静さ・パスカット・ジャンプ・コンタクト 80%UP", keys: [{pos:'CCB',s:'ストッパー',l:2,label:'ストッパーⅡ'},{pos:'RM',s:'ドリブラー',l:2,label:'ドリブラーⅡ'},{pos:'LCF',s:'ラインブレーカー',l:3,label:'ラインブレーカーⅢ'}] },
         'la-roja': { label: "ラ・ロハ'24", policy: "ポゼッション", fType: "4-3-3 B", keyText: "RB(攻撃的FBⅡ↑)、RDM(パサーⅡ↑)、RW(ドリブラーⅢ↑)", effect: "冷静さ・精度・パスカット・コンタクト 80%UP", keys: [{pos:'RB',s:'攻撃的FB',l:2,label:'攻撃的FBⅡ'},{pos:'RDM',s:'パサー',l:2,label:'パサーⅡ'},{pos:'RW',s:'ドリブラー',l:3,label:'ドリブラーⅢ'}] },
-        'les-bleus': { label: "レ・ブルー'98", policy: "カウンター", fType: "4-4-2 D", keyText: "LB(守備的FBⅡ↑)、AM(セントラルMFⅡ↑)、RCF(ストライカーⅢ↑)", effect: "力・ジャンプ・コンタクト・敏捷性 80%UP", keys: [{pos:'LB',s:'守備的FB',l:2,label:'守備的FBⅡ'},{pos:'AM',s:'セントラルMF',l:2,label:'セントラルMFⅡ'},{pos:'RCF',s:'ストライカー',l:3,label:'ストライカーⅢ'}] },
-        'diabolo-milano': { label: "ディアボロ'99", policy: "カウンター", fType: "3-4-3 B", keyText: "RCB(組立CBⅡ↑)、RDM(セントラルMFⅢ↑)、LW(ドリブラーⅡ↑)", effect: "キープ・突破・ジャンプ・コンタクト 80%UP", keys: [{pos:'RCB',s:'組立CB',l:2,label:'組立CBⅡ'},{pos:'RDM',s:'セントラルMF',l:3,label:'セントラルMFⅢ'},{pos:'LW',s:'ドリブラー',l:2,label:'ドリブラーⅡ'}] },
-        'gorden-zonen': { label: "ゴーデンゾーネン'94", policy: "リアクション", fType: "3-4-3 C", keyText: "CB(ストッパーⅡ↑)、LDM(ハードマーカーⅡ↑)、RDM(セントラルMFⅢ↑)", effect: "精度・突破・コンタクト・スタミナ 80%UP", keys: [{pos:'CCB',s:'ストッパー',l:2,label:'ストッパーⅡ'},{pos:'LDM',s:'ハードマーカー',l:2,label:'ハードマーカーⅡ'},{pos:'RDM',s:'セントラルMF',l:3,label:'セントラルMFⅢ'}] },
+        'les-bleus': { label: "レ・ブルー'98", policy: "カウンター", fType: "4-4-2 D", keyText: "LB(守備的FBⅡ↑)、AM(セントラルMFⅡ↑)、RCF(ストライカーⅢ↑)", effect: "キック力・ジャンプ・コンタクト・敏捷性 80%UP", keys: [{pos:'LB',s:'守備的FB',l:2,label:'守備的FBⅡ'},{pos:'AM',s:'セントラルMF',l:2,label:'セントラルMFⅡ'},{pos:'RCF',s:'ストライカー',l:3,label:'ストライカーⅢ'}] },
+        'diabolo-milano': { label: "ディアボロ'99", policy: "カウンター", fType: "3-4-3 B", keyText: "RCB(組立CBⅡ↑)、RDM(セントラルMFⅢ↑)、LW(ドリブラーⅡ↑)", effect: "キープ力・突破力・ジャンプ・コンタクト 80%UP", keys: [{pos:'RCB',s:'組立CB',l:2,label:'組立CBⅡ'},{pos:'RDM',s:'セントラルMF',l:3,label:'セントラルMFⅢ'},{pos:'LW',s:'ドリブラー',l:2,label:'ドリブラーⅡ'}] },
+        'gorden-zonen': { label: "ゴーデンゾーネン'94", policy: "リアクション", fType: "3-4-3 C", keyText: "CB(ストッパーⅡ↑)、LDM(ハードマーカーⅡ↑)、RDM(セントラルMFⅢ↑)", effect: "キック精度・突破力・コンタクト・スタミナ 80%UP", keys: [{pos:'CCB',s:'ストッパー',l:2,label:'ストッパーⅡ'},{pos:'LDM',s:'ハードマーカー',l:2,label:'ハードマーカーⅡ'},{pos:'RDM',s:'セントラルMF',l:3,label:'セントラルMFⅢ'}] },
         'selecaodas-kinas': { label: "セレソン'16", policy: "リアクション", fType: "4-4-2 A", keyText: "LB(攻撃的FBⅡ↑)、LM(サイドアタッカーⅡ↑)、RCF(ストライカーⅢ↑)", effect: "パスカット・ジャンプ・コンタクト・走力 80%UP", keys: [{pos:'LB',s:'攻撃的FB',l:2,label:'攻撃的FBⅡ'},{pos:'LM',s:'サイドアタッカー',l:2,label:'サイドアタッカーⅡ'},{pos:'RCF',s:'ストライカー',l:3,label:'ストライカーⅢ'}] },
-        'soberano': { label: "ソベラーノ'94", policy: "ムービング", fType: "4-4-2 E", keyText: "LAM(パサーⅡ↑)、RAM(アタッカーⅡ↑)、LCF(ストライカーⅢ↑)", effect: "キープ・突破・コンタクト・スタミナ 80%UP", keys: [{pos:'LAM',s:'パサー',l:2,label:'パサーⅡ'},{pos:'RAM',s:'アタッカー',l:2,label:'アタッカーⅡ'},{pos:'LCF',s:'ストライカー',l:3,label:'ストライカーⅢ'}] },
+        'soberano': { label: "ソベラーノ'94", policy: "ムービング", fType: "4-4-2 E", keyText: "LAM(パサーⅡ↑)、RAM(アタッカーⅡ↑)、LCF(ストライカーⅢ↑)", effect: "キープ・突破力・コンタクト・スタミナ 80%UP", keys: [{pos:'LAM',s:'パサー',l:2,label:'パサーⅡ'},{pos:'RAM',s:'アタッカー',l:2,label:'アタッカーⅡ'},{pos:'LCF',s:'ストライカー',l:3,label:'ストライカーⅢ'}] },
         'albiceleste': { label: "アルビセレステ'01", policy: "ムービング", fType: "3-4-3 A", keyText: "LCB(組立CBⅡ↑)、LM(サイドアタッカーⅢ↑)、CF(ストライカーⅡ↑)", effect: "ジャンプ・コンタクト・走力・敏捷性 80%UP", keys: [{pos:'LCB',s:'組立CB',l:2,label:'組立CBⅡ'},{pos:'LM',s:'サイドアタッカー',l:3,label:'サイドアタッカーⅢ'},{pos:'CF',s:'ストライカー',l:2,label:'ストライカーⅡ'}] },
-        
-        // 追加分
         'encarnados': { label: "エンカルナードス'23", policy: "リアクション", fType: "4-3-3 B", keyText: "RCB(組立CBⅡ↑)、LDM(セントラルMFⅡ↑)、AM(アタッカーⅢ↑)", effect: "冷静さ・パスカット・マーク・ジャンプ 80%UP", keys: [{pos:'RCB',s:'組立CB',l:2,label:'組立CBⅡ'},{pos:'LDM',s:'セントラルMF',l:2,label:'セントラルMFⅡ'},{pos:'AM',s:'アタッカー',l:3,label:'アタッカーⅢ'}] },
-        'river': { label: "リーベル'18", policy: "カウンター", fType: "4-3-3 B", keyText: "LDM(ハードマーカーⅡ↑)、LW(ドリブラーⅢ↑)、RW(ドリブラーⅡ↑)", effect: "力・パスカット・マーク・ジャンプ 80%UP", keys: [{pos:'LDM',s:'ハードマーカー',l:2,label:'ハードマーカーⅡ'},{pos:'LW',s:'ドリブラー',l:3,label:'ドリブラーⅢ'},{pos:'RW',s:'ドリブラー',l:2,label:'ドリブラーⅡ'}] },
+        'river': { label: "リーベル'18", policy: "カウンター", fType: "4-3-3 B", keyText: "LDM(ハードマーカーⅡ↑)、LW(ドリブラーⅢ↑)、RW(ドリブラーⅡ↑)", effect: "キック力・パスカット・マーク・ジャンプ 80%UP", keys: [{pos:'LDM',s:'ハードマーカー',l:2,label:'ハードマーカーⅡ'},{pos:'LW',s:'ドリブラー',l:3,label:'ドリブラーⅢ'},{pos:'RW',s:'ドリブラー',l:2,label:'ドリブラーⅡ'}] },
         'canarinho': { label: "カナリア軍団'06", policy: "ムービング", fType: "4-2-2-2 (4-4-2 C)", keyText: "RCB(ストッパーⅡ↑)、LDM(ハードマーカーⅢ↑)、RCF(ストライカーⅡ↑)", effect: "パスカット・マーク・走力・敏捷性 80%UP", keys: [{pos:'RCB',s:'ストッパー',l:2,label:'ストッパーⅡ'},{pos:'LDM',s:'ハードマーカー',l:3,label:'ハードマーカーⅢ'},{pos:'RCF',s:'ストライカー',l:2,label:'ストライカーⅡ'}] },
-        'los-cafeteros': { label: "ロス・カフェテロス'94", policy: "ポゼッション", fType: "4-4-2 D", keyText: "LCB(ストッパーⅡ↑)、LDM(セントラルMFⅢ↑)、RCF(ストライカーⅡ↑)", effect: "力・パスカット・マーク・走力 80%UP", keys: [{pos:'LCB',s:'ストッパー',l:2,label:'ストッパーⅡ'},{pos:'LDM',s:'セントラルMF',l:3,label:'セントラルMFⅢ'},{pos:'RCF',s:'ストライカー',l:2,label:'ストライカーⅡ'}] }
+        'los-cafeteros': { label: "ロス・カフェテロス'94", policy: "ポゼッション", fType: "4-4-2 D", keyText: "LCB(ストッパーⅡ↑)、LDM(セントラルMFⅢ↑)、RCF(ストライカーⅡ↑)", effect: "キック力・パスカット・マーク・走力 80%UP", keys: [{pos:'LCB',s:'ストッパー',l:2,label:'ストッパーⅡ'},{pos:'LDM',s:'セントラルMF',l:3,label:'セントラルMFⅢ'},{pos:'RCF',s:'ストライカー',l:2,label:'ストライカーⅡ'}] }
     };
 
     function getLv(str){ if(!str) return 0; return str.includes('Ⅲ')?3:(str.includes('Ⅱ')?2:1); }
@@ -257,25 +315,29 @@
             const pName = p.playstyle.replace(/[ⅠⅡⅢ]/g, '').trim();
             if(pName === k.s && getLv(p.playstyle) >= k.l){} else { missing.push(k.pos); }
         });
-        if(missing.length === 0) fCheckDisp.innerHTML = '<div class="status-active">コンボ発動中</div>';
-        else fCheckDisp.innerHTML = `<div class="status-inactive">未発動</div><div style="font-size:10px;color:#eee">不足: ${missing.join(', ')}</div>`;
+        if(missing.length === 0) fCheckDisp.innerHTML = '<div class="status-active" style="color:var(--sakatsuku-mint); font-weight:900;">コンボ発動中</div>';
+        else fCheckDisp.innerHTML = `<div class="status-inactive" style="color:#f87171; font-weight:900;">未発動</div><div style="font-size:10px;color:#ccc">不足: ${missing.join(', ')}</div>`;
     }
 
     formationSelect.addEventListener('change', () => {
-        const f = formationSelect.value; const data = formationData[f];
+        const f = formationSelect.value; 
+        const data = formationData[f];
+        
+        localStorage.setItem('lastFormation', f);
+
         fields.forEach(fd => fd.style.display = (fd.id === 'field-' + f) ? 'block' : 'none');
         if(data) {
             const color = POLICY_DATA[data.policy].color;
-            formationSelect.style.borderColor = color; fNameDisp.textContent = data.label;
+            // ボーダーだけでなく文字色（現在選択中のテキスト）もポリシーに合わせる
+            formationSelect.style.borderLeftColor = color; 
+            formationSelect.style.color = color;
+            
+            fNameDisp.textContent = data.label;
             descDiv.style.borderLeftColor = color;
-            descDiv.innerHTML = `
-                <div class="desc-header"><span class="desc-combo-name">${data.label}</span><span class="desc-policy" style="background:${color}">${data.policy}</span></div>
-                <span class="desc-f-type">基本: ${data.fType}</span>
-                <div class="desc-keys" style="margin-top:10px;">${data.keyText}</div>
-                <div class="desc-effect">効果: ${data.effect}</div>
-            `;
+            descDiv.innerHTML = `<div class="desc-header"><span class="desc-combo-name" style="color:${color}">${data.label}</span><span class="desc-policy" style="background:${color}">${data.policy}</span></div><span class="desc-f-type">基本: ${data.fType}</span><div class="desc-keys" style="margin-top:10px; font-weight:700; color:#fff; opacity:0.8;">${data.keyText}</div><div class="desc-effect">効果: ${data.effect}</div>`;
         }
-        memoArea.value = formationMemos[f] || ""; loadFormation(f);
+        memoArea.value = formationMemos[f] || ""; 
+        loadFormation(f);
     });
 
     function loadFormation(f){
@@ -285,21 +347,19 @@
             const posId = posNode.dataset.pos; const p = formationState[f]?.[posId];
             const keyConfig = conf.keys.find(k => k.pos === posId);
             posNode.classList.toggle('is-key', !!keyConfig);
-            
             let targetHtml = "";
             if(keyConfig) {
                 let isMet = false;
                 if(p && p.playstyle){ const pName = p.playstyle.replace(/[ⅠⅡⅢ]/g, '').trim(); isMet = (pName === keyConfig.s && getLv(p.playstyle) >= keyConfig.l); }
                 targetHtml = `<div class="target-style ${isMet ? 'met' : 'not-met'}">${isMet ? '✔ ' : ''}${keyConfig.label}</div>`;
             }
-
             if(p){
                 posNode.innerHTML=`<div class="player-name">${p.name}</div><div class="player-style">${p.playstyle||""}</div>${targetHtml}`;
                 const policyColors = {'ポゼッション':'#ff9800','カウンター':'#f44336','リアクション':'#2196f3','ムービング':'#4caf50'};
-                posNode.style.background = 'rgba(15, 23, 42, 0.9)'; posNode.style.borderLeft = `4px solid ${policyColors[p.policy] || '#ccc'}`;
+                posNode.style.background = 'rgba(5, 10, 20, 0.95)'; posNode.style.borderLeft = `4px solid ${policyColors[p.policy] || '#ccc'}`;
             }else{
-                posNode.innerHTML = `<span style="font-weight:bold;opacity:0.4;font-size:0.7rem;">${posId}</span>${targetHtml}`;
-                posNode.style.background = 'rgba(0,0,0,0.4)'; posNode.style.borderLeft = 'none';
+                posNode.innerHTML = `<span style="font-weight:900;opacity:0.6;font-size:0.75rem;">${posId}</span>${targetHtml}`;
+                posNode.style.background = 'rgba(5, 10, 20, 0.5)'; posNode.style.borderLeft = 'none';
             }
         });
         checkActive(f);
@@ -317,11 +377,7 @@
     document.getElementById('btnGoToDetail').addEventListener('click', () => {
         const p = currentActivePos.player;
         document.getElementById('modalPlayerName').innerText = p.name;
-        document.getElementById('modalStats').innerHTML = `
-            <div class="modal-row"><span class="modal-label">ポジ</span><span class="modal-val">${p.position}</span></div>
-            <div class="modal-row"><span class="modal-label">戦術</span><span class="modal-val">${p.policy}</span></div>
-            <div class="modal-row"><span class="modal-label">スタイル</span><span class="modal-val">${p.playstyle}</span></div>
-        `;
+        document.getElementById('modalStats').innerHTML = `<div class="modal-row"><span class="modal-label">ポジ</span><span class="modal-val">${p.position}</span></div><div class="modal-row"><span class="modal-label">戦術</span><span class="modal-val">${p.policy}</span></div><div class="modal-row"><span class="modal-label">スタイル</span><span class="modal-val">${p.playstyle}</span></div>`;
         let equipped = JSON.parse(localStorage.getItem('equippedSkills')) || {};
         let slots = equipped[p.name] || (p.extra_skills || []);
         document.getElementById('modalSlots').innerHTML = slots.map(s => s ? `<div class="slot"><span>${s}</span></div>` : '').join('');
@@ -330,39 +386,24 @@
     });
 
     document.getElementById('btnRemovePlayer').addEventListener('click', () => {
-        delete formationState[currentActivePos.f][currentActivePos.pos];
-        localStorage.setItem('formationState', JSON.stringify(formationState));
-        loadFormation(currentActivePos.f); closeActionModal();
+        if(confirm(`${currentActivePos.player.name} を外しますか？`)){
+            delete formationState[currentActivePos.f][currentActivePos.pos];
+            localStorage.setItem('formationState', JSON.stringify(formationState));
+            loadFormation(currentActivePos.f); closeActionModal();
+        }
     });
 
     function closeDetailModal() { document.getElementById('detailModal').style.display = 'none'; }
 
-    async function init() {
-        const lastF = localStorage.getItem('lastFormation') || 'la-dea';
-        formationSelect.value = lastF; formationSelect.dispatchEvent(new Event('change'));
-        
-        const sp = JSON.parse(localStorage.getItem('selectedPlayer')), cp = JSON.parse(localStorage.getItem('currentPosition'));
-        if (sp && cp) {
-            formationState[cp.formation] = formationState[cp.formation] || {};
-            formationState[cp.formation][cp.pos] = sp;
-            localStorage.setItem('formationState', JSON.stringify(formationState));
-            localStorage.removeItem('selectedPlayer'); localStorage.removeItem('currentPosition');
-            loadFormation(cp.formation);
-        }
-        updateSelect();
-    }
-
-    memoArea.addEventListener('input', () => { formationMemos[formationSelect.value] = memoArea.value; localStorage.setItem('formationMemos', JSON.stringify(formationMemos)); });
-
     function updateSelect(){
-        const s=document.getElementById('loadFormation'); s.innerHTML='<option value="">保存済みスカッド</option>';
+        const s=document.getElementById('loadFormation'); s.innerHTML='<option value="">読込スカッドを選択</option>';
         for(let n in savedFormations){ let o=document.createElement('option'); o.value=n; o.textContent=n; s.appendChild(o); }
     }
 
     document.getElementById('saveFormation').addEventListener('click', () => {
-        const n = document.getElementById('saveName').value.trim(); if(!n) return alert('名無しは不可');
+        const n = document.getElementById('saveName').value.trim(); if(!n) return alert('名前を入力してください');
         savedFormations[n] = { formation: formationSelect.value, players: formationState[formationSelect.value], memo: memoArea.value };
-        localStorage.setItem('savedFormations', JSON.stringify(savedFormations)); updateSelect(); alert('保存完了');
+        localStorage.setItem('savedFormations', JSON.stringify(savedFormations)); updateSelect(); alert('保存しました');
     });
 
     document.getElementById('loadBtn').addEventListener('click', () => {
@@ -373,10 +414,37 @@
     });
 
     document.getElementById('deleteBtn').addEventListener('click', () => {
-        const n = document.getElementById('loadFormation').value; if(n && confirm('消す？')){ delete savedFormations[n]; localStorage.setItem('savedFormations', JSON.stringify(savedFormations)); updateSelect(); }
+        const n = document.getElementById('loadFormation').value; if(n && confirm('消去しますか？')){ delete savedFormations[n]; localStorage.setItem('savedFormations', JSON.stringify(savedFormations)); updateSelect(); }
     });
 
-    init();
+    function init() {
+        const sp = JSON.parse(localStorage.getItem('selectedPlayer'));
+        const cp = JSON.parse(localStorage.getItem('currentPosition'));
+        let targetFormation;
+        if (sp && cp) {
+            formationState[cp.formation] = formationState[cp.formation] || {};
+            formationState[cp.formation][cp.pos] = sp;
+            localStorage.setItem('formationState', JSON.stringify(formationState));
+            targetFormation = cp.formation;
+            localStorage.removeItem('selectedPlayer');
+            localStorage.removeItem('currentPosition');
+        } else {
+            targetFormation = localStorage.getItem('lastFormation') || 'la-dea';
+        }
+        formationSelect.value = targetFormation;
+        formationSelect.dispatchEvent(new Event('change'));
+        updateSelect();
+    }
+
+    memoArea.addEventListener('input', () => { formationMemos[formationSelect.value] = memoArea.value; localStorage.setItem('formationMemos', JSON.stringify(formationMemos)); });
+
+    window.onload = function() {
+        const roja = document.getElementById('field-la-roja').innerHTML;
+        document.getElementById('field-encarnados').innerHTML = roja;
+        document.getElementById('field-river').innerHTML = roja;
+        document.getElementById('field-los-cafeteros').innerHTML = document.getElementById('field-les-bleus').innerHTML;
+        init();
+    };
 </script>
 </body>
 </html>

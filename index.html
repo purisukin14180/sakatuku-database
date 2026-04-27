@@ -6,7 +6,6 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'G-KFYD72JSBG');
   </script>
 
@@ -15,97 +14,112 @@
   <title>プリスキンのサカつくDB - ホーム</title>
   <style>
     :root {
-      --primary: #007bff;
-      --accent: #00bcd4;
-      --dark: #222;
-      --bg-gradient: linear-gradient(135deg, #4fc3f7, #007bff);
+      /* サカつく公式カラー抽出 */
+      --sakatsuku-navy: #050a14;
+      --sakatsuku-mint: #00ffcc; /* ネオンミント */
+      --sakatsuku-cyan: #4fc3f7; /* UI水色 */
+      --sakatsuku-dark-green: #0a1f1a;
+      
+      --primary: var(--sakatsuku-mint);
+      --dark: var(--sakatsuku-navy);
+      /* 画面全体：端から端まで広がるベース背景 */
+      --page-bg: radial-gradient(circle at 50% -20%, #1a3a35 0%, #050a14 70%);
+      --card-bg: rgba(255, 255, 255, 0.07);
       --nav-height: 60px;
     }
 
-    body {
-      font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+    html, body {
       margin: 0;
       padding: 0;
-      background-color: #f8fafc;
-      color: #333;
-      line-height: 1.6;
+      min-height: 100vh;
+      background-color: var(--sakatsuku-navy);
+      background-image: var(--page-bg);
+      background-attachment: fixed;
     }
 
-    /* ===== ナビゲーション（全ページ統一：ロゴなし・左寄せ） ===== */
+    body {
+      font-family: 'Inter', 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+      color: #fff;
+      line-height: 1.6;
+      user-select: none;
+    }
+
+    /* ===== ナビゲーション（公式UI風ネイビー） ===== */
     .topnav {
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      background: var(--dark);
-      color: #fff;
+      background: rgba(5, 10, 20, 0.85);
+      backdrop-filter: blur(15px);
       height: var(--nav-height);
-      padding: 0 10px;
+      padding: 0 15px;
       position: sticky;
       top: 0;
       z-index: 1000;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      border-bottom: 2px solid var(--sakatsuku-mint);
       padding-top: env(safe-area-inset-top);
     }
-
-    .logo { display: none; }
 
     .nav-links {
       display: flex;
       overflow-x: auto;
       white-space: nowrap;
-      -webkit-overflow-scrolling: touch;
-      gap: 2px;
+      gap: 6px;
       width: 100%;
     }
 
     .nav-links::-webkit-scrollbar { display: none; }
 
     .nav-links a {
-      color: #fff;
+      color: rgba(255, 255, 255, 0.7);
       text-decoration: none;
-      padding: 8px 10px;
+      padding: 8px 14px;
       font-size: 0.85rem;
-      font-weight: 600;
-      border-radius: 5px;
-      transition: opacity 0.2s;
+      font-weight: 800;
+      border-radius: 8px;
+      transition: 0.3s;
     }
 
-    .nav-links a:hover {
-      opacity: 0.7;
-    }
+    .nav-links a:hover { color: var(--sakatsuku-mint); }
 
     .nav-links a.current {
-      background: rgba(255,255,255,0.15);
+      background: var(--sakatsuku-mint);
+      color: #000;
+      box-shadow: 0 0 15px rgba(0, 255, 204, 0.4);
     }
 
     /* ===== ヒーローセクション ===== */
     .hero {
       text-align: center;
-      padding: 50px 20px 70px;
-      background: var(--bg-gradient);
-      color: #fff;
-      clip-path: ellipse(160% 100% at 50% 0%);
+      padding: 80px 20px 100px;
+      background: radial-gradient(circle at 50% 0%, rgba(0, 255, 204, 0.1) 0%, transparent 80%);
     }
 
     .hero h1 {
-      font-size: 1.8em;
+      font-size: 2.2em;
       margin-bottom: 15px;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      color: #fff;
+      text-shadow: 0 0 20px rgba(0, 255, 204, 0.3);
     }
 
     .hero p {
-      font-size: 0.95em;
+      font-size: 1rem;
       max-width: 600px;
-      margin: 0 auto 30px;
-      opacity: 0.95;
+      margin: 0 auto 35px;
+      color: var(--sakatsuku-cyan);
+      font-weight: 600;
     }
 
-    /* ボタン：スマホ2カラム */
+    /* ボタン：公式UIのアイコン風 */
     .hero-btns {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 12px;
-      max-width: 450px;
+      max-width: 500px;
       margin: 0 auto;
     }
 
@@ -113,108 +127,120 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 14px 10px;
-      background: #fff;
-      color: var(--primary);
+      padding: 16px 10px;
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
       text-decoration: none;
-      border-radius: 10px;
-      font-weight: bold;
+      border-radius: 12px;
+      font-weight: 900;
       font-size: 0.85rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: 0.2s;
+    }
+
+    .hero-btns a:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--sakatsuku-mint);
+      transform: translateY(-2px);
     }
 
     .hero-btns a.btn-primary {
-      background: var(--dark);
-      color: #fff;
+      background: var(--sakatsuku-mint);
+      color: #000;
+      border: none;
+      box-shadow: 0 5px 15px rgba(0, 255, 204, 0.3);
     }
 
-    /* ===== コンテンツエリア ===== */
+    /* ===== コンテンツエリア（中央寄せ） ===== */
     .container {
-      max-width: 1000px;
-      margin: -30px auto 40px;
-      padding: 0 15px;
+      max-width: 900px;
+      margin: 0 auto 60px;
+      padding: 0 20px;
     }
 
     .features {
-      background: #fff;
-      border-radius: 15px;
-      padding: 25px 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border-radius: 24px;
+      padding: 40px 25px;
+      border: 1px solid rgba(0, 255, 204, 0.2);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
     }
 
     .features h2 {
       text-align: center;
-      color: var(--dark);
-      margin-bottom: 20px;
-      font-size: 1.4em;
+      color: var(--sakatsuku-mint);
+      margin-bottom: 30px;
+      font-size: 1.5em;
+      font-weight: 900;
+      letter-spacing: 0.1em;
     }
 
     .feature-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 15px;
+      gap: 18px;
     }
 
-    /* ツール一覧のリンクスタイル */
+    /* パワアド風の浮かび上がるツールカード */
     .feature-item {
       display: block;
       text-decoration: none;
-      padding: 15px;
-      border-radius: 10px;
-      background: #fdfdfd;
-      border: 1px solid #eee;
-      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+      padding: 22px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: 0.3s;
     }
 
     .feature-item:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 15px rgba(0,0,0,0.08);
-      background: #f0f7ff;
-      border-color: var(--primary);
+      transform: translateY(-5px);
+      background: rgba(0, 255, 204, 0.05);
+      border-color: var(--sakatsuku-mint);
+      box-shadow: 0 10px 30px rgba(0, 255, 204, 0.15);
     }
 
     .feature-item h3 {
-      margin: 0 0 8px 0;
-      color: var(--primary);
-      font-size: 1.05em;
-      display: flex;
-      align-items: center;
+      margin: 0 0 10px 0;
+      color: var(--sakatsuku-mint);
+      font-size: 1.15em;
+      font-weight: 900;
     }
 
     .feature-item p {
-      font-size: 0.85em;
-      color: #666;
+      font-size: 0.88rem;
+      color: #ccc;
       margin: 0;
+      font-weight: 500;
     }
 
-    /* ===== フッター ===== */
+    /* ===== フッター（端から端まで） ===== */
     footer {
       text-align: center;
-      padding: 40px 15px;
-      background: var(--dark);
-      color: #999;
+      padding: 60px 20px;
+      background: rgba(5, 10, 20, 0.95);
+      color: #777;
+      border-top: 1px solid rgba(0, 255, 204, 0.2);
     }
 
     .footer-nav {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 12px;
-      font-size: 0.8rem;
-      margin-bottom: 15px;
+      gap: 18px;
+      font-size: 0.85rem;
+      margin-bottom: 25px;
     }
 
-    .footer-nav a { color: var(--accent); text-decoration: none; }
-    .copyright { font-size: 0.75rem; }
+    .footer-nav a { color: var(--sakatsuku-cyan); text-decoration: none; font-weight: 700; }
+    .copyright { font-size: 0.8rem; }
 
     /* ===== PCレイアウト調整 ===== */
     @media (min-width: 768px) {
-      .hero { padding: 90px 20px 110px; }
-      .hero h1 { font-size: 2.8em; }
-      .hero p { font-size: 1.1em; }
-      .hero-btns { grid-template-columns: repeat(3, 1fr); max-width: 850px; }
-      
-      .feature-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
+      .hero { padding: 120px 20px 140px; }
+      .hero h1 { font-size: 3.5em; }
+      .hero-btns { grid-template-columns: repeat(3, 1fr); max-width: 750px; }
+      .feature-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
     }
   </style>
 </head>
@@ -222,7 +248,6 @@
 <body>
 
 <header class="topnav">
-  <a href="index.html" class="logo">サカつくDB</a>
   <nav class="nav-links">
     <a href="index.html" class="current">ホーム</a>
     <a href="builder.html">スカッド</a>
@@ -235,8 +260,8 @@
 <div class="hero">
   <h1>プリスキンのサカつくDB</h1>
   <p>
-    サカつく2026の攻略に役立つデータベースサイトです。<br>
-    スカッドビルドから、選手・スキル・フォメコン検索まで、チーム作りをサポートします。
+    サカつく2026の攻略を完全サポート。<br>
+    スカッドビルドから各種検索まで、最強のチーム作りを。
   </p>
   <div class="hero-btns">
     <a href="builder.html" class="btn-primary">スカッドビルダー</a>
@@ -249,23 +274,23 @@
 
 <div class="container">
   <section class="features">
-    <h2>提供ツール一覧</h2>
+    <h2>攻略ツール</h2>
     <div class="feature-grid">
       <a href="formation-search.html" class="feature-item">
         <h3>フォメコン検索</h3>
-        <p>ポリシーや解放レベルから必要なフォーメーションを検索。キーポジションや発動条件を瞬時に確認できます。</p>
+        <p>ポリシーやレア度で検索。キーポジや発動条件を瞬時にリストアップ可能。</p>
       </a>
       <a href="builder.html" class="feature-item">
         <h3>スカッドビルダー</h3>
-        <p>フォーメーションに選手を配置。コンボ条件の確認や画像保存が可能です。</p>
+        <p>配置した選手のプレースタイルを判定し、コンボ発動をリアルタイムでシミュレート。保存も可能です。</p>
       </a>
       <a href="search.html" class="feature-item">
-        <h3>選手検索データベース</h3>
-        <p>ポジション・プレイスタイルなどで絞り込み。データに載っていない選手の登録も可能です。</p>
+        <h3>選手データベース</h3>
+        <p>ポジ・スタイル・国籍などで精密検索。自分だけのオリジナル選手データの登録も。</p>
       </a>
       <a href="skills.html" class="feature-item">
         <h3>スキル検索</h3>
-        <p>必要なスキルがどの方法で取得できるか、検索できます。</p>
+        <p>特定のスキルを持つ選手や、特別練習での修得方法を素早く調査できます。</p>
       </a>
     </div>
   </section>
@@ -279,7 +304,7 @@
     <a href="search.html">選手検索</a>
     <a href="skills.html">スキル検索</a>
   </div>
-  <p class="copyright">&copy; 2026 プリスキンのサカつくDB <br><a href="terms.html" style="color:#777; text-decoration: none;">利用規約</a></p>
+  <p class="copyright">&copy; 2026 プリスキンのサカつくDB <br><a href="terms.html" style="color:#555; text-decoration: none; font-size: 0.7rem;">利用規約</a></p>
 </footer>
 
 </body>
