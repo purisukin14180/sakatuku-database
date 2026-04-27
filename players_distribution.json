@@ -288,5 +288,35 @@
     "method": "限定SP",
     "rarity": "☆3",
     "extra_skills": ["驚異的なセービング"]
+  },
+  {
+    "id": "dsp_030",
+    "name": "アーリング・ハーランド",
+    "position": "CF",
+    "playstyle": "セントラルMFⅢ",
+    "policy": "ムービング",
+    "method": "限定SP",
+    "rarity": "☆3",
+    "extra_skills": ["コントロールショット"]
+  },
+  {
+    "id": "dsp_031",
+    "name": "オマル・マーモウシュ",
+    "position": "AM",
+    "playstyle": "アタッカーⅡ",
+    "policy": "ムービング",
+    "method": "限定SP",
+    "rarity": "☆3",
+    "extra_skills": ["変速ギア"]
+  },
+  {
+    "id": "dsp_032",
+    "name": "ナタン・アケ",
+    "position": "CB",
+    "playstyle": "ストッパーⅡ",
+    "policy": "ムービング",
+    "method": "限定SP",
+    "rarity": "☆3",
+    "extra_skills": ["熟練のインターセプト"]
   }
 ]

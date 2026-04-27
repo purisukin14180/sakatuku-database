@@ -11,7 +11,7 @@
   },
   {
     "id": "wsp_002",
-    "name": "アレクサンドロ・リベイロ",
+    "name": "アレクサンドロ_リベイロ",
     "position": "CB",
     "playstyle": "ストッパーⅡ",
     "policy": "ポゼッション",
@@ -271,7 +271,7 @@
   },
   {
     "id": "wsp_028",
-    "name": "ニコラス・タグリアフィコ",
+    "name": "ニコラス_タグリアフィコ",
     "position": "LB",
     "playstyle": "守備的FBⅡ",
     "policy": "カウンター",
@@ -351,7 +351,7 @@
   },
   {
     "id": "wsp_036",
-    "name": "ステファン・エル・シャーラウィ",
+    "name": "ステファン_エル_シャーラウィ",
     "position": "LM",
     "playstyle": "サイドアタッカーⅡ",
     "policy": "リアクション",
@@ -688,5 +688,45 @@
     "method": "ワールドSP",
     "rarity": "☆3",
     "extra_skills": ["反撃のパスカット"]
+  },
+  {
+    "id": "wsp_070",
+    "name": "アクラフ・ハキミ",
+    "position": "RB",
+    "playstyle": "攻撃的FBⅡ",
+    "policy": "ポゼッション",
+    "method": "ワールドSP",
+    "rarity": "☆3",
+    "extra_skills": ["逆襲"]
+  },
+  {
+    "id": "wsp_071",
+    "name": "エドゥアルド・カマヴィンガ",
+    "position": "DM",
+    "playstyle": "ハードマーカーⅡ",
+    "policy": "カウンター",
+    "method": "ワールドSP",
+    "rarity": "☆3",
+    "extra_skills": ["チェーンカッター"]
+  },
+  {
+    "id": "wsp_072",
+    "name": "デンゼル・ダンフリース",
+    "position": "RB",
+    "playstyle": "攻撃的FBⅡ",
+    "policy": "ムービング",
+    "method": "ワールドSP",
+    "rarity": "☆3",
+    "extra_skills": ["スリップビート"]
+  },
+  {
+    "id": "wsp_073",
+    "name": "マルティン・ウーデゴール",
+    "position": "AM",
+    "playstyle": "パサーⅡ",
+    "policy": "ポゼッション",
+    "method": "ワールドSP",
+    "rarity": "☆3",
+    "extra_skills": ["敵陣を切り裂くパス"]
   }
 ]
