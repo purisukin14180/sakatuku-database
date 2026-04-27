@@ -23,6 +23,8 @@
             --bg-gradient: linear-gradient(135deg, #4fc3f7, #007bff);
             --possession: #ff9800; --counter: #f44336; --reaction: #2196f3; --moving: #4caf50;
             --bg: #f8fafc;
+            /* レア度カラー */
+            --gold: #d4af37; --silver: #a9a9a9; --bronze: #cd7f32;
         }
 
         body {
@@ -104,6 +106,7 @@
             background: #fff; border-radius: 10px; padding: 16px; 
             margin-bottom: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); 
             border: 1px solid var(--border); border-left: 6px solid #ccc; 
+            position: relative;
             animation: fadeIn 0.3s ease-out; 
         }
         .policy-possession { border-left-color: var(--possession); }
@@ -111,12 +114,17 @@
         .policy-reaction { border-left-color: var(--reaction); }
         .policy-moving { border-left-color: var(--moving); }
 
-        .card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
-        .combo-title { font-size: 1.1rem; font-weight: 800; color: var(--dark); flex: 1; }
+        .card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; gap: 5px; flex-wrap: wrap; }
+        .combo-title { font-size: 1.1rem; font-weight: 800; color: var(--dark); flex: 1; min-width: 200px; }
         
+        .badge-container { display: flex; gap: 4px; }
         .p-badge { 
             font-size: 0.65rem; font-weight: 900; color: #fff; 
-            padding: 3px 8px; border-radius: 4px; margin-left: 8px; 
+            padding: 3px 8px; border-radius: 4px;
+        }
+        .r-badge {
+            font-size: 0.65rem; font-weight: 900; color: #fff;
+            padding: 3px 8px; border-radius: 4px;
         }
 
         .details { font-size: 0.85rem; line-height: 1.6; }
@@ -130,7 +138,7 @@
             color: #856404; border: 1px solid rgba(255,241,118,0.5);
         }
 
-        /* ===== フッター（全ページ共通） ===== */
+        /* ===== フッター ===== */
         footer {
             text-align: center;
             padding: 40px 15px;
@@ -190,7 +198,19 @@
             <div class="count-badge" id="resCount">0 件</div>
         </div>
         
-        <input type="text" id="q" class="search-input" placeholder="名前、フォメ、スタイル検索...">
+        <input type="text" id="q" class="search-input" placeholder="名前、フォメ、スタイル、レア度...">
+
+        <div class="filter-section">
+            <div class="filter-title">レア度</div>
+            <div class="filter-options">
+                <select id="fRarity">
+                    <option value="">すべてのレア度</option>
+                    <option value="金">金コンボ</option>
+                    <option value="銀">銀コンボ</option>
+                    <option value="銅">銅コンボ</option>
+                </select>
+            </div>
+        </div>
 
         <div class="filter-section">
             <div class="filter-title">ポリシー</div>
@@ -214,6 +234,7 @@
                     <option value="10">Lv.10解放</option>
                     <option value="13">Lv.13解放</option>
                     <option value="20">Lv.20解放</option>
+                    <option value="ミッション">ミッション限定</option>
                     <option value="イベント">イベント限定</option>
                 </select>
             </div>
@@ -241,14 +262,17 @@
 <script>
     const listEl = document.getElementById('list');
     const qEl = document.getElementById('q');
+    const rEl = document.getElementById('fRarity'); // レア度フィルタ
     const pEl = document.getElementById('fPolicy');
     const lEl = document.getElementById('fLevel');
     const countEl = document.getElementById('resCount');
 
     const colors = { "ポゼッション": "var(--possession)", "カウンター": "var(--counter)", "リアクション": "var(--reaction)", "ムービング": "var(--moving)" };
+    const rColors = { "金": "var(--gold)", "銀": "var(--silver)", "銅": "var(--bronze)" };
     const pClass = { "ポゼッション": "possession", "カウンター": "counter", "リアクション": "reaction", "ムービング": "moving" };
 
     function normalize(str) {
+        if (!str) return "";
         return str.toLowerCase()
             .replace(/2/g, 'ii').replace(/ii/g, 'ⅱ')
             .replace(/3/g, 'iii').replace(/iii/g, 'ⅲ')
@@ -257,15 +281,17 @@
 
     function render() {
         const query = normalize(qEl.value);
+        const rarity = rEl.value;
         const policy = pEl.value;
         const level = lEl.value;
 
         const filtered = (typeof FORMATIONS_DATA !== 'undefined' ? FORMATIONS_DATA : []).filter(d => {
-            const targetText = normalize(d.name + d.formation + d.keys);
+            const targetText = normalize(d.name + d.formation + d.keys + (d.rarity || ""));
             const matchQ = targetText.includes(query);
+            const matchR = !rarity || d.rarity === rarity;
             const matchP = !policy || d.policy === policy;
             const matchL = !level || d.level === level;
-            return matchQ && matchP && matchL;
+            return matchQ && matchR && matchP && matchL;
         });
 
         countEl.textContent = `${filtered.length} 件`;
@@ -276,13 +302,23 @@
         }
 
         listEl.innerHTML = filtered.map(d => {
-            const levelDisplay = d.level === "イベント" ? "イベント限定" : `Lv.${d.level}`;
+            let levelDisplay = d.level;
+            if (d.level !== "イベント" && d.level !== "初期" && d.level !== "ミッション") {
+                levelDisplay = `Lv.${d.level}`;
+            } else if (d.level === "イベント") {
+                levelDisplay = "イベント限定";
+            } else if (d.level === "ミッション") {
+                levelDisplay = "ミッション報酬";
+            }
 
             return `
                 <div class="combo-card policy-${pClass[d.policy]}">
                     <div class="card-top">
                         <div class="combo-title">${d.name}</div>
-                        <div class="p-badge" style="background:${colors[d.policy]}">${d.policy}</div>
+                        <div class="badge-container">
+                            <div class="r-badge" style="background:${rColors[d.rarity] || '#666'}">${d.rarity || '不明'}</div>
+                            <div class="p-badge" style="background:${colors[d.policy]}">${d.policy}</div>
+                        </div>
                     </div>
                     <div class="details">
                         <div class="row"><div class="label">フォーメ</div><div class="val">${d.formation}</div></div>
@@ -295,7 +331,7 @@
         }).join('');
     }
 
-    [qEl, pEl, lEl].forEach(el => el.addEventListener('input', render));
+    [qEl, rEl, pEl, lEl].forEach(el => el.addEventListener('input', render));
     window.onload = render;
 </script>
 </body>
